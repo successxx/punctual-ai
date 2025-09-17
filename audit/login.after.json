@@ -1,0 +1,42 @@
+{
+  "route": "/login",
+  "content": {
+    "headings": [
+      {"level": 1, "text": "punctual.ai"},
+      {"level": 2, "text": "Sign in to your account"}
+    ],
+    "text_content": [
+      "punctual.ai",
+      "Sign in to your account",
+      "Email Address",
+      "john@example.com",
+      "Password",
+      "••••••••",
+      "Sign In",
+      "Signing In...",
+      "Don't have an account?",
+      "Sign up"
+    ],
+    "form_elements": [
+      {"label": "Email Address", "type": "email", "placeholder": "john@example.com"},
+      {"label": "Password", "type": "password", "placeholder": "••••••••"}
+    ],
+    "links": [
+      {"text": "Sign up", "href": "/register"}
+    ],
+    "buttons": [
+      {"text": "Sign In", "type": "submit"}
+    ],
+    "character_count": 156
+  },
+  "editorial_blocks_used": [
+    "Canvas (narrow width)",
+    "Strip (loose spacing)",
+    "Display (level 1)",
+    "Deck (normal size)",
+    "FormField (editorial form component)",
+    "Action (submit button)",
+    "InlineCTA (navigation link)"
+  ],
+  "content_diff": "0% - Identical content, modernist form layout"
+}
