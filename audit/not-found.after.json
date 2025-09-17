@@ -1,0 +1,30 @@
+{
+  "route": "/404",
+  "content": {
+    "headings": [
+      {"level": 1, "text": "404"},
+      {"level": 2, "text": "Page Not Found"}
+    ],
+    "text_content": [
+      "404",
+      "Page Not Found",
+      "The page you're looking for doesn't exist or may have been moved.",
+      "Go to Homepage"
+    ],
+    "links": [
+      {"text": "Go to Homepage", "href": "/"}
+    ],
+    "buttons": [
+      {"text": "Go to Homepage", "variant": "primary"}
+    ],
+    "character_count": 110
+  },
+  "editorial_blocks_used": [
+    "Canvas (narrow width)",
+    "Strip (loose spacing)",
+    "Display (levels 1 and 2)",
+    "Deck",
+    "Action"
+  ],
+  "content_diff": "0% - Identical content, modernist layout"
+}
