@@ -1,0 +1,27 @@
+{
+  "route": "/dashboard",
+  "content": {
+    "headings": [
+      {"level": 1, "text": "Welcome back, [user name]"},
+      {"level": 2, "text": "Upcoming Bookings"}
+    ],
+    "text_content": [
+      "Welcome back, [user name]",
+      "Here's what's happening with your bookings today.",
+      "Total Bookings",
+      "Today",
+      "This Week",
+      "Upcoming",
+      "Upcoming Bookings",
+      "No upcoming bookings",
+      "30 minutes"
+    ],
+    "stats_cards": [
+      {"label": "Total Bookings", "icon": "Calendar"},
+      {"label": "Today", "icon": "Clock"},
+      {"label": "This Week", "icon": "TrendingUp"},
+      {"label": "Upcoming", "icon": "Users"}
+    ],
+    "character_count": 198
+  }
+}

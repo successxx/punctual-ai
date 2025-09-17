@@ -1,0 +1,21 @@
+{
+  "route": "/login",
+  "content": {
+    "headings": {
+      "h1": "punctual.ai"
+    },
+    "body": [
+      "Sign in to your account",
+      "Email Address",
+      "Password",
+      "Sign In",
+      "Signing In...",
+      "Don't have an account?",
+      "Sign up"
+    ],
+    "placeholders": [
+      "john@example.com",
+      "••••••••"
+    ]
+  }
+}

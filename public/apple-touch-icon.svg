@@ -1,0 +1,20 @@
+<svg width="180" height="180" viewBox="0 0 180 180" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Clean white background with subtle radius -->
+  <rect width="180" height="180" rx="36" fill="#ffffff"/>
+
+  <!-- Minimalist clock icon - Jony Ive inspired -->
+  <!-- Outer circle with elegant stroke -->
+  <circle cx="90" cy="90" r="55" stroke="#000000" stroke-width="3" fill="none"/>
+
+  <!-- Hour hand pointing to 10 (shorter, refined) -->
+  <path d="M90 90 L75 55" stroke="#000000" stroke-width="4.5" stroke-linecap="round"/>
+
+  <!-- Minute hand pointing to 2 (longer, elegant) -->
+  <path d="M90 90 L125 55" stroke="#000000" stroke-width="3.5" stroke-linecap="round"/>
+
+  <!-- Minimal center dot -->
+  <circle cx="90" cy="90" r="3" fill="#000000"/>
+
+  <!-- Single subtle tick at 12 for orientation -->
+  <line x1="90" y1="38" x2="90" y2="45" stroke="#000000" stroke-width="2" stroke-linecap="round" opacity="0.4"/>
+</svg>

@@ -1,0 +1,53 @@
+{
+  "route": "/dashboard/settings",
+  "content": {
+    "headings": [
+      {"level": 1, "text": "Settings"},
+      {"level": 2, "text": "Profile"},
+      {"level": 2, "text": "Booking Preferences"},
+      {"level": 2, "text": "Timezone"}
+    ],
+    "text_content": [
+      "Settings",
+      "Manage your account and booking preferences",
+      "Profile",
+      "Full Name",
+      "Email Address",
+      "Email cannot be changed",
+      "Username",
+      "punctual.ai/",
+      "Username cannot be changed",
+      "Booking Preferences",
+      "Default Meeting Duration",
+      "15 minutes",
+      "30 minutes",
+      "45 minutes",
+      "60 minutes",
+      "Buffer Time Between Meetings",
+      "No buffer",
+      "5 minutes",
+      "10 minutes",
+      "15 minutes",
+      "30 minutes",
+      "Timezone",
+      "Your Timezone",
+      "Eastern Time (ET)",
+      "Central Time (CT)",
+      "Mountain Time (MT)",
+      "Pacific Time (PT)",
+      "London (GMT)",
+      "Paris (CET)",
+      "Tokyo (JST)",
+      "Sydney (AEDT)",
+      "All times will be displayed in this timezone",
+      "Save Changes",
+      "Saving..."
+    ],
+    "form_sections": [
+      {"title": "Profile", "fields": ["Full Name", "Email Address", "Username"]},
+      {"title": "Booking Preferences", "fields": ["Default Meeting Duration", "Buffer Time Between Meetings"]},
+      {"title": "Timezone", "fields": ["Your Timezone"]}
+    ],
+    "character_count": 542
+  }
+}

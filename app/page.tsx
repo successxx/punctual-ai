@@ -1,103 +1,210 @@
-import Image from "next/image";
+import Link from 'next/link'
+import { Button } from '@/components/ui/button'
+import { Calendar, Clock, Users, CheckCircle, ArrowRight, Star } from 'lucide-react'
 
-export default function Home() {
+export default function HomePage() {
   return (
-    <div className="font-sans grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="font-mono list-inside list-decimal text-sm/6 text-center sm:text-left">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] font-mono font-semibold px-1 py-0.5 rounded">
-              app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
-
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+    <div className="min-h-screen bg-white">
+      {/* Navigation */}
+      <nav className="fixed top-0 w-full bg-white/80 backdrop-blur-md z-50 border-b border-gray-100">
+        <div className="max-w-7xl mx-auto px-6 py-4">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center">
+              <svg width="140" height="32" viewBox="0 0 140 32" fill="none" xmlns="http://www.w3.org/2000/svg" className="text-gray-900">
+                {/* Modern minimalist clock icon */}
+                <circle cx="16" cy="16" r="14.5" stroke="currentColor" strokeWidth="1" fill="none"/>
+                <path d="M16 16 L13.5 9" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
+                <path d="M16 16 L23 9" stroke="currentColor" strokeWidth="1.25" strokeLinecap="round"/>
+                <circle cx="16" cy="16" r="1" fill="currentColor"/>
+                <line x1="16" y1="2.5" x2="16" y2="4" stroke="currentColor" strokeWidth="0.75" strokeLinecap="round" opacity="0.5"/>
+                {/* Modern lowercase typography */}
+                <text x="36" y="21" fontFamily="system-ui, -apple-system, 'SF Pro Display', sans-serif" fontSize="18" fontWeight="400" letterSpacing="-0.01em" fill="currentColor">punctual</text>
+                <circle cx="112" cy="19" r="1.5" fill="currentColor" opacity="0.3"/>
+                <text x="118" y="21" fontFamily="system-ui, -apple-system, 'SF Pro Display', sans-serif" fontSize="18" fontWeight="300" letterSpacing="-0.01em" fill="currentColor" opacity="0.8">ai</text>
+              </svg>
+            </div>
+            <div className="flex items-center space-x-4">
+              <Link href="/login">
+                <Button variant="ghost">Sign In</Button>
+              </Link>
+              <Link href="/register">
+                <Button variant="primary">Get Started</Button>
+              </Link>
+            </div>
+          </div>
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
+      </nav>
+
+      {/* Hero Section */}
+      <section className="pt-32 pb-20 px-6">
+        <div className="max-w-7xl mx-auto text-center">
+          <h2 className="text-5xl md:text-6xl font-semibold text-gray-900 mb-6">
+            Simple scheduling,
+            <br />
+            <span className="text-blue-600">without the hassle</span>
+          </h2>
+          <p className="text-xl text-gray-600 mb-8 max-w-2xl mx-auto">
+            Let your clients book appointments with you instantly. No back-and-forth emails, no confusion.
+          </p>
+          <div className="flex items-center justify-center space-x-4">
+            <Link href="/register">
+              <Button size="lg" variant="primary" className="flex items-center">
+                Start Free <ArrowRight className="ml-2 h-5 w-5" />
+              </Button>
+            </Link>
+            <Link href="/demo">
+              <Button size="lg" variant="outline">
+                View Demo
+              </Button>
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* Features Grid */}
+      <section className="py-20 px-6 bg-gray-50">
+        <div className="max-w-7xl mx-auto">
+          <h3 className="text-3xl font-semibold text-center text-gray-900 mb-12">
+            Everything you need to manage bookings
+          </h3>
+          <div className="grid md:grid-cols-3 gap-8">
+            <div className="bg-white p-8 rounded-2xl border border-gray-200">
+              <div className="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center mb-4">
+                <Calendar className="h-6 w-6 text-blue-600" />
+              </div>
+              <h4 className="text-xl font-semibold text-gray-900 mb-3">
+                Smart Scheduling
+              </h4>
+              <p className="text-gray-600">
+                Set your availability once, and let clients book times that work for both of you.
+              </p>
+            </div>
+
+            <div className="bg-white p-8 rounded-2xl border border-gray-200">
+              <div className="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center mb-4">
+                <Clock className="h-6 w-6 text-blue-600" />
+              </div>
+              <h4 className="text-xl font-semibold text-gray-900 mb-3">
+                No Double Booking
+              </h4>
+              <p className="text-gray-600">
+                Automatic conflict detection ensures you never have overlapping appointments.
+              </p>
+            </div>
+
+            <div className="bg-white p-8 rounded-2xl border border-gray-200">
+              <div className="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center mb-4">
+                <Users className="h-6 w-6 text-blue-600" />
+              </div>
+              <h4 className="text-xl font-semibold text-gray-900 mb-3">
+                Professional & Simple
+              </h4>
+              <p className="text-gray-600">
+                A beautiful booking page that makes you look professional and organized.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* How it works */}
+      <section className="py-20 px-6">
+        <div className="max-w-7xl mx-auto">
+          <h3 className="text-3xl font-semibold text-center text-gray-900 mb-12">
+            How it works
+          </h3>
+          <div className="grid md:grid-cols-4 gap-8">
+            <div className="text-center">
+              <div className="w-12 h-12 bg-gray-900 text-white rounded-full flex items-center justify-center mx-auto mb-4 text-lg font-semibold">
+                1
+              </div>
+              <h4 className="font-semibold text-gray-900 mb-2">Sign Up</h4>
+              <p className="text-sm text-gray-600">Create your free account in seconds</p>
+            </div>
+            <div className="text-center">
+              <div className="w-12 h-12 bg-gray-900 text-white rounded-full flex items-center justify-center mx-auto mb-4 text-lg font-semibold">
+                2
+              </div>
+              <h4 className="font-semibold text-gray-900 mb-2">Set Availability</h4>
+              <p className="text-sm text-gray-600">Define when you're available to meet</p>
+            </div>
+            <div className="text-center">
+              <div className="w-12 h-12 bg-gray-900 text-white rounded-full flex items-center justify-center mx-auto mb-4 text-lg font-semibold">
+                3
+              </div>
+              <h4 className="font-semibold text-gray-900 mb-2">Share Your Link</h4>
+              <p className="text-sm text-gray-600">Send your unique booking link to clients</p>
+            </div>
+            <div className="text-center">
+              <div className="w-12 h-12 bg-gray-900 text-white rounded-full flex items-center justify-center mx-auto mb-4 text-lg font-semibold">
+                4
+              </div>
+              <h4 className="font-semibold text-gray-900 mb-2">Get Booked</h4>
+              <p className="text-sm text-gray-600">Clients book times that work for everyone</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Testimonial */}
+      <section className="py-20 px-6 bg-gray-50">
+        <div className="max-w-3xl mx-auto text-center">
+          <div className="flex justify-center mb-6">
+            {[...Array(5)].map((_, i) => (
+              <Star key={i} className="h-6 w-6 text-yellow-400 fill-current" />
+            ))}
+          </div>
+          <blockquote className="text-2xl text-gray-900 mb-6">
+            "punctual.ai has completely transformed how I manage client meetings. No more email tennis!"
+          </blockquote>
+          <cite className="text-gray-600">
+            Sarah Chen, Consultant
+          </cite>
+        </div>
+      </section>
+
+      {/* CTA Section */}
+      <section className="py-20 px-6 bg-blue-600">
+        <div className="max-w-4xl mx-auto text-center">
+          <h3 className="text-3xl font-semibold text-white mb-4">
+            Ready to simplify your scheduling?
+          </h3>
+          <p className="text-xl text-blue-100 mb-8">
+            Join thousands of professionals who've ditched the back-and-forth
+          </p>
+          <Link href="/register">
+            <Button size="lg" className="bg-white text-blue-600 hover:bg-gray-100">
+              Get Started Free <ArrowRight className="ml-2 h-5 w-5" />
+            </Button>
+          </Link>
+        </div>
+      </section>
+
+      {/* Footer */}
+      <footer className="py-12 px-6 border-t border-gray-200">
+        <div className="max-w-7xl mx-auto">
+          <div className="flex items-center justify-between">
+            <div>
+              <h4 className="text-xl font-semibold text-gray-900 mb-2">punctual.ai</h4>
+              <p className="text-sm text-gray-600">Simple scheduling for everyone</p>
+            </div>
+            <div className="flex space-x-6">
+              <Link href="/api/v1/docs" className="text-sm text-gray-600 hover:text-gray-900">
+                API Docs
+              </Link>
+              <Link href="/privacy" className="text-sm text-gray-600 hover:text-gray-900">
+                Privacy
+              </Link>
+              <Link href="/terms" className="text-sm text-gray-600 hover:text-gray-900">
+                Terms
+              </Link>
+            </div>
+          </div>
+          <div className="mt-8 pt-8 border-t border-gray-200 text-center text-sm text-gray-500">
+            © 2024 punctual.ai. All rights reserved.
+          </div>
+        </div>
       </footer>
     </div>
-  );
+  )
 }

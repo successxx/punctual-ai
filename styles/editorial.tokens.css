@@ -1,0 +1,122 @@
+/* Editorial Design System Tokens */
+/* A modernist, typographic-led system distinct from the home page */
+
+:root {
+  /* Baseline Grid - 8px foundation */
+  --baseline: 8px;
+  --baseline-2: calc(var(--baseline) * 2);
+  --baseline-3: calc(var(--baseline) * 3);
+  --baseline-4: calc(var(--baseline) * 4);
+  --baseline-5: calc(var(--baseline) * 5);
+  --baseline-6: calc(var(--baseline) * 6);
+  --baseline-8: calc(var(--baseline) * 8);
+  --baseline-10: calc(var(--baseline) * 10);
+  --baseline-12: calc(var(--baseline) * 12);
+  --baseline-16: calc(var(--baseline) * 16);
+  --baseline-20: calc(var(--baseline) * 20);
+  --baseline-24: calc(var(--baseline) * 24);
+
+  /* Typography Scale - Cap-height tuned with clamp() */
+  --fs-xxl: clamp(2.25rem, 4vw + 1rem, 3.5rem);
+  --fs-xl: clamp(1.875rem, 3vw + 0.875rem, 2.75rem);
+  --fs-l: clamp(1.5rem, 2vw + 0.75rem, 2rem);
+  --fs-m: clamp(1.125rem, 1vw + 0.625rem, 1.25rem);
+  --fs-s: clamp(1rem, 0.5vw + 0.75rem, 1.125rem);
+  --fs-xs: clamp(0.875rem, 0.25vw + 0.75rem, 0.9375rem);
+
+  /* Line Heights - Aligned to baseline grid */
+  --lh-tight: 1.2;
+  --lh-base: 1.5;
+  --lh-relaxed: 1.75;
+
+  /* Measures - Content width constraints */
+  --measure-prose: 70ch;
+  --measure-narrow: 58ch;
+  --measure-wide: 90ch;
+
+  /* Colors - Monochrome with single editorial accent */
+  --color-ink: #000000;
+  --color-ink-2: #1a1a1a;
+  --color-ink-3: #333333;
+  --color-paper: #ffffff;
+  --color-paper-2: #fafafa;
+  --color-paper-3: #f5f5f5;
+  --color-accent: #0066ff; /* Electric blue for editorial accent */
+  --color-accent-hover: #0052cc;
+  --color-rule: rgba(0, 0, 0, 0.15);
+  --color-rule-light: rgba(0, 0, 0, 0.08);
+
+  /* Radii - Sharp, minimal */
+  --radius-micro: 2px;
+  --radius-none: 0;
+
+  /* Breakpoints */
+  --bp-xs: 360px;
+  --bp-s: 600px;
+  --bp-m: 900px;
+  --bp-l: 1200px;
+  --bp-xl: 1440px;
+
+  /* Container Widths */
+  --container-xs: 100%;
+  --container-s: 580px;
+  --container-m: 880px;
+  --container-l: 1180px;
+  --container-xl: 1400px;
+
+  /* Z-index Scale */
+  --z-base: 0;
+  --z-dropdown: 10;
+  --z-sticky: 20;
+  --z-modal: 30;
+  --z-notification: 40;
+
+  /* Transitions */
+  --transition-base: 150ms ease-out;
+  --transition-slow: 300ms ease-out;
+
+  /* Font Stacks */
+  --font-display: system-ui, -apple-system, 'SF Pro Display', 'Segoe UI', sans-serif;
+  --font-body: system-ui, -apple-system, 'SF Pro Text', 'Segoe UI', sans-serif;
+  --font-mono: 'SF Mono', 'Monaco', 'Inconsolata', monospace;
+}
+
+/* Dark mode adjustments */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-ink: #ffffff;
+    --color-ink-2: #e5e5e5;
+    --color-ink-3: #cccccc;
+    --color-paper: #0a0a0a;
+    --color-paper-2: #141414;
+    --color-paper-3: #1f1f1f;
+    --color-accent: #4d94ff;
+    --color-accent-hover: #6ba3ff;
+    --color-rule: rgba(255, 255, 255, 0.15);
+    --color-rule-light: rgba(255, 255, 255, 0.08);
+  }
+}
+
+/* Utility Classes */
+.editorial-baseline {
+  line-height: var(--baseline-3);
+  margin-bottom: var(--baseline-3);
+}
+
+.editorial-measure {
+  max-width: var(--measure-prose);
+}
+
+.editorial-measure-narrow {
+  max-width: var(--measure-narrow);
+}
+
+.editorial-rule {
+  border-color: var(--color-rule);
+  border-width: 1px;
+}
+
+.editorial-focus {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+}

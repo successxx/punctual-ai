@@ -1,0 +1,32 @@
+{
+  "route": "/dashboard/availability",
+  "content": {
+    "headings": [
+      {"level": 1, "text": "Set Your Availability"},
+      {"level": 2, "text": "Weekly Schedule"},
+      {"level": 3, "text": "Quick Actions"}
+    ],
+    "text_content": [
+      "Set Your Availability",
+      "Configure when you're available for bookings",
+      "Weekly Schedule",
+      "Save Changes",
+      "Saving...",
+      "Sunday",
+      "Monday",
+      "Tuesday",
+      "Wednesday",
+      "Thursday",
+      "Friday",
+      "Saturday",
+      "Add Time",
+      "to",
+      "No availability set for this day",
+      "Quick Actions",
+      "Set Monday-Friday, 9am-5pm (with lunch break)"
+    ],
+    "days_of_week": ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
+    "quick_actions": ["Set Monday-Friday, 9am-5pm (with lunch break)"],
+    "character_count": 298
+  }
+}

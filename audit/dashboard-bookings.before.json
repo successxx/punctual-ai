@@ -1,0 +1,26 @@
+{
+  "route": "/dashboard/bookings",
+  "content": {
+    "headings": [
+      {"level": 1, "text": "Bookings"},
+      {"level": 2, "text": "Manage your appointments and meetings"}
+    ],
+    "text_content": [
+      "Bookings",
+      "Manage your appointments and meetings",
+      "upcoming",
+      "past",
+      "all",
+      "confirmed",
+      "cancelled",
+      "Notes:",
+      "Cancel",
+      "No upcoming bookings found",
+      "No past bookings found",
+      "No bookings found"
+    ],
+    "navigation_tabs": ["upcoming", "past", "all"],
+    "status_labels": ["confirmed", "cancelled"],
+    "character_count": 187
+  }
+}
