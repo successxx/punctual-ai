@@ -85,7 +85,7 @@ export default function SettingsPage() {
   return (
     <main style={{ backgroundColor: 'var(--color-paper)', minHeight: '100vh' }}>
       <Canvas width="standard">
-        <Strip borderBottom>
+        <Strip rules="bottom">
           <Display>Settings</Display>
           <Prose>
             <p style={{ color: 'var(--color-ink-3)', marginTop: 'var(--baseline-2)' }}>
@@ -94,141 +94,227 @@ export default function SettingsPage() {
           </Prose>
         </Strip>
 
-      <form onSubmit={handleSubmit} className="space-y-6">
-        {/* Profile Section */}
-        <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
-          <div className="flex items-center mb-6">
-            <User className="h-5 w-5 text-gray-400 mr-2" />
-            <h2 className="text-lg font-semibold text-gray-900">Profile</h2>
-          </div>
+        <form onSubmit={handleSubmit}>
+          <Strip rules="top">
+            <div style={{ display: 'flex', alignItems: 'center', marginBottom: 'var(--baseline-4)' }}>
+              <User style={{ width: '20px', height: '20px', marginRight: 'var(--baseline)', color: 'var(--color-ink-lighter)' }} />
+              <h2 style={{ fontSize: 'var(--fs-l)', fontWeight: '400' }}>Profile</h2>
+            </div>
 
-          <div className="space-y-4">
-            <div>
-              <Label htmlFor="name">Full Name</Label>
-              <Input
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--baseline-3)', maxWidth: '600px' }}>
+              <FormInput
                 id="name"
+                label="Full Name"
                 type="text"
                 value={formData.name}
                 onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                className="mt-1"
                 required
               />
-            </div>
 
-            <div>
-              <Label htmlFor="email">Email Address</Label>
-              <Input
+              <FormInput
                 id="email"
+                label="Email Address"
                 type="email"
                 value={formData.email}
-                className="mt-1 bg-gray-50"
                 disabled
+                helper="Email cannot be changed"
               />
-              <p className="text-xs text-gray-500 mt-1">
-                Email cannot be changed
-              </p>
-            </div>
 
-            <div>
-              <Label htmlFor="username">Username</Label>
-              <div className="mt-1 flex rounded-lg shadow-sm">
-                <span className="inline-flex items-center px-3 rounded-l-lg border border-r-0 border-gray-200 bg-gray-50 text-gray-500 text-sm">
-                  punctual.ai/
-                </span>
-                <Input
-                  id="username"
-                  type="text"
-                  value={formData.username}
-                  className="rounded-l-none bg-gray-50"
-                  disabled
-                />
+              <div>
+                <label htmlFor="username" style={{
+                  display: 'block',
+                  fontSize: 'var(--fs-xs)',
+                  fontWeight: '500',
+                  marginBottom: 'var(--baseline)',
+                  color: 'var(--color-ink)'
+                }}>
+                  Username
+                </label>
+                <div style={{ display: 'flex', alignItems: 'center' }}>
+                  <span style={{
+                    padding: 'var(--baseline-1) var(--baseline-2)',
+                    backgroundColor: 'var(--color-paper-shade)',
+                    borderTop: '1px solid var(--color-rule)',
+                    borderBottom: '1px solid var(--color-rule)',
+                    borderLeft: '1px solid var(--color-rule)',
+                    borderRadius: 'var(--radius-micro) 0 0 var(--radius-micro)',
+                    fontSize: 'var(--fs-s)',
+                    color: 'var(--color-ink-lighter)'
+                  }}>
+                    punctual.ai/
+                  </span>
+                  <input
+                    id="username"
+                    type="text"
+                    value={formData.username}
+                    disabled
+                    style={{
+                      flex: 1,
+                      padding: 'var(--baseline-1) var(--baseline-2)',
+                      border: '1px solid var(--color-rule)',
+                      borderRadius: '0 var(--radius-micro) var(--radius-micro) 0',
+                      fontSize: 'var(--fs-s)',
+                      backgroundColor: 'var(--color-paper-shade)',
+                      color: 'var(--color-ink)'
+                    }}
+                  />
+                </div>
+                <p style={{
+                  fontSize: 'var(--fs-xs)',
+                  color: 'var(--color-ink-lighter)',
+                  marginTop: 'var(--baseline)'
+                }}>
+                  Username cannot be changed
+                </p>
               </div>
-              <p className="text-xs text-gray-500 mt-1">
-                Username cannot be changed
+            </div>
+          </Strip>
+
+          <Strip rules="top">
+            <div style={{ display: 'flex', alignItems: 'center', marginBottom: 'var(--baseline-4)' }}>
+              <Clock style={{ width: '20px', height: '20px', marginRight: 'var(--baseline)', color: 'var(--color-ink-lighter)' }} />
+              <h2 style={{ fontSize: 'var(--fs-l)', fontWeight: '400' }}>Booking Preferences</h2>
+            </div>
+
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--baseline-3)', maxWidth: '600px' }}>
+              <div>
+                <label htmlFor="booking_duration" style={{
+                  display: 'block',
+                  fontSize: 'var(--fs-xs)',
+                  fontWeight: '500',
+                  marginBottom: 'var(--baseline)',
+                  color: 'var(--color-ink)'
+                }}>
+                  Default Meeting Duration
+                </label>
+                <select
+                  id="booking_duration"
+                  value={formData.booking_duration}
+                  onChange={(e) => setFormData({ ...formData, booking_duration: parseInt(e.target.value) })}
+                  style={{
+                    width: '100%',
+                    padding: 'var(--baseline-1) var(--baseline-2)',
+                    border: '1px solid var(--color-rule)',
+                    borderRadius: 'var(--radius-micro)',
+                    fontSize: 'var(--fs-s)',
+                    backgroundColor: 'var(--color-paper)',
+                    color: 'var(--color-ink)',
+                    cursor: 'pointer'
+                  }}
+                >
+                  <option value={15}>15 minutes</option>
+                  <option value={30}>30 minutes</option>
+                  <option value={45}>45 minutes</option>
+                  <option value={60}>60 minutes</option>
+                </select>
+              </div>
+
+              <div>
+                <label htmlFor="buffer_time" style={{
+                  display: 'block',
+                  fontSize: 'var(--fs-xs)',
+                  fontWeight: '500',
+                  marginBottom: 'var(--baseline)',
+                  color: 'var(--color-ink)'
+                }}>
+                  Buffer Time Between Meetings
+                </label>
+                <select
+                  id="buffer_time"
+                  value={formData.buffer_time}
+                  onChange={(e) => setFormData({ ...formData, buffer_time: parseInt(e.target.value) })}
+                  style={{
+                    width: '100%',
+                    padding: 'var(--baseline-1) var(--baseline-2)',
+                    border: '1px solid var(--color-rule)',
+                    borderRadius: 'var(--radius-micro)',
+                    fontSize: 'var(--fs-s)',
+                    backgroundColor: 'var(--color-paper)',
+                    color: 'var(--color-ink)',
+                    cursor: 'pointer'
+                  }}
+                >
+                  <option value={0}>No buffer</option>
+                  <option value={5}>5 minutes</option>
+                  <option value={10}>10 minutes</option>
+                  <option value={15}>15 minutes</option>
+                  <option value={30}>30 minutes</option>
+                </select>
+              </div>
+            </div>
+          </Strip>
+
+          <Strip rules="top">
+            <div style={{ display: 'flex', alignItems: 'center', marginBottom: 'var(--baseline-4)' }}>
+              <Globe style={{ width: '20px', height: '20px', marginRight: 'var(--baseline)', color: 'var(--color-ink-lighter)' }} />
+              <h2 style={{ fontSize: 'var(--fs-l)', fontWeight: '400' }}>Timezone</h2>
+            </div>
+
+            <div style={{ maxWidth: '600px' }}>
+              <label htmlFor="timezone" style={{
+                display: 'block',
+                fontSize: 'var(--fs-xs)',
+                fontWeight: '500',
+                marginBottom: 'var(--baseline)',
+                color: 'var(--color-ink)'
+              }}>
+                Your Timezone
+              </label>
+              <select
+                id="timezone"
+                value={formData.timezone}
+                onChange={(e) => setFormData({ ...formData, timezone: e.target.value })}
+                style={{
+                  width: '100%',
+                  padding: 'var(--baseline-1) var(--baseline-2)',
+                  border: '1px solid var(--color-rule)',
+                  borderRadius: 'var(--radius-micro)',
+                  fontSize: 'var(--fs-s)',
+                  backgroundColor: 'var(--color-paper)',
+                  color: 'var(--color-ink)',
+                  cursor: 'pointer'
+                }}
+              >
+                {TIMEZONES.map((tz) => (
+                  <option key={tz.value} value={tz.value}>
+                    {tz.label}
+                  </option>
+                ))}
+              </select>
+              <p style={{
+                fontSize: 'var(--fs-xs)',
+                color: 'var(--color-ink-lighter)',
+                marginTop: 'var(--baseline)'
+              }}>
+                All times will be displayed in this timezone
               </p>
             </div>
-          </div>
-        </div>
+          </Strip>
 
-        {/* Booking Preferences */}
-        <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
-          <div className="flex items-center mb-6">
-            <Clock className="h-5 w-5 text-gray-400 mr-2" />
-            <h2 className="text-lg font-semibold text-gray-900">
-              Booking Preferences
-            </h2>
-          </div>
-
-          <div className="space-y-4">
-            <div>
-              <Label htmlFor="booking_duration">Default Meeting Duration</Label>
-              <select
-                id="booking_duration"
-                value={formData.booking_duration}
-                onChange={(e) => setFormData({ ...formData, booking_duration: parseInt(e.target.value) })}
-                className="mt-1 w-full px-3 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600"
-              >
-                <option value={15}>15 minutes</option>
-                <option value={30}>30 minutes</option>
-                <option value={45}>45 minutes</option>
-                <option value={60}>60 minutes</option>
-              </select>
-            </div>
-
-            <div>
-              <Label htmlFor="buffer_time">Buffer Time Between Meetings</Label>
-              <select
-                id="buffer_time"
-                value={formData.buffer_time}
-                onChange={(e) => setFormData({ ...formData, buffer_time: parseInt(e.target.value) })}
-                className="mt-1 w-full px-3 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600"
-              >
-                <option value={0}>No buffer</option>
-                <option value={5}>5 minutes</option>
-                <option value={10}>10 minutes</option>
-                <option value={15}>15 minutes</option>
-                <option value={30}>30 minutes</option>
-              </select>
-            </div>
-          </div>
-        </div>
-
-        {/* Timezone */}
-        <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
-          <div className="flex items-center mb-6">
-            <Globe className="h-5 w-5 text-gray-400 mr-2" />
-            <h2 className="text-lg font-semibold text-gray-900">Timezone</h2>
-          </div>
-
-          <div>
-            <Label htmlFor="timezone">Your Timezone</Label>
-            <select
-              id="timezone"
-              value={formData.timezone}
-              onChange={(e) => setFormData({ ...formData, timezone: e.target.value })}
-              className="mt-1 w-full px-3 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600"
+          <Strip>
+            <button
+              type="submit"
+              disabled={loading}
+              style={{
+                width: '100%',
+                maxWidth: '600px',
+                padding: 'var(--baseline-2) var(--baseline-3)',
+                backgroundColor: 'var(--color-ink)',
+                color: 'var(--color-paper)',
+                border: 'none',
+                borderRadius: 'var(--radius-micro)',
+                fontSize: 'var(--fs-s)',
+                fontWeight: '500',
+                cursor: loading ? 'wait' : 'pointer',
+                opacity: loading ? 0.7 : 1,
+                transition: 'opacity var(--transition-base)'
+              }}
             >
-              {TIMEZONES.map((tz) => (
-                <option key={tz.value} value={tz.value}>
-                  {tz.label}
-                </option>
-              ))}
-            </select>
-            <p className="text-xs text-gray-500 mt-1">
-              All times will be displayed in this timezone
-            </p>
-          </div>
-        </div>
-
-        <Button
-          type="submit"
-          disabled={loading}
-          className="w-full"
-          variant="primary"
-        >
-          {loading ? 'Saving...' : 'Save Changes'}
-        </Button>
-      </form>
-    </div>
+              {loading ? 'Saving...' : 'Save Changes'}
+            </button>
+          </Strip>
+        </form>
+      </Canvas>
+    </main>
   )
 }

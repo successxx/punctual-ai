@@ -80,7 +80,7 @@ export default function DashboardPage() {
   return (
     <main style={{ backgroundColor: 'var(--color-paper)', minHeight: '100vh' }}>
       <Canvas width="wide">
-        <Strip borderBottom>
+        <Strip rules="bottom">
           <Display>
             Welcome back, {user?.name}
           </Display>
@@ -147,7 +147,7 @@ export default function DashboardPage() {
           </div>
         </Strip>
 
-        <Strip borderTop>
+        <Strip rules="top">
           <h2 style={{ fontSize: 'var(--fs-l)', fontWeight: '400', marginBottom: 'var(--baseline-4)' }}>
             Upcoming Bookings
           </h2>

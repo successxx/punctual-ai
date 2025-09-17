@@ -1,5 +1,4 @@
 import Link from 'next/link'
-import { Button } from '@/components/ui/button'
 import { Calendar, Clock, Users, CheckCircle, ArrowRight, Star } from 'lucide-react'
 
 export default function HomePage() {
@@ -25,10 +24,52 @@ export default function HomePage() {
             </div>
             <div className="flex items-center space-x-4">
               <Link href="/login">
-                <Button variant="ghost">Sign In</Button>
+                <button
+                  style={{
+                    padding: '8px 20px',
+                    backgroundColor: 'transparent',
+                    color: '#1a1a1a',
+                    border: '1px solid #e5e7eb',
+                    borderRadius: '2px',
+                    fontSize: '14px',
+                    fontWeight: '500',
+                    cursor: 'pointer',
+                    transition: 'all 150ms ease',
+                  }}
+                  onMouseOver={(e) => {
+                    e.currentTarget.style.backgroundColor = '#f9fafb';
+                    e.currentTarget.style.borderColor = '#d1d5db';
+                  }}
+                  onMouseOut={(e) => {
+                    e.currentTarget.style.backgroundColor = 'transparent';
+                    e.currentTarget.style.borderColor = '#e5e7eb';
+                  }}
+                >
+                  Sign In
+                </button>
               </Link>
               <Link href="/register">
-                <Button variant="primary">Get Started</Button>
+                <button
+                  style={{
+                    padding: '8px 20px',
+                    backgroundColor: '#000000',
+                    color: '#ffffff',
+                    border: 'none',
+                    borderRadius: '2px',
+                    fontSize: '14px',
+                    fontWeight: '500',
+                    cursor: 'pointer',
+                    transition: 'all 150ms ease',
+                  }}
+                  onMouseOver={(e) => {
+                    e.currentTarget.style.backgroundColor = '#1a1a1a';
+                  }}
+                  onMouseOut={(e) => {
+                    e.currentTarget.style.backgroundColor = '#000000';
+                  }}
+                >
+                  Get Started
+                </button>
               </Link>
             </div>
           </div>
@@ -48,14 +89,53 @@ export default function HomePage() {
           </p>
           <div className="flex items-center justify-center space-x-4">
             <Link href="/register">
-              <Button size="lg" variant="primary" className="flex items-center">
-                Start Free <ArrowRight className="ml-2 h-5 w-5" />
-              </Button>
+              <button
+                style={{
+                  padding: '12px 32px',
+                  backgroundColor: '#000000',
+                  color: '#ffffff',
+                  border: 'none',
+                  borderRadius: '2px',
+                  fontSize: '16px',
+                  fontWeight: '500',
+                  cursor: 'pointer',
+                  transition: 'all 150ms ease',
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '8px'
+                }}
+                onMouseOver={(e) => {
+                  e.currentTarget.style.backgroundColor = '#1a1a1a';
+                }}
+                onMouseOut={(e) => {
+                  e.currentTarget.style.backgroundColor = '#000000';
+                }}
+              >
+                Start Free <ArrowRight className="h-5 w-5" />
+              </button>
             </Link>
             <Link href="/demo">
-              <Button size="lg" variant="outline">
+              <button
+                style={{
+                  padding: '12px 32px',
+                  backgroundColor: 'transparent',
+                  color: '#1a1a1a',
+                  border: '1px solid #d1d5db',
+                  borderRadius: '2px',
+                  fontSize: '16px',
+                  fontWeight: '500',
+                  cursor: 'pointer',
+                  transition: 'all 150ms ease',
+                }}
+                onMouseOver={(e) => {
+                  e.currentTarget.style.backgroundColor = '#f9fafb';
+                }}
+                onMouseOut={(e) => {
+                  e.currentTarget.style.backgroundColor = 'transparent';
+                }}
+              >
                 View Demo
-              </Button>
+              </button>
             </Link>
           </div>
         </div>
@@ -173,9 +253,30 @@ export default function HomePage() {
             Join thousands of professionals who've ditched the back-and-forth
           </p>
           <Link href="/register">
-            <Button size="lg" className="bg-white text-blue-600 hover:bg-gray-100">
-              Get Started Free <ArrowRight className="ml-2 h-5 w-5" />
-            </Button>
+            <button
+              style={{
+                padding: '12px 32px',
+                backgroundColor: '#ffffff',
+                color: '#0066ff',
+                border: 'none',
+                borderRadius: '2px',
+                fontSize: '16px',
+                fontWeight: '500',
+                cursor: 'pointer',
+                transition: 'all 150ms ease',
+                display: 'flex',
+                alignItems: 'center',
+                gap: '8px'
+              }}
+              onMouseOver={(e) => {
+                e.currentTarget.style.backgroundColor = '#f3f4f6';
+              }}
+              onMouseOut={(e) => {
+                e.currentTarget.style.backgroundColor = '#ffffff';
+              }}
+            >
+              Get Started Free <ArrowRight className="h-5 w-5" />
+            </button>
           </Link>
         </div>
       </section>
