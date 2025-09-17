@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { supabaseAdmin } from '@/lib/supabase'
 import { Resend } from 'resend'
+import { createCalendarEvent } from '@/lib/google-calendar'
 
 const resend = process.env.RESEND_API_KEY ? new Resend(process.env.RESEND_API_KEY) : null
 
@@ -70,12 +71,43 @@ export async function POST(req: NextRequest) {
       )
     }
 
-    // Get host details for email
+    // Get host details for email and check if premium with Google Calendar
     const { data: host } = await supabaseAdmin
-      .from('users')
-      .select('name, email')
+      .from('profiles')
+      .select('name, email, subscription_tier, google_calendar_connected, google_refresh_token')
       .eq('id', user_id)
       .single()
+
+    // Create Google Calendar event if premium user with calendar connected
+    let googleEventId = null
+    let meetingUrl = null
+
+    if (host?.subscription_tier === 'premium' && host?.google_calendar_connected && host?.google_refresh_token) {
+      try {
+        const event = await createCalendarEvent(host.google_refresh_token, {
+          summary: `Meeting with ${guest_name}`,
+          description: notes || `Scheduled via Punctual.AI\n\nGuest: ${guest_name} (${guest_email})`,
+          start: new Date(start_time),
+          end: new Date(end_time),
+          attendees: [{ email: guest_email }]
+        })
+
+        googleEventId = event.id
+        meetingUrl = event.hangoutLink || event.htmlLink
+
+        // Update booking with Google Calendar details
+        await supabaseAdmin
+          .from('bookings')
+          .update({
+            google_event_id: googleEventId,
+            meeting_url: meetingUrl
+          })
+          .eq('id', booking.id)
+      } catch (error) {
+        console.error('Failed to create Google Calendar event:', error)
+        // Don't fail the booking if calendar sync fails
+      }
+    }
 
     // Send confirmation emails
     if (process.env.RESEND_API_KEY && process.env.RESEND_API_KEY !== 're_your_api_key') {
@@ -163,7 +195,10 @@ export async function POST(req: NextRequest) {
     }
 
     return NextResponse.json({
-      booking,
+      booking: {
+        ...booking,
+        meeting_url: meetingUrl
+      },
       message: 'Booking created successfully'
     })
   } catch (error: any) {
