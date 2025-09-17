@@ -1,3 +1,4 @@
+// UI Components: Definition List, Numbered Steps, Callout—Muted, FAQ Strip, Section TOC
 'use client'
 
 import { useEffect, useState } from 'react'
@@ -87,18 +88,130 @@ export default function SettingsPage() {
       <Canvas width="standard">
         <Strip rules="bottom">
           <Display>Settings</Display>
-          <Prose>
-            <p style={{ color: 'var(--color-ink-3)', marginTop: 'var(--baseline-2)' }}>
-              Manage your account and booking preferences
+
+          {/* Section TOC (Local) */}
+          <nav style={{
+            marginTop: 'var(--baseline-4)',
+            padding: 'var(--baseline-3)',
+            backgroundColor: 'var(--color-paper-shade)',
+            borderRadius: 'var(--radius-micro)'
+          }}>
+            <p style={{ fontSize: 'var(--fs-xs)', fontWeight: '600', textTransform: 'uppercase', marginBottom: 'var(--baseline-2)', color: 'var(--color-ink-3)' }}>
+              Quick Navigation
             </p>
-          </Prose>
+            <ul style={{ listStyle: 'none', padding: 0, display: 'flex', gap: 'var(--baseline-3)', flexWrap: 'wrap' }}>
+              <li>
+                <a href="#profile" style={{ fontSize: 'var(--fs-s)', color: 'var(--color-accent)', textDecoration: 'none' }}>
+                  → Profile
+                </a>
+              </li>
+              <li>
+                <a href="#booking-prefs" style={{ fontSize: 'var(--fs-s)', color: 'var(--color-accent)', textDecoration: 'none' }}>
+                  → Booking Preferences
+                </a>
+              </li>
+              <li>
+                <a href="#timezone" style={{ fontSize: 'var(--fs-s)', color: 'var(--color-accent)', textDecoration: 'none' }}>
+                  → Timezone
+                </a>
+              </li>
+            </ul>
+          </nav>
         </Strip>
 
         <form onSubmit={handleSubmit}>
           <Strip rules="top">
-            <div style={{ display: 'flex', alignItems: 'center', marginBottom: 'var(--baseline-4)' }}>
+            <div id="profile" style={{ display: 'flex', alignItems: 'center', marginBottom: 'var(--baseline-4)' }}>
               <User style={{ width: '20px', height: '20px', marginRight: 'var(--baseline)', color: 'var(--color-ink-lighter)' }} />
               <h2 style={{ fontSize: 'var(--fs-l)', fontWeight: '400' }}>Profile</h2>
+            </div>
+
+            {/* Numbered Steps */}
+            <div style={{
+              marginBottom: 'var(--baseline-4)',
+              padding: 'var(--baseline-3)',
+              backgroundColor: 'rgba(0, 102, 255, 0.05)',
+              borderLeft: '3px solid var(--color-accent)',
+              borderRadius: '0 var(--radius-micro) var(--radius-micro) 0'
+            }}>
+              <p style={{ fontSize: 'var(--fs-s)', fontWeight: '500', marginBottom: 'var(--baseline-2)' }}>Quick Setup Guide:</p>
+              <ol style={{
+                listStyle: 'none',
+                padding: 0,
+                counterReset: 'step-counter'
+              }}>
+                <li style={{
+                  counterIncrement: 'step-counter',
+                  fontSize: 'var(--fs-xs)',
+                  color: 'var(--color-ink-2)',
+                  marginBottom: 'var(--baseline)',
+                  display: 'flex'
+                }}>
+                  <span style={{
+                    content: 'counter(step-counter)',
+                    marginRight: 'var(--baseline-2)',
+                    width: '24px',
+                    height: '24px',
+                    backgroundColor: 'var(--color-accent)',
+                    color: 'var(--color-paper)',
+                    borderRadius: '50%',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    flexShrink: 0,
+                    fontSize: 'var(--fs-xs)',
+                    fontWeight: '600'
+                  }}>1</span>
+                  <span>Update your full name</span>
+                </li>
+                <li style={{
+                  counterIncrement: 'step-counter',
+                  fontSize: 'var(--fs-xs)',
+                  color: 'var(--color-ink-2)',
+                  marginBottom: 'var(--baseline)',
+                  display: 'flex'
+                }}>
+                  <span style={{
+                    content: 'counter(step-counter)',
+                    marginRight: 'var(--baseline-2)',
+                    width: '24px',
+                    height: '24px',
+                    backgroundColor: 'var(--color-accent)',
+                    color: 'var(--color-paper)',
+                    borderRadius: '50%',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    flexShrink: 0,
+                    fontSize: 'var(--fs-xs)',
+                    fontWeight: '600'
+                  }}>2</span>
+                  <span>Note that email and username cannot be changed</span>
+                </li>
+                <li style={{
+                  counterIncrement: 'step-counter',
+                  fontSize: 'var(--fs-xs)',
+                  color: 'var(--color-ink-2)',
+                  display: 'flex'
+                }}>
+                  <span style={{
+                    content: 'counter(step-counter)',
+                    marginRight: 'var(--baseline-2)',
+                    width: '24px',
+                    height: '24px',
+                    backgroundColor: 'var(--color-accent)',
+                    color: 'var(--color-paper)',
+                    borderRadius: '50%',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    flexShrink: 0,
+                    fontSize: 'var(--fs-xs)',
+                    fontWeight: '600'
+                  }}>3</span>
+                  <span>Save changes when complete</span>
+                </li>
+              </ol>
             </div>
 
             <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--baseline-3)', maxWidth: '600px' }}>
@@ -171,10 +284,33 @@ export default function SettingsPage() {
           </Strip>
 
           <Strip rules="top">
-            <div style={{ display: 'flex', alignItems: 'center', marginBottom: 'var(--baseline-4)' }}>
+            <div id="booking-prefs" style={{ display: 'flex', alignItems: 'center', marginBottom: 'var(--baseline-4)' }}>
               <Clock style={{ width: '20px', height: '20px', marginRight: 'var(--baseline)', color: 'var(--color-ink-lighter)' }} />
               <h2 style={{ fontSize: 'var(--fs-l)', fontWeight: '400' }}>Booking Preferences</h2>
             </div>
+
+            {/* Definition List */}
+            <dl style={{
+              marginBottom: 'var(--baseline-4)',
+              padding: 'var(--baseline-3)',
+              backgroundColor: 'var(--color-paper)',
+              border: '1px solid var(--color-rule)',
+              borderRadius: 'var(--radius-micro)'
+            }}>
+              <dt style={{ fontSize: 'var(--fs-s)', fontWeight: '500', color: 'var(--color-ink)', marginBottom: 'var(--baseline)' }}>
+                Meeting Duration
+              </dt>
+              <dd style={{ fontSize: 'var(--fs-xs)', color: 'var(--color-ink-2)', marginLeft: 0, marginBottom: 'var(--baseline-3)' }}>
+                Set the default length for all your meetings. Can be 15, 30, 45, or 60 minutes.
+              </dd>
+
+              <dt style={{ fontSize: 'var(--fs-s)', fontWeight: '500', color: 'var(--color-ink)', marginBottom: 'var(--baseline)' }}>
+                Buffer Time
+              </dt>
+              <dd style={{ fontSize: 'var(--fs-xs)', color: 'var(--color-ink-2)', marginLeft: 0 }}>
+                Add automatic breaks between meetings to prepare or take notes.
+              </dd>
+            </dl>
 
             <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--baseline-3)', maxWidth: '600px' }}>
               <div>
@@ -245,10 +381,26 @@ export default function SettingsPage() {
           </Strip>
 
           <Strip rules="top">
-            <div style={{ display: 'flex', alignItems: 'center', marginBottom: 'var(--baseline-4)' }}>
+            <div id="timezone" style={{ display: 'flex', alignItems: 'center', marginBottom: 'var(--baseline-4)' }}>
               <Globe style={{ width: '20px', height: '20px', marginRight: 'var(--baseline)', color: 'var(--color-ink-lighter)' }} />
               <h2 style={{ fontSize: 'var(--fs-l)', fontWeight: '400' }}>Timezone</h2>
             </div>
+
+            {/* Callout—Muted */}
+            <aside style={{
+              marginBottom: 'var(--baseline-4)',
+              padding: 'var(--baseline-3)',
+              backgroundColor: 'var(--color-paper-shade)',
+              borderLeft: '3px solid var(--color-rule)',
+              borderRadius: '0 var(--radius-micro) var(--radius-micro) 0'
+            }}>
+              <p style={{ fontSize: 'var(--fs-s)', fontWeight: '500', color: 'var(--color-ink)', marginBottom: 'var(--baseline)' }}>
+                Important Note
+              </p>
+              <p style={{ fontSize: 'var(--fs-xs)', color: 'var(--color-ink-2)', lineHeight: '1.5' }}>
+                Your timezone affects how all meeting times are displayed and scheduled. Guests will see available times converted to their local timezone automatically.
+              </p>
+            </aside>
 
             <div style={{ maxWidth: '600px' }}>
               <label htmlFor="timezone" style={{
@@ -292,6 +444,32 @@ export default function SettingsPage() {
           </Strip>
 
           <Strip>
+            {/* FAQ Strip */}
+            <div style={{
+              marginBottom: 'var(--baseline-4)',
+              padding: 'var(--baseline-3)',
+              backgroundColor: 'var(--color-paper)',
+              border: '1px solid var(--color-rule)',
+              borderRadius: 'var(--radius-micro)'
+            }}>
+              <div style={{ marginBottom: 'var(--baseline-3)' }}>
+                <p style={{ fontSize: 'var(--fs-s)', fontWeight: '500', color: 'var(--color-ink)' }}>
+                  Q: Can I change my email address?
+                </p>
+                <p style={{ fontSize: 'var(--fs-xs)', color: 'var(--color-ink-2)', marginTop: 'var(--baseline)' }}>
+                  A: Email addresses are used for authentication and cannot be changed once set.
+                </p>
+              </div>
+              <div style={{ borderTop: '1px dashed var(--color-rule)', paddingTop: 'var(--baseline-3)' }}>
+                <p style={{ fontSize: 'var(--fs-s)', fontWeight: '500', color: 'var(--color-ink)' }}>
+                  Q: How do buffer times work?
+                </p>
+                <p style={{ fontSize: 'var(--fs-xs)', color: 'var(--color-ink-2)', marginTop: 'var(--baseline)' }}>
+                  A: Buffer time is automatically blocked after each meeting, preventing back-to-back bookings.
+                </p>
+              </div>
+            </div>
+
             <button
               type="submit"
               disabled={loading}

@@ -1,3 +1,4 @@
+// UI Components: Key Bullet Summary, Accordion Grid, Do/Don't List, KBD Keys, Expandable Excerpt
 'use client'
 
 import { useEffect, useState } from 'react'
@@ -110,11 +111,26 @@ export default function AvailabilityPage() {
       <Canvas width="standard">
         <Strip rules="bottom">
           <Display>Set Your Availability</Display>
-          <Prose>
-            <p style={{ color: 'var(--color-ink-3)', marginTop: 'var(--baseline-2)' }}>
-              Configure when you're available for bookings
-            </p>
-          </Prose>
+
+          {/* Key Bullet Summary */}
+          <div style={{
+            marginTop: 'var(--baseline-4)',
+            padding: 'var(--baseline-3)',
+            backgroundColor: 'var(--color-paper-shade)',
+            borderRadius: 'var(--radius-micro)'
+          }}>
+            <ul style={{ listStyle: 'none', padding: 0 }}>
+              <li style={{ fontSize: 'var(--fs-s)', color: 'var(--color-ink)', marginBottom: 'var(--baseline)' }}>
+                <span style={{ fontWeight: '600' }}>✓ Flexible Schedule:</span> Set different hours for each day
+              </li>
+              <li style={{ fontSize: 'var(--fs-s)', color: 'var(--color-ink)', marginBottom: 'var(--baseline)' }}>
+                <span style={{ fontWeight: '600' }}>✓ Multiple Time Slots:</span> Add breaks and lunch hours
+              </li>
+              <li style={{ fontSize: 'var(--fs-s)', color: 'var(--color-ink)' }}>
+                <span style={{ fontWeight: '600' }}>✓ Instant Updates:</span> Changes apply immediately
+              </li>
+            </ul>
+          </div>
         </Strip>
 
         <Strip rules="bottom">
@@ -138,27 +154,76 @@ export default function AvailabilityPage() {
               {loading ? 'Saving...' : 'Save Changes'}
             </button>
           </div>
+
+          {/* KBD Keys */}
+          <div style={{
+            marginBottom: 'var(--baseline-3)',
+            padding: 'var(--baseline-2)',
+            backgroundColor: 'var(--color-paper)',
+            border: '1px solid var(--color-rule)',
+            borderRadius: 'var(--radius-micro)'
+          }}>
+            <span style={{ fontSize: 'var(--fs-xs)', color: 'var(--color-ink-3)', marginRight: 'var(--baseline-2)' }}>
+              Keyboard shortcuts:
+            </span>
+            <kbd style={{
+              padding: '2px 6px',
+              backgroundColor: 'var(--color-paper-shade)',
+              border: '1px solid var(--color-rule)',
+              borderRadius: '3px',
+              fontSize: 'var(--fs-xs)',
+              fontFamily: 'monospace',
+              marginRight: 'var(--baseline)'
+            }}>Tab</kbd>
+            <span style={{ fontSize: 'var(--fs-xs)', color: 'var(--color-ink-3)', marginRight: 'var(--baseline-2)' }}>Next field</span>
+            <kbd style={{
+              padding: '2px 6px',
+              backgroundColor: 'var(--color-paper-shade)',
+              border: '1px solid var(--color-rule)',
+              borderRadius: '3px',
+              fontSize: 'var(--fs-xs)',
+              fontFamily: 'monospace',
+              marginRight: 'var(--baseline)'
+            }}>Enter</kbd>
+            <span style={{ fontSize: 'var(--fs-xs)', color: 'var(--color-ink-3)' }}>Save changes</span>
+          </div>
         </Strip>
 
         <Strip>
-          <div>
-            {DAYS_OF_WEEK.map((day, index) => {
+          {/* Accordion Grid */}
+          <div style={{
+            display: 'grid',
+            gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
+            gap: 'var(--baseline-2)'
+          }}>
+            {DAYS_OF_WEEK.slice(0, 4).map((day) => {
               const daySlots = availabilities.filter(a => a.day_of_week === day.value)
-
               return (
-                <div
+                <details
                   key={day.value}
                   style={{
-                    borderTop: index === 0 ? '1px solid var(--color-rule)' : 'none',
-                    borderBottom: '1px solid var(--color-rule)',
-                    paddingTop: 'var(--baseline-3)',
-                    paddingBottom: 'var(--baseline-3)'
+                    border: '1px solid var(--color-rule)',
+                    borderRadius: 'var(--radius-micro)',
+                    overflow: 'hidden'
                   }}
+                  open={day.value === 1}
                 >
-                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'start', marginBottom: 'var(--baseline-2)' }}>
-                    <label style={{ fontSize: 'var(--fs-s)', fontWeight: '500', color: 'var(--color-ink)' }}>
-                      {day.label}
-                    </label>
+                  <summary style={{
+                    padding: 'var(--baseline-2) var(--baseline-3)',
+                    backgroundColor: 'var(--color-paper-shade)',
+                    cursor: 'pointer',
+                    fontSize: 'var(--fs-s)',
+                    fontWeight: '500',
+                    color: 'var(--color-ink)',
+                    listStyle: 'none',
+                    display: 'flex',
+                    justifyContent: 'space-between',
+                    alignItems: 'center'
+                  }}>
+                    <span>{day.label}</span>
+                    <Plus style={{ width: '14px', height: '14px', color: 'var(--color-ink-3)' }} />
+                  </summary>
+                  <div style={{ padding: 'var(--baseline-3)', backgroundColor: 'var(--color-paper)' }}>
                     <button
                       onClick={() => addTimeSlot(day.value)}
                       style={{
@@ -171,89 +236,241 @@ export default function AvailabilityPage() {
                         fontSize: 'var(--fs-xs)',
                         color: 'var(--color-ink)',
                         cursor: 'pointer',
-                        transition: 'all var(--transition-base)'
-                      }}
-                      onMouseOver={(e) => {
-                        e.currentTarget.style.backgroundColor = 'var(--color-paper-shade)';
-                      }}
-                      onMouseOut={(e) => {
-                        e.currentTarget.style.backgroundColor = 'transparent';
+                        marginBottom: 'var(--baseline-2)',
+                        width: '100%',
+                        justifyContent: 'center'
                       }}
                     >
                       <Plus style={{ width: '14px', height: '14px', marginRight: '4px' }} />
-                      Add Time
+                      Add Time Slot
                     </button>
-                  </div>
-
-                  {daySlots.length > 0 ? (
-                    <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--baseline-2)' }}>
-                      {daySlots.map((slot) => (
-                        <div key={slot.id} style={{ display: 'flex', alignItems: 'center', gap: 'var(--baseline-2)' }}>
-                          <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--baseline)', flex: 1 }}>
-                            <Clock style={{ width: '16px', height: '16px', color: 'var(--color-ink-lighter)' }} />
-                            <input
-                              type="time"
-                              value={slot.start_time.slice(0, 5)}
-                              onChange={(e) => updateTimeSlot(slot.id, 'start_time', e.target.value + ':00')}
-                              style={{
-                                padding: 'var(--baseline) var(--baseline-2)',
-                                border: '1px solid var(--color-rule)',
-                                borderRadius: 'var(--radius-micro)',
-                                fontSize: 'var(--fs-s)',
-                                backgroundColor: 'var(--color-paper)',
-                                color: 'var(--color-ink)'
-                              }}
-                            />
-                            <span style={{ color: 'var(--color-ink-light)', fontSize: 'var(--fs-s)' }}>to</span>
-                            <input
-                              type="time"
-                              value={slot.end_time.slice(0, 5)}
-                              onChange={(e) => updateTimeSlot(slot.id, 'end_time', e.target.value + ':00')}
-                              style={{
-                                padding: 'var(--baseline) var(--baseline-2)',
-                                border: '1px solid var(--color-rule)',
-                                borderRadius: 'var(--radius-micro)',
-                                fontSize: 'var(--fs-s)',
-                                backgroundColor: 'var(--color-paper)',
-                                color: 'var(--color-ink)'
-                              }}
-                            />
+                    {daySlots.length > 0 ? (
+                      <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--baseline-2)' }}>
+                        {daySlots.map((slot) => (
+                          <div key={slot.id} style={{ display: 'flex', flexDirection: 'column', gap: 'var(--baseline)' }}>
+                            <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--baseline)' }}>
+                              <input
+                                type="time"
+                                value={slot.start_time.slice(0, 5)}
+                                onChange={(e) => updateTimeSlot(slot.id, 'start_time', e.target.value + ':00')}
+                                style={{
+                                  flex: 1,
+                                  padding: 'var(--baseline) var(--baseline-2)',
+                                  border: '1px solid var(--color-rule)',
+                                  borderRadius: 'var(--radius-micro)',
+                                  fontSize: 'var(--fs-s)'
+                                }}
+                              />
+                              <span style={{ fontSize: 'var(--fs-xs)', color: 'var(--color-ink-3)' }}>to</span>
+                              <input
+                                type="time"
+                                value={slot.end_time.slice(0, 5)}
+                                onChange={(e) => updateTimeSlot(slot.id, 'end_time', e.target.value + ':00')}
+                                style={{
+                                  flex: 1,
+                                  padding: 'var(--baseline) var(--baseline-2)',
+                                  border: '1px solid var(--color-rule)',
+                                  borderRadius: 'var(--radius-micro)',
+                                  fontSize: 'var(--fs-s)'
+                                }}
+                              />
+                              <button
+                                onClick={() => deleteTimeSlot(slot.id)}
+                                style={{
+                                  padding: 'var(--baseline)',
+                                  background: 'none',
+                                  border: 'none',
+                                  color: 'var(--color-ink-lighter)',
+                                  cursor: 'pointer'
+                                }}
+                              >
+                                <Trash2 style={{ width: '16px', height: '16px' }} />
+                              </button>
+                            </div>
                           </div>
-                          <button
-                            onClick={() => deleteTimeSlot(slot.id)}
-                            style={{
-                              padding: 'var(--baseline)',
-                              background: 'none',
-                              border: 'none',
-                              color: 'var(--color-ink-lighter)',
-                              cursor: 'pointer',
-                              transition: 'color var(--transition-base)'
-                            }}
-                            onMouseOver={(e) => {
-                              e.currentTarget.style.color = 'red';
-                            }}
-                            onMouseOut={(e) => {
-                              e.currentTarget.style.color = 'var(--color-ink-lighter)';
-                            }}
-                          >
-                            <Trash2 style={{ width: '16px', height: '16px' }} />
-                          </button>
-                        </div>
-                      ))}
-                    </div>
-                  ) : (
-                    <p style={{ fontSize: 'var(--fs-xs)', color: 'var(--color-ink-lighter)' }}>
-                      No availability set for this day
-                    </p>
-                  )}
-                </div>
+                        ))}
+                      </div>
+                    ) : (
+                      <p style={{ fontSize: 'var(--fs-xs)', color: 'var(--color-ink-lighter)', textAlign: 'center' }}>
+                        No availability set
+                      </p>
+                    )}
+                  </div>
+                </details>
               )
             })}
           </div>
+
+          {/* Expandable Excerpt for remaining days */}
+          <details style={{
+            marginTop: 'var(--baseline-4)',
+            border: '1px solid var(--color-rule)',
+            borderRadius: 'var(--radius-micro)',
+            overflow: 'hidden'
+          }}>
+            <summary style={{
+              padding: 'var(--baseline-2) var(--baseline-3)',
+              backgroundColor: 'var(--color-paper-shade)',
+              cursor: 'pointer',
+              fontSize: 'var(--fs-s)',
+              fontWeight: '500',
+              color: 'var(--color-ink)',
+              listStyle: 'none'
+            }}>
+              Weekend Schedule (Friday - Sunday)
+              <span style={{ fontSize: 'var(--fs-xs)', color: 'var(--color-ink-3)', marginLeft: 'var(--baseline-2)' }}>
+                Click to expand ▼
+              </span>
+            </summary>
+            <div style={{ padding: 'var(--baseline-3)' }}>
+              {DAYS_OF_WEEK.slice(4).map((day, index) => {
+                const daySlots = availabilities.filter(a => a.day_of_week === day.value)
+                return (
+                  <div
+                    key={day.value}
+                    style={{
+                      borderTop: index > 0 ? '1px solid var(--color-rule)' : 'none',
+                      paddingTop: index > 0 ? 'var(--baseline-3)' : 0,
+                      paddingBottom: 'var(--baseline-3)'
+                    }}
+                  >
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'start', marginBottom: 'var(--baseline-2)' }}>
+                      <label style={{ fontSize: 'var(--fs-s)', fontWeight: '500', color: 'var(--color-ink)' }}>
+                        {day.label}
+                      </label>
+                      <button
+                        onClick={() => addTimeSlot(day.value)}
+                        style={{
+                          display: 'flex',
+                          alignItems: 'center',
+                          padding: 'var(--baseline) var(--baseline-2)',
+                          background: 'none',
+                          border: '1px solid var(--color-rule)',
+                          borderRadius: 'var(--radius-micro)',
+                          fontSize: 'var(--fs-xs)',
+                          color: 'var(--color-ink)',
+                          cursor: 'pointer'
+                        }}
+                      >
+                        <Plus style={{ width: '14px', height: '14px', marginRight: '4px' }} />
+                        Add Time
+                      </button>
+                    </div>
+                    {daySlots.length > 0 ? (
+                      <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--baseline-2)' }}>
+                        {daySlots.map((slot) => (
+                          <div key={slot.id} style={{ display: 'flex', alignItems: 'center', gap: 'var(--baseline-2)' }}>
+                            <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--baseline)', flex: 1 }}>
+                              <Clock style={{ width: '16px', height: '16px', color: 'var(--color-ink-lighter)' }} />
+                              <input
+                                type="time"
+                                value={slot.start_time.slice(0, 5)}
+                                onChange={(e) => updateTimeSlot(slot.id, 'start_time', e.target.value + ':00')}
+                                style={{
+                                  padding: 'var(--baseline) var(--baseline-2)',
+                                  border: '1px solid var(--color-rule)',
+                                  borderRadius: 'var(--radius-micro)',
+                                  fontSize: 'var(--fs-s)'
+                                }}
+                              />
+                              <span style={{ color: 'var(--color-ink-light)', fontSize: 'var(--fs-s)' }}>to</span>
+                              <input
+                                type="time"
+                                value={slot.end_time.slice(0, 5)}
+                                onChange={(e) => updateTimeSlot(slot.id, 'end_time', e.target.value + ':00')}
+                                style={{
+                                  padding: 'var(--baseline) var(--baseline-2)',
+                                  border: '1px solid var(--color-rule)',
+                                  borderRadius: 'var(--radius-micro)',
+                                  fontSize: 'var(--fs-s)'
+                                }}
+                              />
+                            </div>
+                            <button
+                              onClick={() => deleteTimeSlot(slot.id)}
+                              style={{
+                                padding: 'var(--baseline)',
+                                background: 'none',
+                                border: 'none',
+                                color: 'var(--color-ink-lighter)',
+                                cursor: 'pointer'
+                              }}
+                            >
+                              <Trash2 style={{ width: '16px', height: '16px' }} />
+                            </button>
+                          </div>
+                        ))}
+                      </div>
+                    ) : (
+                      <p style={{ fontSize: 'var(--fs-xs)', color: 'var(--color-ink-lighter)' }}>
+                        No availability set for this day
+                      </p>
+                    )}
+                  </div>
+                )
+              })}
+            </div>
+          </details>
         </Strip>
 
         <Strip rules="top">
-          <h3 style={{ fontSize: 'var(--fs-m)', fontWeight: '500', marginBottom: 'var(--baseline-3)' }}>Quick Actions</h3>
+          <h3 style={{ fontSize: 'var(--fs-m)', fontWeight: '500', marginBottom: 'var(--baseline-3)' }}>Schedule Templates</h3>
+
+          {/* Do/Don't List */}
+          <div style={{
+            display: 'grid',
+            gridTemplateColumns: '1fr 1fr',
+            gap: 'var(--baseline-4)',
+            marginBottom: 'var(--baseline-4)'
+          }}>
+            <div>
+              <h4 style={{
+                fontSize: 'var(--fs-s)',
+                fontWeight: '500',
+                color: 'green',
+                marginBottom: 'var(--baseline-2)',
+                display: 'flex',
+                alignItems: 'center'
+              }}>
+                <span style={{ marginRight: 'var(--baseline)' }}>✓</span> Do
+              </h4>
+              <ul style={{ listStyle: 'none', padding: 0 }}>
+                <li style={{ fontSize: 'var(--fs-xs)', color: 'var(--color-ink-2)', marginBottom: 'var(--baseline)' }}>
+                  ✓ Include buffer time between meetings
+                </li>
+                <li style={{ fontSize: 'var(--fs-xs)', color: 'var(--color-ink-2)', marginBottom: 'var(--baseline)' }}>
+                  ✓ Set realistic availability hours
+                </li>
+                <li style={{ fontSize: 'var(--fs-xs)', color: 'var(--color-ink-2)' }}>
+                  ✓ Block out lunch and break times
+                </li>
+              </ul>
+            </div>
+            <div>
+              <h4 style={{
+                fontSize: 'var(--fs-s)',
+                fontWeight: '500',
+                color: 'red',
+                marginBottom: 'var(--baseline-2)',
+                display: 'flex',
+                alignItems: 'center'
+              }}>
+                <span style={{ marginRight: 'var(--baseline)' }}>✗</span> Don't
+              </h4>
+              <ul style={{ listStyle: 'none', padding: 0 }}>
+                <li style={{ fontSize: 'var(--fs-xs)', color: 'var(--color-ink-2)', marginBottom: 'var(--baseline)' }}>
+                  ✗ Overlap time slots
+                </li>
+                <li style={{ fontSize: 'var(--fs-xs)', color: 'var(--color-ink-2)', marginBottom: 'var(--baseline)' }}>
+                  ✗ Set availability past midnight
+                </li>
+                <li style={{ fontSize: 'var(--fs-xs)', color: 'var(--color-ink-2)' }}>
+                  ✗ Forget to save changes
+                </li>
+              </ul>
+            </div>
+          </div>
+
           <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--baseline-2)' }}>
             <button
               onClick={() => {
@@ -309,7 +526,7 @@ export default function AvailabilityPage() {
                 e.currentTarget.style.opacity = '1';
               }}
             >
-              Set Monday-Friday, 9am-5pm (with lunch break)
+              Apply Standard Business Hours (9-5 with lunch)
             </button>
           </div>
         </Strip>

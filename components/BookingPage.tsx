@@ -1,3 +1,4 @@
+// UI Components: Pros/Cons Table, Quote Stack, Metric Callouts, Legal Clause List, Card Row—Emphasis, Comparison Table
 'use client'
 
 import { useState } from 'react'
@@ -140,294 +141,630 @@ export default function BookingPage({ user, availabilities, bookings }: BookingP
 
   if (step === 'confirmed' && confirmedBooking) {
     return (
-      <div className="min-h-screen bg-gray-50 py-12">
-        <div className="max-w-2xl mx-auto px-4">
-          <div className="bg-white rounded-2xl shadow-sm border border-gray-200 p-8 text-center">
-            <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
-              <Check className="h-8 w-8 text-green-600" />
-            </div>
-            <h1 className="text-2xl font-semibold text-gray-900 mb-2">
-              Booking Confirmed!
-            </h1>
-            <p className="text-gray-600 mb-6">
-              You'll receive a confirmation email shortly.
-            </p>
+      <main style={{ minHeight: '100vh', backgroundColor: 'var(--color-paper)', padding: 'var(--baseline-8) 0' }}>
+        <Canvas width="narrow">
+          <Strip>
+            <div style={{ textAlign: 'center' }}>
+              <div style={{
+                width: '64px',
+                height: '64px',
+                backgroundColor: 'rgba(0, 255, 0, 0.1)',
+                borderRadius: '50%',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                margin: '0 auto var(--baseline-4)'
+              }}>
+                <Check style={{ width: '32px', height: '32px', color: 'green' }} />
+              </div>
+              <Display>Booking Confirmed!</Display>
 
-            <div className="bg-gray-50 rounded-lg p-6 text-left space-y-3">
-              <div>
-                <p className="text-sm text-gray-500">Meeting with</p>
-                <p className="font-medium text-gray-900">{user.name}</p>
+              {/* Quote Stack */}
+              <div style={{
+                marginTop: 'var(--baseline-6)',
+                padding: 'var(--baseline-3)',
+                backgroundColor: 'var(--color-paper-shade)',
+                borderRadius: 'var(--radius-micro)'
+              }}>
+                <blockquote style={{
+                  fontSize: 'var(--fs-m)',
+                  fontStyle: 'italic',
+                  color: 'var(--color-ink)',
+                  marginBottom: 'var(--baseline-3)'
+                }}>
+                  "Looking forward to our meeting!"
+                </blockquote>
+                <div style={{ borderTop: '1px dashed var(--color-rule)', paddingTop: 'var(--baseline-3)' }}>
+                  <blockquote style={{
+                    fontSize: 'var(--fs-s)',
+                    color: 'var(--color-ink-2)'
+                  }}>
+                    "Check your email for calendar invite and meeting details"
+                  </blockquote>
+                </div>
               </div>
-              <div>
-                <p className="text-sm text-gray-500">Date & Time</p>
-                <p className="font-medium text-gray-900">
-                  {confirmedBooking.date.toLocaleDateString('en-US', {
-                    weekday: 'long',
-                    year: 'numeric',
-                    month: 'long',
-                    day: 'numeric'
-                  })} at {formatTimeSlot(confirmedBooking.time)}
-                </p>
-              </div>
-              <div>
-                <p className="text-sm text-gray-500">Duration</p>
-                <p className="font-medium text-gray-900">{user.booking_duration || 30} minutes</p>
-              </div>
-            </div>
 
-            <Button
-              onClick={() => window.location.reload()}
-              className="mt-6"
-              variant="outline"
-            >
-              Book Another Time
-            </Button>
-          </div>
-        </div>
-      </div>
+              {/* Comparison Table (Compact) */}
+              <div style={{
+                marginTop: 'var(--baseline-6)',
+                overflow: 'hidden',
+                border: '1px solid var(--color-rule)',
+                borderRadius: 'var(--radius-micro)'
+              }}>
+                <table style={{ width: '100%', borderCollapse: 'collapse' }}>
+                  <tbody>
+                    <tr style={{ backgroundColor: 'var(--color-paper-shade)' }}>
+                      <td style={{ padding: 'var(--baseline-2)', fontSize: 'var(--fs-xs)', color: 'var(--color-ink-3)' }}>Meeting with</td>
+                      <td style={{ padding: 'var(--baseline-2)', fontSize: 'var(--fs-s)', fontWeight: '500', color: 'var(--color-ink)' }}>{user.name}</td>
+                    </tr>
+                    <tr>
+                      <td style={{ padding: 'var(--baseline-2)', fontSize: 'var(--fs-xs)', color: 'var(--color-ink-3)' }}>Date & Time</td>
+                      <td style={{ padding: 'var(--baseline-2)', fontSize: 'var(--fs-s)', color: 'var(--color-ink)' }}>
+                        {confirmedBooking.date.toLocaleDateString('en-US', {
+                          weekday: 'long',
+                          month: 'long',
+                          day: 'numeric'
+                        })} at {formatTimeSlot(confirmedBooking.time)}
+                      </td>
+                    </tr>
+                    <tr style={{ backgroundColor: 'var(--color-paper-shade)' }}>
+                      <td style={{ padding: 'var(--baseline-2)', fontSize: 'var(--fs-xs)', color: 'var(--color-ink-3)' }}>Duration</td>
+                      <td style={{ padding: 'var(--baseline-2)', fontSize: 'var(--fs-s)', color: 'var(--color-ink)' }}>{user.booking_duration || 30} minutes</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+
+              <button
+                onClick={() => window.location.reload()}
+                style={{
+                  marginTop: 'var(--baseline-6)',
+                  padding: 'var(--baseline-2) var(--baseline-4)',
+                  backgroundColor: 'var(--color-paper)',
+                  color: 'var(--color-accent)',
+                  border: '1px solid var(--color-accent)',
+                  borderRadius: 'var(--radius-micro)',
+                  fontSize: 'var(--fs-s)',
+                  fontWeight: '500',
+                  cursor: 'pointer',
+                  transition: 'all var(--transition-base)'
+                }}
+                onMouseOver={(e) => {
+                  e.currentTarget.style.backgroundColor = 'var(--color-accent)';
+                  e.currentTarget.style.color = 'var(--color-paper)';
+                }}
+                onMouseOut={(e) => {
+                  e.currentTarget.style.backgroundColor = 'var(--color-paper)';
+                  e.currentTarget.style.color = 'var(--color-accent)';
+                }}
+              >
+                Book Another Time
+              </button>
+            </div>
+          </Strip>
+        </Canvas>
+      </main>
     )
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 py-12">
+    <main style={{ minHeight: '100vh', backgroundColor: 'var(--color-paper)', padding: 'var(--baseline-8) 0' }}>
       <Toaster position="top-center" />
-      <div className="max-w-4xl mx-auto px-4">
-        <div className="bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden">
-          <div className="grid md:grid-cols-3">
-            {/* Left Sidebar */}
-            <div className="p-8 border-r border-gray-200 bg-gray-50">
-              {user.avatar_url && (
-                <img
-                  src={user.avatar_url}
-                  alt={user.name}
-                  className="w-20 h-20 rounded-full mx-auto mb-4"
-                />
-              )}
-              <h1 className="text-xl font-semibold text-gray-900 text-center mb-2">
-                {user.name}
-              </h1>
-              <div className="space-y-3 mt-6">
-                <div className="flex items-center text-sm text-gray-600">
-                  <Clock className="h-4 w-4 mr-2" />
-                  {user.booking_duration || 30} minutes
-                </div>
-                <div className="flex items-center text-sm text-gray-600">
-                  <Calendar className="h-4 w-4 mr-2" />
-                  {user.timezone || 'America/New_York'}
-                </div>
-              </div>
-            </div>
+      <Canvas width="wide">
+        <Strip>
+          <div style={{
+            backgroundColor: 'var(--color-paper)',
+            border: '1px solid var(--color-rule)',
+            borderRadius: 'var(--radius-soft)',
+            overflow: 'hidden'
+          }}>
+            <div style={{ display: 'grid', gridTemplateColumns: '1fr 2fr' }}>
+              {/* Left Sidebar */}
+              <div style={{
+                padding: 'var(--baseline-6)',
+                borderRight: '1px solid var(--color-rule)',
+                backgroundColor: 'var(--color-paper-shade)'
+              }}>
+                {user.avatar_url && (
+                  <img
+                    src={user.avatar_url}
+                    alt={user.name}
+                    style={{
+                      width: '80px',
+                      height: '80px',
+                      borderRadius: '50%',
+                      margin: '0 auto var(--baseline-4)',
+                      display: 'block'
+                    }}
+                  />
+                )}
+                <h1 style={{
+                  fontSize: 'var(--fs-l)',
+                  fontWeight: '500',
+                  color: 'var(--color-ink)',
+                  textAlign: 'center',
+                  marginBottom: 'var(--baseline-2)'
+                }}>
+                  {user.name}
+                </h1>
 
-            {/* Right Content */}
-            <div className="md:col-span-2 p-8">
-              {/* Step indicator */}
-              <div className="flex items-center justify-between mb-8">
-                <div className={`flex items-center ${step === 'date' ? 'text-blue-600' : 'text-gray-400'}`}>
-                  <div className={`w-8 h-8 rounded-full flex items-center justify-center ${step === 'date' ? 'bg-blue-600 text-white' : 'bg-gray-200'}`}>
-                    1
-                  </div>
-                  <span className="ml-2 text-sm font-medium">Select Date</span>
-                </div>
-                <div className={`flex items-center ${step === 'time' ? 'text-blue-600' : 'text-gray-400'}`}>
-                  <div className={`w-8 h-8 rounded-full flex items-center justify-center ${step === 'time' ? 'bg-blue-600 text-white' : 'bg-gray-200'}`}>
-                    2
-                  </div>
-                  <span className="ml-2 text-sm font-medium">Select Time</span>
-                </div>
-                <div className={`flex items-center ${step === 'details' ? 'text-blue-600' : 'text-gray-400'}`}>
-                  <div className={`w-8 h-8 rounded-full flex items-center justify-center ${step === 'details' ? 'bg-blue-600 text-white' : 'bg-gray-200'}`}>
-                    3
-                  </div>
-                  <span className="ml-2 text-sm font-medium">Your Details</span>
-                </div>
-              </div>
-
-              {/* Date Selection */}
-              {step === 'date' && (
-                <div>
-                  <div className="flex items-center justify-between mb-6">
-                    <h2 className="text-lg font-semibold text-gray-900">
-                      {monthNames[currentMonth.getMonth()]} {currentMonth.getFullYear()}
-                    </h2>
-                    <div className="flex space-x-2">
-                      <button
-                        onClick={() => {
-                          const newMonth = new Date(currentMonth)
-                          newMonth.setMonth(newMonth.getMonth() - 1)
-                          setCurrentMonth(newMonth)
-                        }}
-                        className="p-2 hover:bg-gray-100 rounded-lg transition-colors"
-                      >
-                        <ChevronLeft className="h-5 w-5" />
-                      </button>
-                      <button
-                        onClick={() => {
-                          const newMonth = new Date(currentMonth)
-                          newMonth.setMonth(newMonth.getMonth() + 1)
-                          setCurrentMonth(newMonth)
-                        }}
-                        className="p-2 hover:bg-gray-100 rounded-lg transition-colors"
-                      >
-                        <ChevronRight className="h-5 w-5" />
-                      </button>
-                    </div>
-                  </div>
-
-                  <div className="grid grid-cols-7 gap-1">
-                    {['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'].map(day => (
-                      <div key={day} className="text-center text-xs font-medium text-gray-500 py-2">
-                        {day}
-                      </div>
-                    ))}
-                    {getDaysInMonth(currentMonth).map((date, index) => (
-                      <div key={index} className="aspect-square">
-                        {date && (
-                          <button
-                            onClick={() => isDateAvailable(date) && handleDateSelect(date)}
-                            disabled={!isDateAvailable(date)}
-                            className={`
-                              w-full h-full rounded-lg text-sm font-medium transition-all
-                              ${isDateAvailable(date)
-                                ? 'hover:bg-blue-50 hover:text-blue-600 cursor-pointer'
-                                : 'text-gray-300 cursor-not-allowed'
-                              }
-                              ${selectedDate?.toDateString() === date.toDateString()
-                                ? 'bg-blue-600 text-white hover:bg-blue-700'
-                                : ''
-                              }
-                            `}
-                          >
-                            {date.getDate()}
-                          </button>
-                        )}
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              )}
-
-              {/* Time Selection */}
-              {step === 'time' && selectedDate && (
-                <div>
-                  <div className="mb-6">
-                    <button
-                      onClick={() => setStep('date')}
-                      className="text-sm text-blue-600 hover:text-blue-700"
-                    >
-                      ← Back to calendar
-                    </button>
-                  </div>
-
-                  <h2 className="text-lg font-semibold text-gray-900 mb-4">
-                    {selectedDate.toLocaleDateString('en-US', {
-                      weekday: 'long',
-                      month: 'long',
-                      day: 'numeric'
-                    })}
-                  </h2>
-
-                  <div className="grid grid-cols-3 gap-3">
-                    {getTimeSlots().length > 0 ? (
-                      getTimeSlots().map(time => (
-                        <button
-                          key={time}
-                          onClick={() => handleTimeSelect(time)}
-                          className={`
-                            px-4 py-3 rounded-lg border text-sm font-medium transition-all
-                            ${selectedTime === time
-                              ? 'bg-blue-600 text-white border-blue-600'
-                              : 'border-gray-200 hover:border-blue-600 hover:text-blue-600'
-                            }
-                          `}
-                        >
-                          {formatTimeSlot(time)}
-                        </button>
-                      ))
-                    ) : (
-                      <p className="col-span-3 text-center text-gray-500 py-8">
-                        No available time slots for this date
-                      </p>
-                    )}
-                  </div>
-                </div>
-              )}
-
-              {/* Details Form */}
-              {step === 'details' && (
-                <div>
-                  <div className="mb-6">
-                    <button
-                      onClick={() => setStep('time')}
-                      className="text-sm text-blue-600 hover:text-blue-700"
-                    >
-                      ← Back to time selection
-                    </button>
-                  </div>
-
-                  <div className="mb-6 p-4 bg-gray-50 rounded-lg">
-                    <p className="text-sm text-gray-600">
-                      {selectedDate?.toLocaleDateString('en-US', {
-                        weekday: 'long',
-                        month: 'long',
-                        day: 'numeric'
-                      })} at {selectedTime && formatTimeSlot(selectedTime)}
+                {/* Metric Callouts */}
+                <div style={{
+                  display: 'grid',
+                  gridTemplateColumns: '1fr',
+                  gap: 'var(--baseline-3)',
+                  marginTop: 'var(--baseline-6)',
+                  padding: 'var(--baseline-3)',
+                  backgroundColor: 'var(--color-paper)',
+                  borderRadius: 'var(--radius-micro)',
+                  border: '1px solid var(--color-rule)'
+                }}>
+                  <div>
+                    <p style={{ fontSize: 'var(--fs-xs)', color: 'var(--color-ink-3)', marginBottom: '4px' }}>Duration</p>
+                    <p style={{ fontSize: 'var(--fs-l)', fontWeight: '300', color: 'var(--color-accent)' }}>
+                      {user.booking_duration || 30} min
                     </p>
                   </div>
+                  <div style={{ borderTop: '1px solid var(--color-rule)', paddingTop: 'var(--baseline-2)' }}>
+                    <p style={{ fontSize: 'var(--fs-xs)', color: 'var(--color-ink-3)', marginBottom: '4px' }}>Timezone</p>
+                    <p style={{ fontSize: 'var(--fs-s)', color: 'var(--color-ink)' }}>
+                      {user.timezone || 'America/New_York'}
+                    </p>
+                  </div>
+                </div>
+              </div>
 
-                  <form onSubmit={handleBookingSubmit} className="space-y-4">
-                    <div>
-                      <Label htmlFor="name">Your Name *</Label>
-                      <Input
+              {/* Right Content */}
+              <div style={{ padding: 'var(--baseline-6)' }}>
+                {/* Card Row—Emphasis */}
+                <div style={{
+                  display: 'grid',
+                  gridTemplateColumns: 'repeat(3, 1fr)',
+                  gap: 'var(--baseline-2)',
+                  marginBottom: 'var(--baseline-6)'
+                }}>
+                  <div style={{
+                    padding: 'var(--baseline-3)',
+                    border: step === 'date' ? '2px solid var(--color-accent)' : '1px solid var(--color-rule)',
+                    borderRadius: 'var(--radius-micro)',
+                    backgroundColor: step === 'date' ? 'rgba(0, 102, 255, 0.05)' : 'var(--color-paper)',
+                    transform: step === 'date' ? 'scale(1.05)' : 'scale(1)',
+                    transition: 'all var(--transition-base)'
+                  }}>
+                    <div style={{
+                      width: '32px',
+                      height: '32px',
+                      borderRadius: '50%',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      backgroundColor: step === 'date' ? 'var(--color-accent)' : 'var(--color-ink-lighter)',
+                      color: 'var(--color-paper)',
+                      fontSize: 'var(--fs-s)',
+                      fontWeight: '600',
+                      marginBottom: 'var(--baseline)'
+                    }}>1</div>
+                    <p style={{ fontSize: 'var(--fs-s)', fontWeight: '500', color: step === 'date' ? 'var(--color-accent)' : 'var(--color-ink-3)' }}>Select Date</p>
+                  </div>
+                  <div style={{
+                    padding: 'var(--baseline-3)',
+                    border: step === 'time' ? '2px solid var(--color-accent)' : '1px solid var(--color-rule)',
+                    borderRadius: 'var(--radius-micro)',
+                    backgroundColor: step === 'time' ? 'rgba(0, 102, 255, 0.05)' : 'var(--color-paper)',
+                    transform: step === 'time' ? 'scale(1.05)' : 'scale(1)',
+                    transition: 'all var(--transition-base)'
+                  }}>
+                    <div style={{
+                      width: '32px',
+                      height: '32px',
+                      borderRadius: '50%',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      backgroundColor: step === 'time' ? 'var(--color-accent)' : 'var(--color-ink-lighter)',
+                      color: 'var(--color-paper)',
+                      fontSize: 'var(--fs-s)',
+                      fontWeight: '600',
+                      marginBottom: 'var(--baseline)'
+                    }}>2</div>
+                    <p style={{ fontSize: 'var(--fs-s)', fontWeight: '500', color: step === 'time' ? 'var(--color-accent)' : 'var(--color-ink-3)' }}>Select Time</p>
+                  </div>
+                  <div style={{
+                    padding: 'var(--baseline-3)',
+                    border: step === 'details' ? '2px solid var(--color-accent)' : '1px solid var(--color-rule)',
+                    borderRadius: 'var(--radius-micro)',
+                    backgroundColor: step === 'details' ? 'rgba(0, 102, 255, 0.05)' : 'var(--color-paper)',
+                    transform: step === 'details' ? 'scale(1.05)' : 'scale(1)',
+                    transition: 'all var(--transition-base)'
+                  }}>
+                    <div style={{
+                      width: '32px',
+                      height: '32px',
+                      borderRadius: '50%',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      backgroundColor: step === 'details' ? 'var(--color-accent)' : 'var(--color-ink-lighter)',
+                      color: 'var(--color-paper)',
+                      fontSize: 'var(--fs-s)',
+                      fontWeight: '600',
+                      marginBottom: 'var(--baseline)'
+                    }}>3</div>
+                    <p style={{ fontSize: 'var(--fs-s)', fontWeight: '500', color: step === 'details' ? 'var(--color-accent)' : 'var(--color-ink-3)' }}>Your Details</p>
+                  </div>
+                </div>
+
+                {/* Date Selection */}
+                {step === 'date' && (
+                  <div>
+                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 'var(--baseline-6)' }}>
+                      <h2 style={{ fontSize: 'var(--fs-l)', fontWeight: '500', color: 'var(--color-ink)' }}>
+                        {monthNames[currentMonth.getMonth()]} {currentMonth.getFullYear()}
+                      </h2>
+                      <div style={{ display: 'flex', gap: 'var(--baseline-2)' }}>
+                        <button
+                          onClick={() => {
+                            const newMonth = new Date(currentMonth)
+                            newMonth.setMonth(newMonth.getMonth() - 1)
+                            setCurrentMonth(newMonth)
+                          }}
+                          style={{
+                            padding: 'var(--baseline-2)',
+                            backgroundColor: 'var(--color-paper)',
+                            border: '1px solid var(--color-rule)',
+                            borderRadius: 'var(--radius-micro)',
+                            cursor: 'pointer',
+                            transition: 'all var(--transition-base)'
+                          }}
+                          onMouseOver={(e) => e.currentTarget.style.backgroundColor = 'var(--color-paper-shade)'}
+                          onMouseOut={(e) => e.currentTarget.style.backgroundColor = 'var(--color-paper)'}
+                        >
+                          <ChevronLeft style={{ width: '20px', height: '20px' }} />
+                        </button>
+                        <button
+                          onClick={() => {
+                            const newMonth = new Date(currentMonth)
+                            newMonth.setMonth(newMonth.getMonth() + 1)
+                            setCurrentMonth(newMonth)
+                          }}
+                          style={{
+                            padding: 'var(--baseline-2)',
+                            backgroundColor: 'var(--color-paper)',
+                            border: '1px solid var(--color-rule)',
+                            borderRadius: 'var(--radius-micro)',
+                            cursor: 'pointer',
+                            transition: 'all var(--transition-base)'
+                          }}
+                          onMouseOver={(e) => e.currentTarget.style.backgroundColor = 'var(--color-paper-shade)'}
+                          onMouseOut={(e) => e.currentTarget.style.backgroundColor = 'var(--color-paper)'}
+                        >
+                          <ChevronRight style={{ width: '20px', height: '20px' }} />
+                        </button>
+                      </div>
+                    </div>
+
+                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(7, 1fr)', gap: '4px' }}>
+                      {['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'].map(day => (
+                        <div key={day} style={{
+                          textAlign: 'center',
+                          fontSize: 'var(--fs-xs)',
+                          fontWeight: '500',
+                          color: 'var(--color-ink-3)',
+                          padding: 'var(--baseline)'
+                        }}>
+                          {day}
+                        </div>
+                      ))}
+                      {getDaysInMonth(currentMonth).map((date, index) => (
+                        <div key={index} style={{ aspectRatio: '1' }}>
+                          {date && (
+                            <button
+                              onClick={() => isDateAvailable(date) && handleDateSelect(date)}
+                              disabled={!isDateAvailable(date)}
+                              style={{
+                                width: '100%',
+                                height: '100%',
+                                borderRadius: 'var(--radius-micro)',
+                                fontSize: 'var(--fs-s)',
+                                fontWeight: '500',
+                                transition: 'all var(--transition-base)',
+                                border: 'none',
+                                cursor: isDateAvailable(date) ? 'pointer' : 'not-allowed',
+                                backgroundColor: selectedDate?.toDateString() === date.toDateString()
+                                  ? 'var(--color-accent)'
+                                  : isDateAvailable(date)
+                                  ? 'var(--color-paper)'
+                                  : 'var(--color-paper-shade)',
+                                color: selectedDate?.toDateString() === date.toDateString()
+                                  ? 'var(--color-paper)'
+                                  : isDateAvailable(date)
+                                  ? 'var(--color-ink)'
+                                  : 'var(--color-ink-lighter)'
+                              }}
+                              onMouseOver={(e) => {
+                                if (isDateAvailable(date) && selectedDate?.toDateString() !== date.toDateString()) {
+                                  e.currentTarget.style.backgroundColor = 'rgba(0, 102, 255, 0.1)';
+                                  e.currentTarget.style.color = 'var(--color-accent)';
+                                }
+                              }}
+                              onMouseOut={(e) => {
+                                if (isDateAvailable(date) && selectedDate?.toDateString() !== date.toDateString()) {
+                                  e.currentTarget.style.backgroundColor = 'var(--color-paper)';
+                                  e.currentTarget.style.color = 'var(--color-ink)';
+                                }
+                              }}
+                            >
+                              {date.getDate()}
+                            </button>
+                          )}
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
+
+                {/* Time Selection */}
+                {step === 'time' && selectedDate && (
+                  <div>
+                    <div style={{ marginBottom: 'var(--baseline-6)' }}>
+                      <button
+                        onClick={() => setStep('date')}
+                        style={{
+                          fontSize: 'var(--fs-s)',
+                          color: 'var(--color-accent)',
+                          background: 'none',
+                          border: 'none',
+                          cursor: 'pointer',
+                          textDecoration: 'underline',
+                          textUnderlineOffset: '2px'
+                        }}
+                      >
+                        ← Back to calendar
+                      </button>
+                    </div>
+
+                    {/* Pros/Cons Table for time selection */}
+                    <div style={{
+                      marginBottom: 'var(--baseline-6)',
+                      display: 'grid',
+                      gridTemplateColumns: '1fr 1fr',
+                      gap: '0',
+                      border: '1px solid var(--color-rule)',
+                      borderRadius: 'var(--radius-micro)',
+                      overflow: 'hidden'
+                    }}>
+                      <div style={{
+                        padding: 'var(--baseline-3)',
+                        backgroundColor: 'rgba(0, 255, 0, 0.05)',
+                        borderRight: '1px solid var(--color-rule)'
+                      }}>
+                        <h3 style={{ fontSize: 'var(--fs-s)', fontWeight: '500', color: 'green', marginBottom: 'var(--baseline-2)' }}>
+                          Available Times
+                        </h3>
+                        <p style={{ fontSize: 'var(--fs-xs)', color: 'var(--color-ink-2)' }}>
+                          ✓ {getTimeSlots().length} slots open
+                        </p>
+                        <p style={{ fontSize: 'var(--fs-xs)', color: 'var(--color-ink-2)', marginTop: 'var(--baseline)' }}>
+                          ✓ Same-day booking allowed
+                        </p>
+                      </div>
+                      <div style={{
+                        padding: 'var(--baseline-3)',
+                        backgroundColor: 'var(--color-paper-shade)'
+                      }}>
+                        <h3 style={{ fontSize: 'var(--fs-s)', fontWeight: '500', color: 'var(--color-ink)', marginBottom: 'var(--baseline-2)' }}>
+                          Selected Date
+                        </h3>
+                        <p style={{ fontSize: 'var(--fs-m)', color: 'var(--color-ink)' }}>
+                          {selectedDate.toLocaleDateString('en-US', {
+                            weekday: 'long',
+                            month: 'long',
+                            day: 'numeric'
+                          })}
+                        </p>
+                      </div>
+                    </div>
+
+                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 'var(--baseline-2)' }}>
+                      {getTimeSlots().length > 0 ? (
+                        getTimeSlots().map(time => (
+                          <button
+                            key={time}
+                            onClick={() => handleTimeSelect(time)}
+                            style={{
+                              padding: 'var(--baseline-2) var(--baseline-3)',
+                              borderRadius: 'var(--radius-micro)',
+                              border: selectedTime === time ? '2px solid var(--color-accent)' : '1px solid var(--color-rule)',
+                              fontSize: 'var(--fs-s)',
+                              fontWeight: '500',
+                              transition: 'all var(--transition-base)',
+                              cursor: 'pointer',
+                              backgroundColor: selectedTime === time ? 'var(--color-accent)' : 'var(--color-paper)',
+                              color: selectedTime === time ? 'var(--color-paper)' : 'var(--color-ink)'
+                            }}
+                            onMouseOver={(e) => {
+                              if (selectedTime !== time) {
+                                e.currentTarget.style.borderColor = 'var(--color-accent)';
+                                e.currentTarget.style.color = 'var(--color-accent)';
+                              }
+                            }}
+                            onMouseOut={(e) => {
+                              if (selectedTime !== time) {
+                                e.currentTarget.style.borderColor = 'var(--color-rule)';
+                                e.currentTarget.style.color = 'var(--color-ink)';
+                              }
+                            }}
+                          >
+                            {formatTimeSlot(time)}
+                          </button>
+                        ))
+                      ) : (
+                        <p style={{
+                          gridColumn: '1 / -1',
+                          textAlign: 'center',
+                          color: 'var(--color-ink-3)',
+                          padding: 'var(--baseline-8)'
+                        }}>
+                          No available time slots for this date
+                        </p>
+                      )}
+                    </div>
+                  </div>
+                )}
+
+                {/* Details Form */}
+                {step === 'details' && (
+                  <div>
+                    <div style={{ marginBottom: 'var(--baseline-6)' }}>
+                      <button
+                        onClick={() => setStep('time')}
+                        style={{
+                          fontSize: 'var(--fs-s)',
+                          color: 'var(--color-accent)',
+                          background: 'none',
+                          border: 'none',
+                          cursor: 'pointer',
+                          textDecoration: 'underline',
+                          textUnderlineOffset: '2px'
+                        }}
+                      >
+                        ← Back to time selection
+                      </button>
+                    </div>
+
+                    {/* Legal Clause List */}
+                    <div style={{
+                      marginBottom: 'var(--baseline-6)',
+                      padding: 'var(--baseline-3)',
+                      backgroundColor: 'var(--color-paper-shade)',
+                      borderRadius: 'var(--radius-micro)',
+                      border: '1px solid var(--color-rule)'
+                    }}>
+                      <h3 style={{ fontSize: 'var(--fs-s)', fontWeight: '500', marginBottom: 'var(--baseline-2)' }}>Booking Details</h3>
+                      <ol style={{ listStyle: 'none', padding: 0, counterReset: 'clause' }}>
+                        <li style={{
+                          counterIncrement: 'clause',
+                          display: 'flex',
+                          fontSize: 'var(--fs-xs)',
+                          color: 'var(--color-ink-2)',
+                          marginBottom: 'var(--baseline)'
+                        }}>
+                          <span style={{
+                            fontWeight: '600',
+                            marginRight: 'var(--baseline-2)',
+                            minWidth: '20px'
+                          }}>1.</span>
+                          Date: {selectedDate?.toLocaleDateString('en-US', {
+                            weekday: 'long',
+                            month: 'long',
+                            day: 'numeric'
+                          })}
+                        </li>
+                        <li style={{
+                          counterIncrement: 'clause',
+                          display: 'flex',
+                          fontSize: 'var(--fs-xs)',
+                          color: 'var(--color-ink-2)',
+                          marginBottom: 'var(--baseline)'
+                        }}>
+                          <span style={{
+                            fontWeight: '600',
+                            marginRight: 'var(--baseline-2)',
+                            minWidth: '20px'
+                          }}>2.</span>
+                          Time: {selectedTime && formatTimeSlot(selectedTime)}
+                        </li>
+                        <li style={{
+                          counterIncrement: 'clause',
+                          display: 'flex',
+                          fontSize: 'var(--fs-xs)',
+                          color: 'var(--color-ink-2)'
+                        }}>
+                          <span style={{
+                            fontWeight: '600',
+                            marginRight: 'var(--baseline-2)',
+                            minWidth: '20px'
+                          }}>3.</span>
+                          Duration: {user.booking_duration || 30} minutes
+                        </li>
+                      </ol>
+                    </div>
+
+                    <form onSubmit={handleBookingSubmit} style={{ display: 'flex', flexDirection: 'column', gap: 'var(--baseline-4)' }}>
+                      <FormInput
                         id="name"
+                        label="Your Name"
                         type="text"
                         required
                         value={bookingDetails.name}
                         onChange={(e) => setBookingDetails({ ...bookingDetails, name: e.target.value })}
-                        className="mt-1"
                         placeholder="John Doe"
                       />
-                    </div>
 
-                    <div>
-                      <Label htmlFor="email">Email Address *</Label>
-                      <Input
+                      <FormInput
                         id="email"
+                        label="Email Address"
                         type="email"
                         required
                         value={bookingDetails.email}
                         onChange={(e) => setBookingDetails({ ...bookingDetails, email: e.target.value })}
-                        className="mt-1"
                         placeholder="john@example.com"
                       />
-                    </div>
 
-                    <div>
-                      <Label htmlFor="notes">Additional Notes (Optional)</Label>
-                      <textarea
-                        id="notes"
-                        value={bookingDetails.notes}
-                        onChange={(e) => setBookingDetails({ ...bookingDetails, notes: e.target.value })}
-                        className="mt-1 w-full px-3 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600 resize-none"
-                        rows={3}
-                        placeholder="Please share anything that will help prepare for our meeting..."
-                      />
-                    </div>
+                      <div>
+                        <label htmlFor="notes" style={{
+                          display: 'block',
+                          fontSize: 'var(--fs-xs)',
+                          fontWeight: '500',
+                          marginBottom: 'var(--baseline)',
+                          color: 'var(--color-ink)'
+                        }}>Additional Notes (Optional)</label>
+                        <textarea
+                          id="notes"
+                          value={bookingDetails.notes}
+                          onChange={(e) => setBookingDetails({ ...bookingDetails, notes: e.target.value })}
+                          style={{
+                            width: '100%',
+                            padding: 'var(--baseline-2)',
+                            border: '1px solid var(--color-rule)',
+                            borderRadius: 'var(--radius-micro)',
+                            fontSize: 'var(--fs-s)',
+                            resize: 'none',
+                            backgroundColor: 'var(--color-paper)',
+                            color: 'var(--color-ink)'
+                          }}
+                          rows={3}
+                          placeholder="Please share anything that will help prepare for our meeting..."
+                        />
+                      </div>
 
-                    <Button
-                      type="submit"
-                      disabled={loading}
-                      className="w-full"
-                      variant="primary"
-                    >
-                      {loading ? 'Booking...' : 'Confirm Booking'}
-                    </Button>
-                  </form>
-                </div>
-              )}
+                      <button
+                        type="submit"
+                        disabled={loading}
+                        style={{
+                          width: '100%',
+                          padding: 'var(--baseline-2) var(--baseline-3)',
+                          backgroundColor: 'var(--color-ink)',
+                          color: 'var(--color-paper)',
+                          border: 'none',
+                          borderRadius: 'var(--radius-micro)',
+                          fontSize: 'var(--fs-s)',
+                          fontWeight: '500',
+                          cursor: loading ? 'wait' : 'pointer',
+                          opacity: loading ? 0.7 : 1,
+                          transition: 'opacity var(--transition-base)'
+                        }}
+                      >
+                        {loading ? 'Booking...' : 'Confirm Booking'}
+                      </button>
+                    </form>
+                  </div>
+                )}
+              </div>
             </div>
           </div>
-        </div>
-      </div>
-    </div>
+        </Strip>
+      </Canvas>
+    </main>
   )
 }

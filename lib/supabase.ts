@@ -1,6 +1,4 @@
 import { createClient } from '@supabase/supabase-js'
-import { createServerClient, type CookieOptions } from '@supabase/ssr'
-import { cookies } from 'next/headers'
 
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!
 const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
@@ -10,18 +8,28 @@ const supabaseServiceKey = process.env.SUPABASE_SERVICE_ROLE_KEY!
 export const supabase = createClient(supabaseUrl, supabaseAnonKey)
 
 // Server-side Supabase client with service role (admin access)
-export const supabaseAdmin = createClient(supabaseUrl, supabaseServiceKey, {
-  auth: {
-    autoRefreshToken: false,
-    persistSession: false
-  }
-})
+// This should only be used in API routes, not in client components
+export const supabaseAdmin = typeof window === 'undefined' && supabaseServiceKey
+  ? createClient(supabaseUrl, supabaseServiceKey, {
+      auth: {
+        autoRefreshToken: false,
+        persistSession: false
+      }
+    })
+  : null
 
 // Server-side Supabase client for SSR
+// This function is only for server components and API routes
 export async function createServerSupabaseClient() {
-  const cookieStore = await cookies()
+  if (typeof window !== 'undefined') {
+    throw new Error('createServerSupabaseClient can only be used on the server')
+  }
 
-  return createServerClient(
+  const ssr = await import('@supabase/ssr')
+  const nextHeaders = await import('next/headers')
+  const cookieStore = await nextHeaders.cookies()
+
+  return ssr.createServerClient(
     supabaseUrl,
     supabaseAnonKey,
     {
@@ -29,10 +37,10 @@ export async function createServerSupabaseClient() {
         get(name: string) {
           return cookieStore.get(name)?.value
         },
-        set(name: string, value: string, options: CookieOptions) {
+        set(name: string, value: string, options: ssr.CookieOptions) {
           cookieStore.set({ name, value, ...options })
         },
-        remove(name: string, options: CookieOptions) {
+        remove(name: string, options: ssr.CookieOptions) {
           cookieStore.set({ name, value: '', ...options })
         },
       },

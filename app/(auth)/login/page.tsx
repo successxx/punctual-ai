@@ -1,3 +1,4 @@
+// UI Components: Pull Quote, Two-Column Split, Callout—Accent, Key Takeaways
 'use client'
 
 import { useState } from 'react'
@@ -59,11 +60,55 @@ export default function LoginPage() {
             <Display align="center">
               <span style={{ fontWeight: '300', letterSpacing: '-0.02em' }}>punctual.ai</span>
             </Display>
-            <Deck align="center" style={{ marginTop: 'var(--baseline-2)' }}>
-              Sign in to your account
-            </Deck>
 
-            <form onSubmit={handleSubmit} style={{ marginTop: 'var(--baseline-8)', maxWidth: '400px', margin: 'var(--baseline-8) auto 0' }}>
+            {/* Pull Quote */}
+            <blockquote style={{
+              margin: 'var(--baseline-4) 0',
+              padding: 'var(--baseline-3)',
+              borderLeft: '4px solid var(--color-accent)',
+              backgroundColor: 'var(--color-paper-shade)',
+              borderRadius: '0 var(--radius-micro) var(--radius-micro) 0'
+            }}>
+              <p style={{
+                fontSize: 'var(--fs-m)',
+                fontStyle: 'italic',
+                color: 'var(--color-ink)',
+                marginBottom: 'var(--baseline-2)'
+              }}>
+                "Scheduling made simple and elegant."
+              </p>
+              <cite style={{
+                fontSize: 'var(--fs-xs)',
+                color: 'var(--color-ink-3)',
+                fontStyle: 'normal'
+              }}>
+                — Welcome back to punctual.ai
+              </cite>
+            </blockquote>
+
+            {/* Two-Column Split */}
+            <div style={{
+              display: 'grid',
+              gridTemplateColumns: '1fr 1fr',
+              gap: 'var(--baseline-4)',
+              marginBottom: 'var(--baseline-6)'
+            }}>
+              <div>
+                <h3 style={{ fontSize: 'var(--fs-s)', fontWeight: '500', marginBottom: 'var(--baseline-2)' }}>Sign In</h3>
+                <p style={{ fontSize: 'var(--fs-xs)', color: 'var(--color-ink-3)', lineHeight: '1.5' }}>
+                  Access your dashboard and manage all your bookings in one place.
+                </p>
+              </div>
+              <div style={{ borderLeft: '1px solid var(--color-rule)', paddingLeft: 'var(--baseline-4)' }}>
+                <ul style={{ listStyle: 'none', padding: 0 }}>
+                  <li style={{ fontSize: 'var(--fs-xs)', color: 'var(--color-ink-2)', marginBottom: 'var(--baseline)' }}>• View bookings</li>
+                  <li style={{ fontSize: 'var(--fs-xs)', color: 'var(--color-ink-2)', marginBottom: 'var(--baseline)' }}>• Set availability</li>
+                  <li style={{ fontSize: 'var(--fs-xs)', color: 'var(--color-ink-2)' }}>• Manage settings</li>
+                </ul>
+              </div>
+            </div>
+
+            <form onSubmit={handleSubmit} style={{ marginTop: 'var(--baseline-4)', maxWidth: '400px', margin: 'var(--baseline-4) auto 0' }}>
               <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--baseline-3)' }}>
                 <FormInput
                   id="email"
@@ -107,25 +152,62 @@ export default function LoginPage() {
                 {loading ? 'Signing In...' : 'Sign In'}
               </button>
 
-              <div style={{
-                textAlign: 'center',
-                marginTop: 'var(--baseline-4)',
-                fontSize: 'var(--fs-xs)',
-                color: 'var(--color-ink-3)'
-              }}>
-                <span>Don't have an account? </span>
-                <Link
-                  href="/register"
-                  style={{
-                    color: 'var(--color-accent)',
-                    textDecoration: 'underline',
-                    textUnderlineOffset: '2px'
-                  }}
-                >
-                  Sign up
-                </Link>
-              </div>
             </form>
+
+            {/* Callout—Accent */}
+            <aside style={{
+              marginTop: 'var(--baseline-6)',
+              padding: 'var(--baseline-3)',
+              backgroundColor: 'var(--color-paper)',
+              borderTop: '3px solid var(--color-accent)',
+              borderLeft: '1px solid var(--color-rule)',
+              borderRight: '1px solid var(--color-rule)',
+              borderBottom: '1px solid var(--color-rule)',
+              borderRadius: 'var(--radius-micro)'
+            }}>
+              <p style={{ fontSize: 'var(--fs-s)', fontWeight: '500', color: 'var(--color-ink)', marginBottom: 'var(--baseline)' }}>
+                New to punctual.ai?
+              </p>
+              <p style={{ fontSize: 'var(--fs-xs)', color: 'var(--color-ink-2)', marginBottom: 'var(--baseline-2)' }}>
+                Create your free account and start scheduling meetings effortlessly.
+              </p>
+              <Link
+                href="/register"
+                style={{
+                  display: 'inline-block',
+                  fontSize: 'var(--fs-xs)',
+                  color: 'var(--color-accent)',
+                  textDecoration: 'underline',
+                  textUnderlineOffset: '2px'
+                }}
+              >
+                Sign up for free →
+              </Link>
+            </aside>
+
+            {/* Key Takeaways */}
+            <div style={{
+              marginTop: 'var(--baseline-6)',
+              padding: 'var(--baseline-3)',
+              border: '2px solid var(--color-rule)',
+              borderRadius: 'var(--radius-micro)',
+              backgroundColor: 'var(--color-paper-shade)'
+            }}>
+              <h3 style={{ fontSize: 'var(--fs-s)', fontWeight: '500', marginBottom: 'var(--baseline-2)' }}>
+                Key Benefits
+              </h3>
+              <ul style={{ listStyle: 'none', padding: 0 }}>
+                <li style={{ fontSize: 'var(--fs-xs)', color: 'var(--color-ink)', marginBottom: 'var(--baseline)' }}>
+                  • Secure authentication with encrypted passwords
+                </li>
+                <li style={{ fontSize: 'var(--fs-xs)', color: 'var(--color-ink)', marginBottom: 'var(--baseline)' }}>
+                  • Instant access to your scheduling dashboard
+                </li>
+                <li style={{ fontSize: 'var(--fs-xs)', color: 'var(--color-ink)' }}>
+                  • Seamless calendar management tools
+                </li>
+              </ul>
+            </div>
           </div>
         </Strip>
       </Canvas>

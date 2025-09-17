@@ -15,13 +15,52 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "punctual.ai - Simple Scheduling Platform",
   description: "Let your clients book appointments with you instantly. No back-and-forth emails, no confusion. Simple scheduling without the hassle.",
+  keywords: "scheduling, appointments, booking, calendar, meetings, consultations, time management",
+  authors: [{ name: "punctual.ai" }],
+  creator: "punctual.ai",
+  publisher: "punctual.ai",
+  metadataBase: new URL(process.env.NEXT_PUBLIC_APP_URL || 'https://punctual.ai'),
+  openGraph: {
+    title: "punctual.ai - Simple Scheduling Platform",
+    description: "Let your clients book appointments with you instantly. No back-and-forth emails, no confusion.",
+    url: process.env.NEXT_PUBLIC_APP_URL || 'https://punctual.ai',
+    siteName: "punctual.ai",
+    images: [
+      {
+        url: '/og-image.png',
+        width: 1200,
+        height: 630,
+        alt: 'punctual.ai - Simple Scheduling Platform',
+      },
+    ],
+    locale: 'en_US',
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: "punctual.ai - Simple Scheduling Platform",
+    description: "Let your clients book appointments with you instantly.",
+    images: ['/og-image.png'],
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-video-preview': -1,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+    },
+  },
   icons: {
     icon: [
       { url: '/favicon.svg', type: 'image/svg+xml' },
       { url: '/favicon.ico', sizes: 'any' }
     ],
     apple: '/apple-touch-icon.png'
-  }
+  },
+  manifest: '/manifest.json'
 };
 
 export default function RootLayout({

@@ -1,3 +1,4 @@
+// UI Components: Stat Row, Accordion (Native), Timeline (Vertical), Highlight Row
 'use client'
 
 import { useEffect, useState } from 'react'
@@ -84,64 +85,76 @@ export default function DashboardPage() {
           <Display>
             Welcome back, {user?.name}
           </Display>
-          <Prose>
-            <p style={{ color: 'var(--color-ink-3)', marginTop: 'var(--baseline-2)' }}>
-              Here's what's happening with your bookings today.
-            </p>
-          </Prose>
+          {/* Highlight Row */}
+          <div style={{
+            display: 'grid',
+            gridTemplateColumns: 'repeat(3, 1fr)',
+            gap: 'var(--baseline-2)',
+            marginTop: 'var(--baseline-4)',
+            padding: 'var(--baseline-3)',
+            backgroundColor: 'var(--color-paper-shade)',
+            borderRadius: 'var(--radius-micro)'
+          }}>
+            <div style={{ textAlign: 'center' }}>
+              <span style={{ fontSize: 'var(--fs-l)' }}>📅</span>
+              <p style={{ fontSize: 'var(--fs-xs)', fontWeight: '500', marginTop: 'var(--baseline)' }}>Today</p>
+              <p style={{ fontSize: 'var(--fs-xs)', color: 'var(--color-ink-3)' }}>Your schedule</p>
+            </div>
+            <div style={{ textAlign: 'center' }}>
+              <span style={{ fontSize: 'var(--fs-l)' }}>⏰</span>
+              <p style={{ fontSize: 'var(--fs-xs)', fontWeight: '500', marginTop: 'var(--baseline)' }}>Real-time</p>
+              <p style={{ fontSize: 'var(--fs-xs)', color: 'var(--color-ink-3)' }}>Updates</p>
+            </div>
+            <div style={{ textAlign: 'center' }}>
+              <span style={{ fontSize: 'var(--fs-l)' }}>✨</span>
+              <p style={{ fontSize: 'var(--fs-xs)', fontWeight: '500', marginTop: 'var(--baseline)' }}>Smart</p>
+              <p style={{ fontSize: 'var(--fs-xs)', color: 'var(--color-ink-3)' }}>Scheduling</p>
+            </div>
+          </div>
         </Strip>
 
         <Strip>
+          {/* Stat Row */}
           <div style={{
-            display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
-            gap: 'var(--baseline-3)'
+            display: 'flex',
+            justifyContent: 'space-around',
+            flexWrap: 'wrap',
+            gap: 'var(--baseline-4)',
+            padding: 'var(--baseline-4)',
+            backgroundColor: 'var(--color-paper)',
+            border: '1px solid var(--color-rule)',
+            borderRadius: 'var(--radius-micro)'
           }}>
-            <div style={{ borderTop: '1px solid var(--color-rule)', paddingTop: 'var(--baseline-3)' }}>
-              <div style={{ display: 'flex', alignItems: 'start', justifyContent: 'space-between' }}>
-                <div>
-                  <p style={{ fontSize: 'var(--fs-xs)', color: 'var(--color-ink-3)', marginBottom: 'var(--baseline)' }}>Total Bookings</p>
-                  <p style={{ fontSize: 'var(--fs-xl)', fontWeight: '300', color: 'var(--color-ink)' }}>
-                    {stats.totalBookings}
-                  </p>
-                </div>
-                <Calendar className="h-6 w-6" style={{ color: 'var(--color-ink-3)', opacity: 0.5 }} />
+            <div style={{ textAlign: 'center', minWidth: '100px' }}>
+              <div style={{ fontSize: 'var(--fs-xxl)', fontWeight: '300', color: 'var(--color-ink)' }}>
+                {stats.totalBookings}
+              </div>
+              <div style={{ fontSize: 'var(--fs-xs)', color: 'var(--color-ink-3)', marginTop: 'var(--baseline)' }}>
+                Total Bookings
               </div>
             </div>
-
-            <div style={{ borderTop: '1px solid var(--color-rule)', paddingTop: 'var(--baseline-3)' }}>
-              <div style={{ display: 'flex', alignItems: 'start', justifyContent: 'space-between' }}>
-                <div>
-                  <p style={{ fontSize: 'var(--fs-xs)', color: 'var(--color-ink-3)', marginBottom: 'var(--baseline)' }}>Today</p>
-                  <p style={{ fontSize: 'var(--fs-xl)', fontWeight: '300', color: 'var(--color-ink)' }}>
-                    {stats.todayBookings}
-                  </p>
-                </div>
-                <Clock className="h-6 w-6" style={{ color: 'var(--color-ink-3)', opacity: 0.5 }} />
+            <div style={{ textAlign: 'center', minWidth: '100px' }}>
+              <div style={{ fontSize: 'var(--fs-xxl)', fontWeight: '300', color: 'var(--color-accent)' }}>
+                {stats.todayBookings}
+              </div>
+              <div style={{ fontSize: 'var(--fs-xs)', color: 'var(--color-ink-3)', marginTop: 'var(--baseline)' }}>
+                Today
               </div>
             </div>
-
-            <div style={{ borderTop: '1px solid var(--color-rule)', paddingTop: 'var(--baseline-3)' }}>
-              <div style={{ display: 'flex', alignItems: 'start', justifyContent: 'space-between' }}>
-                <div>
-                  <p style={{ fontSize: 'var(--fs-xs)', color: 'var(--color-ink-3)', marginBottom: 'var(--baseline)' }}>This Week</p>
-                  <p style={{ fontSize: 'var(--fs-xl)', fontWeight: '300', color: 'var(--color-ink)' }}>
-                    {stats.weekBookings}
-                  </p>
-                </div>
-                <TrendingUp className="h-6 w-6" style={{ color: 'var(--color-ink-3)', opacity: 0.5 }} />
+            <div style={{ textAlign: 'center', minWidth: '100px' }}>
+              <div style={{ fontSize: 'var(--fs-xxl)', fontWeight: '300', color: 'var(--color-ink)' }}>
+                {stats.weekBookings}
+              </div>
+              <div style={{ fontSize: 'var(--fs-xs)', color: 'var(--color-ink-3)', marginTop: 'var(--baseline)' }}>
+                This Week
               </div>
             </div>
-
-            <div style={{ borderTop: '1px solid var(--color-rule)', paddingTop: 'var(--baseline-3)' }}>
-              <div style={{ display: 'flex', alignItems: 'start', justifyContent: 'space-between' }}>
-                <div>
-                  <p style={{ fontSize: 'var(--fs-xs)', color: 'var(--color-ink-3)', marginBottom: 'var(--baseline)' }}>Upcoming</p>
-                  <p style={{ fontSize: 'var(--fs-xl)', fontWeight: '300', color: 'var(--color-ink)' }}>
-                    {stats.upcomingBookings}
-                  </p>
-                </div>
-                <Users className="h-6 w-6" style={{ color: 'var(--color-ink-3)', opacity: 0.5 }} />
+            <div style={{ textAlign: 'center', minWidth: '100px' }}>
+              <div style={{ fontSize: 'var(--fs-xxl)', fontWeight: '300', color: 'var(--color-ink)' }}>
+                {stats.upcomingBookings}
+              </div>
+              <div style={{ fontSize: 'var(--fs-xs)', color: 'var(--color-ink-3)', marginTop: 'var(--baseline)' }}>
+                Upcoming
               </div>
             </div>
           </div>
@@ -151,53 +164,114 @@ export default function DashboardPage() {
           <h2 style={{ fontSize: 'var(--fs-l)', fontWeight: '400', marginBottom: 'var(--baseline-4)' }}>
             Upcoming Bookings
           </h2>
-          <div>
-            {upcomingBookings.length > 0 ? (
-              upcomingBookings.map((booking, index) => (
-                <div
-                  key={booking.id}
-                  style={{
-                    borderTop: index === 0 ? '1px solid var(--color-rule)' : 'none',
-                    borderBottom: '1px solid var(--color-rule)',
-                    paddingTop: 'var(--baseline-3)',
-                    paddingBottom: 'var(--baseline-3)'
-                  }}
-                >
-                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'start' }}>
-                    <div>
-                      <p style={{ fontSize: 'var(--fs-s)', fontWeight: '500', color: 'var(--color-ink)' }}>
-                        {booking.guest_name}
+
+          {upcomingBookings.length > 0 ? (
+            <>
+              {/* Accordion (Native) for first 2 bookings */}
+              <div style={{ marginBottom: 'var(--baseline-4)' }}>
+                {upcomingBookings.slice(0, 2).map((booking, index) => (
+                  <details
+                    key={booking.id}
+                    style={{
+                      border: '1px solid var(--color-rule)',
+                      borderRadius: 'var(--radius-micro)',
+                      marginBottom: 'var(--baseline-2)',
+                      overflow: 'hidden'
+                    }}
+                  >
+                    <summary style={{
+                      padding: 'var(--baseline-2) var(--baseline-3)',
+                      backgroundColor: 'var(--color-paper-shade)',
+                      cursor: 'pointer',
+                      fontSize: 'var(--fs-s)',
+                      fontWeight: '500',
+                      color: 'var(--color-ink)',
+                      listStyle: 'none',
+                      display: 'flex',
+                      justifyContent: 'space-between',
+                      alignItems: 'center'
+                    }}>
+                      <span>{booking.guest_name}</span>
+                      <span style={{ fontSize: 'var(--fs-xs)', color: 'var(--color-ink-3)' }}>
+                        {formatDate(booking.start_time)}
+                      </span>
+                    </summary>
+                    <div style={{ padding: 'var(--baseline-3)', backgroundColor: 'var(--color-paper)' }}>
+                      <p style={{ fontSize: 'var(--fs-xs)', color: 'var(--color-ink-2)', marginBottom: 'var(--baseline)' }}>
+                        <strong>Email:</strong> {booking.guest_email}
                       </p>
-                      <p style={{ fontSize: 'var(--fs-xs)', color: 'var(--color-ink-3)', marginTop: 'var(--baseline)' }}>
-                        {booking.guest_email}
+                      <p style={{ fontSize: 'var(--fs-xs)', color: 'var(--color-ink-2)', marginBottom: 'var(--baseline)' }}>
+                        <strong>Duration:</strong> 30 minutes
                       </p>
                       {booking.notes && (
-                        <p style={{ fontSize: 'var(--fs-xs)', color: 'var(--color-ink-2)', marginTop: 'var(--baseline-2)' }}>
-                          {booking.notes}
+                        <p style={{ fontSize: 'var(--fs-xs)', color: 'var(--color-ink-2)' }}>
+                          <strong>Notes:</strong> {booking.notes}
                         </p>
                       )}
                     </div>
-                    <div style={{ textAlign: 'right' }}>
-                      <p style={{ fontSize: 'var(--fs-s)', color: 'var(--color-ink)' }}>
-                        {formatDate(booking.start_time)}
-                      </p>
-                      <p style={{ fontSize: 'var(--fs-xs)', color: 'var(--color-ink-3)', marginTop: 'var(--baseline)' }}>
-                        30 minutes
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              ))
-            ) : (
-              <div style={{
-                padding: 'var(--baseline-6) 0',
-                textAlign: 'center',
-                borderTop: '1px solid var(--color-rule)'
-              }}>
-                <p style={{ color: 'var(--color-ink-3)' }}>No upcoming bookings</p>
+                  </details>
+                ))}
               </div>
-            )}
-          </div>
+
+              {/* Timeline (Vertical) for remaining bookings */}
+              {upcomingBookings.length > 2 && (
+                <div style={{
+                  borderLeft: '2px solid var(--color-accent)',
+                  marginLeft: 'var(--baseline-2)',
+                  paddingLeft: 'var(--baseline-4)'
+                }}>
+                  <h3 style={{ fontSize: 'var(--fs-s)', fontWeight: '500', marginBottom: 'var(--baseline-3)' }}>Later Appointments</h3>
+                  {upcomingBookings.slice(2).map((booking, index) => (
+                    <div
+                      key={booking.id}
+                      style={{
+                        position: 'relative',
+                        marginBottom: 'var(--baseline-4)'
+                      }}
+                    >
+                      <div style={{
+                        position: 'absolute',
+                        left: 'calc(-1 * var(--baseline-4) - 6px)',
+                        width: '12px',
+                        height: '12px',
+                        backgroundColor: 'var(--color-accent)',
+                        borderRadius: '50%',
+                        border: '2px solid var(--color-paper)'
+                      }} />
+                      <div style={{ display: 'flex', gap: 'var(--baseline-4)' }}>
+                        <div style={{ minWidth: '120px' }}>
+                          <p style={{ fontSize: 'var(--fs-xs)', color: 'var(--color-accent)', fontWeight: '500' }}>
+                            {formatDate(booking.start_time)}
+                          </p>
+                        </div>
+                        <div>
+                          <p style={{ fontSize: 'var(--fs-s)', fontWeight: '500', color: 'var(--color-ink)' }}>
+                            {booking.guest_name}
+                          </p>
+                          <p style={{ fontSize: 'var(--fs-xs)', color: 'var(--color-ink-3)', marginTop: '4px' }}>
+                            {booking.guest_email}
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </>
+          ) : (
+            <div style={{
+              padding: 'var(--baseline-6)',
+              textAlign: 'center',
+              backgroundColor: 'var(--color-paper-shade)',
+              borderRadius: 'var(--radius-micro)',
+              border: '1px solid var(--color-rule)'
+            }}>
+              <p style={{ fontSize: 'var(--fs-m)', color: 'var(--color-ink-3)' }}>No upcoming bookings</p>
+              <p style={{ fontSize: 'var(--fs-xs)', color: 'var(--color-ink-lighter)', marginTop: 'var(--baseline)' }}>
+                Share your booking link to start receiving appointments
+              </p>
+            </div>
+          )}
         </Strip>
       </Canvas>
     </main>

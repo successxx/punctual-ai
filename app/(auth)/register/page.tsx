@@ -1,3 +1,4 @@
+// UI Components: Lead Intro, Feature Grid (Cards), Checklist, Info Pill Group, CTA Band
 'use client'
 
 import { useState } from 'react'
@@ -73,14 +74,70 @@ export default function RegisterPage() {
       <Canvas width="narrow">
         <Strip>
           <div style={{ paddingTop: 'var(--baseline-12)', paddingBottom: 'var(--baseline-8)' }}>
-            <Display align="center">
-              <span style={{ fontWeight: '300', letterSpacing: '-0.02em' }}>punctual.ai</span>
-            </Display>
-            <Deck align="center" style={{ marginTop: 'var(--baseline-2)' }}>
-              Create your account
-            </Deck>
+            {/* Lead Intro */}
+            <div style={{
+              padding: 'var(--baseline-4) var(--baseline-6)',
+              backgroundColor: 'var(--color-paper-shade)',
+              borderRadius: 'var(--radius-soft)',
+              marginBottom: 'var(--baseline-6)'
+            }}>
+              <Display align="center">
+                <span style={{ fontWeight: '300', letterSpacing: '-0.02em' }}>punctual.ai</span>
+              </Display>
+              <Deck align="center" style={{
+                marginTop: 'var(--baseline-2)',
+                fontSize: 'var(--fs-l)',
+                lineHeight: '1.5',
+                color: 'var(--color-ink-2)'
+              }}>
+                Start scheduling smarter today
+              </Deck>
+            </div>
 
-            <form onSubmit={handleSubmit} style={{ marginTop: 'var(--baseline-8)', maxWidth: '400px', margin: 'var(--baseline-8) auto 0' }}>
+            {/* Feature Grid (Cards) */}
+            <div style={{
+              display: 'grid',
+              gridTemplateColumns: 'repeat(2, 1fr)',
+              gap: 'var(--baseline-3)',
+              marginBottom: 'var(--baseline-6)'
+            }}>
+              <div style={{
+                padding: 'var(--baseline-3)',
+                border: '1px solid var(--color-rule)',
+                borderRadius: 'var(--radius-micro)',
+                backgroundColor: 'var(--color-paper)'
+              }}>
+                <h3 style={{ fontSize: 'var(--fs-s)', fontWeight: '500', marginBottom: 'var(--baseline)' }}>Quick Setup</h3>
+                <p style={{ fontSize: 'var(--fs-xs)', color: 'var(--color-ink-3)' }}>Get started in under 60 seconds</p>
+              </div>
+              <div style={{
+                padding: 'var(--baseline-3)',
+                border: '1px solid var(--color-rule)',
+                borderRadius: 'var(--radius-micro)',
+                backgroundColor: 'var(--color-paper)'
+              }}>
+                <h3 style={{ fontSize: 'var(--fs-s)', fontWeight: '500', marginBottom: 'var(--baseline)' }}>Secure</h3>
+                <p style={{ fontSize: 'var(--fs-xs)', color: 'var(--color-ink-3)' }}>Your data is always protected</p>
+              </div>
+            </div>
+
+            {/* Checklist */}
+            <div style={{
+              padding: 'var(--baseline-3)',
+              backgroundColor: 'var(--color-paper)',
+              border: '1px solid var(--color-rule)',
+              borderRadius: 'var(--radius-micro)',
+              marginBottom: 'var(--baseline-4)'
+            }}>
+              <h3 style={{ fontSize: 'var(--fs-s)', fontWeight: '500', marginBottom: 'var(--baseline-2)' }}>What you'll need:</h3>
+              <ul style={{ listStyle: 'none', padding: 0 }}>
+                <li style={{ fontSize: 'var(--fs-xs)', color: 'var(--color-ink-2)', marginBottom: 'var(--baseline)' }}>✓ Your full name</li>
+                <li style={{ fontSize: 'var(--fs-xs)', color: 'var(--color-ink-2)', marginBottom: 'var(--baseline)' }}>✓ Valid email address</li>
+                <li style={{ fontSize: 'var(--fs-xs)', color: 'var(--color-ink-2)' }}>✓ Secure password (6+ characters)</li>
+              </ul>
+            </div>
+
+            <form onSubmit={handleSubmit} style={{ marginTop: 'var(--baseline-4)', maxWidth: '400px', margin: 'var(--baseline-4) auto 0' }}>
               <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--baseline-3)' }}>
                 <FormInput
                   id="name"
@@ -144,25 +201,76 @@ export default function RegisterPage() {
                 {loading ? 'Creating Account...' : 'Create Account'}
               </button>
 
-              <div style={{
-                textAlign: 'center',
-                marginTop: 'var(--baseline-4)',
+            </form>
+
+            {/* Info Pill Group */}
+            <div style={{
+              display: 'flex',
+              flexWrap: 'wrap',
+              gap: 'var(--baseline)',
+              justifyContent: 'center',
+              marginTop: 'var(--baseline-4)',
+              marginBottom: 'var(--baseline-4)'
+            }}>
+              <span style={{
+                display: 'inline-block',
+                padding: '4px var(--baseline-2)',
+                backgroundColor: 'var(--color-paper-shade)',
+                border: '1px solid var(--color-rule)',
+                borderRadius: '100px',
                 fontSize: 'var(--fs-xs)',
                 color: 'var(--color-ink-3)'
-              }}>
-                <span>Already have an account? </span>
-                <Link
-                  href="/login"
-                  style={{
-                    color: 'var(--color-accent)',
-                    textDecoration: 'underline',
-                    textUnderlineOffset: '2px'
-                  }}
-                >
-                  Sign in
-                </Link>
-              </div>
-            </form>
+              }}>Free forever</span>
+              <span style={{
+                display: 'inline-block',
+                padding: '4px var(--baseline-2)',
+                backgroundColor: 'var(--color-paper-shade)',
+                border: '1px solid var(--color-rule)',
+                borderRadius: '100px',
+                fontSize: 'var(--fs-xs)',
+                color: 'var(--color-ink-3)'
+              }}>No credit card</span>
+              <span style={{
+                display: 'inline-block',
+                padding: '4px var(--baseline-2)',
+                backgroundColor: 'var(--color-paper-shade)',
+                border: '1px solid var(--color-rule)',
+                borderRadius: '100px',
+                fontSize: 'var(--fs-xs)',
+                color: 'var(--color-ink-3)'
+              }}>Cancel anytime</span>
+            </div>
+
+            {/* CTA Band (Text-Only) */}
+            <div style={{
+              padding: 'var(--baseline-3)',
+              backgroundColor: 'rgba(0, 102, 255, 0.05)',
+              borderLeft: '3px solid var(--color-accent)',
+              borderRadius: 'var(--radius-micro)',
+              textAlign: 'center'
+            }}>
+              <p style={{ fontSize: 'var(--fs-s)', color: 'var(--color-ink)', marginBottom: 'var(--baseline)' }}>
+                Already have an account?
+              </p>
+              <Link
+                href="/login"
+                style={{
+                  display: 'inline-block',
+                  padding: 'var(--baseline) var(--baseline-3)',
+                  backgroundColor: 'var(--color-accent)',
+                  color: 'var(--color-paper)',
+                  borderRadius: 'var(--radius-micro)',
+                  fontSize: 'var(--fs-s)',
+                  fontWeight: '500',
+                  textDecoration: 'none',
+                  transition: 'opacity var(--transition-base)'
+                }}
+                onMouseOver={(e) => e.currentTarget.style.opacity = '0.9'}
+                onMouseOut={(e) => e.currentTarget.style.opacity = '1'}
+              >
+                Sign in instead
+              </Link>
+            </div>
           </div>
         </Strip>
       </Canvas>
