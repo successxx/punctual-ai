@@ -1,0 +1,48 @@
+{
+  "route": "/register",
+  "content": {
+    "headings": [
+      {"level": 1, "text": "punctual.ai"},
+      {"level": 2, "text": "Create your account"}
+    ],
+    "text_content": [
+      "punctual.ai",
+      "Create your account",
+      "Full Name",
+      "John Doe",
+      "Email Address",
+      "john@example.com",
+      "Password",
+      "••••••••",
+      "Confirm Password",
+      "••••••••",
+      "Create Account",
+      "Creating Account...",
+      "Already have an account?",
+      "Sign in"
+    ],
+    "form_elements": [
+      {"label": "Full Name", "type": "text", "placeholder": "John Doe"},
+      {"label": "Email Address", "type": "email", "placeholder": "john@example.com"},
+      {"label": "Password", "type": "password", "placeholder": "••••••••"},
+      {"label": "Confirm Password", "type": "password", "placeholder": "••••••••"}
+    ],
+    "links": [
+      {"text": "Sign in", "href": "/login"}
+    ],
+    "buttons": [
+      {"text": "Create Account", "type": "submit"}
+    ],
+    "character_count": 222
+  },
+  "editorial_blocks_used": [
+    "Canvas (narrow width)",
+    "Strip (loose spacing)",
+    "Display (level 1)",
+    "Deck (normal size)",
+    "FormField (4 instances)",
+    "Action (submit button)",
+    "InlineCTA (navigation link)"
+  ],
+  "content_diff": "0% - Identical content, modernist form layout"
+}
