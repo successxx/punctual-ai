@@ -3,18 +3,24 @@
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import { usePathname, useRouter } from 'next/navigation'
-import { Calendar, Clock, Settings, LogOut, Menu, X, User } from 'lucide-react'
+import { Calendar, Clock, Settings, LogOut, Menu, X, User, BarChart3, Crown } from 'lucide-react'
 
 export default function DashboardLayout({ children }: { children: React.ReactNode }) {
   const pathname = usePathname()
   const router = useRouter()
   const [user, setUser] = useState<any>(null)
+  const [profile, setProfile] = useState<any>(null)
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
 
   useEffect(() => {
     const userData = localStorage.getItem('user')
     if (userData) {
       setUser(JSON.parse(userData))
+    }
+    // Check premium status from localStorage or fetch
+    const profileData = localStorage.getItem('profile')
+    if (profileData) {
+      setProfile(JSON.parse(profileData))
     }
   }, [])
 
@@ -29,6 +35,9 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
     { name: 'Dashboard', href: '/dashboard', icon: Calendar },
     { name: 'Bookings', href: '/dashboard/bookings', icon: Clock },
     { name: 'Availability', href: '/dashboard/availability', icon: Calendar },
+    ...(profile?.subscription_tier === 'premium' ? [
+      { name: 'Analytics', href: '/dashboard/analytics', icon: BarChart3, premium: true }
+    ] : []),
     { name: 'Settings', href: '/dashboard/settings', icon: Settings },
   ]
 

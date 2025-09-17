@@ -3,7 +3,7 @@
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { Button } from '@/components/ui/button'
-import { Check, X, Sparkles, Calendar, Link, Users, Clock, Shield, Zap, Mail } from 'lucide-react'
+import { Check, X, Sparkles, BarChart3, Link, Users, Clock, Shield, Zap, Mail, Palette, FileText, Globe, Download } from 'lucide-react'
 import { supabase } from '@/lib/supabase'
 
 export default function PricingPage() {
@@ -112,7 +112,7 @@ export default function PricingPage() {
               </div>
               <div className="flex items-start">
                 <X className="w-5 h-5 text-gray-300 mr-3 mt-0.5 flex-shrink-0" />
-                <span className="text-gray-400">Google Calendar sync</span>
+                <span className="text-gray-400">Analytics & insights</span>
               </div>
               <div className="flex items-start">
                 <X className="w-5 h-5 text-gray-300 mr-3 mt-0.5 flex-shrink-0" />
@@ -160,24 +160,24 @@ export default function PricingPage() {
                 <span>Custom booking URLs (punctual.ai/yourname)</span>
               </div>
               <div className="flex items-start">
-                <Calendar className="w-5 h-5 text-green-400 mr-3 mt-0.5 flex-shrink-0" />
-                <span>Google Calendar 2-way sync</span>
+                <BarChart3 className="w-5 h-5 text-green-400 mr-3 mt-0.5 flex-shrink-0" />
+                <span>Analytics dashboard & booking insights</span>
               </div>
               <div className="flex items-start">
-                <Users className="w-5 h-5 text-blue-300 mr-3 mt-0.5 flex-shrink-0" />
-                <span>Team scheduling features</span>
+                <Palette className="w-5 h-5 text-blue-300 mr-3 mt-0.5 flex-shrink-0" />
+                <span>Custom branding & colors</span>
               </div>
               <div className="flex items-start">
                 <Clock className="w-5 h-5 text-purple-300 mr-3 mt-0.5 flex-shrink-0" />
-                <span>Buffer time between meetings</span>
+                <span>Advanced time slot controls</span>
               </div>
               <div className="flex items-start">
-                <Mail className="w-5 h-5 text-pink-300 mr-3 mt-0.5 flex-shrink-0" />
-                <span>Custom email reminders</span>
+                <FileText className="w-5 h-5 text-pink-300 mr-3 mt-0.5 flex-shrink-0" />
+                <span>Custom booking forms & questions</span>
               </div>
               <div className="flex items-start">
-                <Link className="w-5 h-5 text-indigo-300 mr-3 mt-0.5 flex-shrink-0" />
-                <span>Embed on your website</span>
+                <Download className="w-5 h-5 text-indigo-300 mr-3 mt-0.5 flex-shrink-0" />
+                <span>Export bookings to CSV/Excel</span>
               </div>
               <div className="flex items-start">
                 <Shield className="w-5 h-5 text-red-300 mr-3 mt-0.5 flex-shrink-0" />

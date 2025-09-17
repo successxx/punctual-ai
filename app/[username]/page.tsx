@@ -1,53 +1,56 @@
+'use client'
+
+import { useEffect, useState } from 'react'
 import { notFound } from 'next/navigation'
-import { createServerSupabaseClient } from '@/lib/supabase'
+import { supabase } from '@/lib/supabase'
 import BookingPage from '@/components/BookingPage'
 
-export default async function UserBookingPage({
-  params
-}: {
-  params: Promise<{ username: string }>
-}) {
-  const resolvedParams = await params
-  const supabase = await createServerSupabaseClient()
+export default function CustomBookingPage({ params }: { params: { username: string } }) {
+  const [user, setUser] = useState<any>(null)
+  const [loading, setLoading] = useState(true)
 
-  // Get user by username
-  const { data: user, error } = await supabase
-    .from('users')
-    .select('*')
-    .eq('username', resolvedParams.username.toLowerCase())
-    .single()
+  useEffect(() => {
+    loadUserByUsername()
+  }, [params.username])
 
-  if (!user || error) {
+  async function loadUserByUsername() {
+    try {
+      // Check if this is a custom URL for a premium user
+      const { data: profile } = await supabase
+        .from('profiles')
+        .select('id, name, bio, avatar_url, subscription_tier')
+        .or(`username.eq.${params.username},custom_booking_url.eq.${params.username}`)
+        .single()
+
+      if (!profile) {
+        notFound()
+      }
+
+      // Only premium users can have custom URLs
+      if (profile.subscription_tier !== 'premium') {
+        notFound()
+      }
+
+      setUser(profile)
+    } catch (error) {
+      console.error('Error loading user:', error)
+      notFound()
+    } finally {
+      setLoading(false)
+    }
+  }
+
+  if (loading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-gray-900"></div>
+      </div>
+    )
+  }
+
+  if (!user) {
     notFound()
   }
 
-  // Get user's availabilities
-  const { data: availabilities } = await supabase
-    .from('availabilities')
-    .select('*')
-    .eq('user_id', user.id)
-    .eq('is_active', true)
-    .order('day_of_week')
-    .order('start_time')
-
-  // Get user's confirmed bookings for the next 60 days
-  const startDate = new Date()
-  const endDate = new Date()
-  endDate.setDate(endDate.getDate() + 60)
-
-  const { data: bookings } = await supabase
-    .from('bookings')
-    .select('*')
-    .eq('user_id', user.id)
-    .eq('status', 'confirmed')
-    .gte('start_time', startDate.toISOString())
-    .lte('start_time', endDate.toISOString())
-
-  return (
-    <BookingPage
-      user={user}
-      availabilities={availabilities || []}
-      bookings={bookings || []}
-    />
-  )
+  return <BookingPage userId={user.id} hostName={user.name} />
 }
