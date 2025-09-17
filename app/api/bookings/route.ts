@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from 'next/server'
 import { supabaseAdmin } from '@/lib/supabase'
 import { Resend } from 'resend'
 
-const resend = new Resend(process.env.RESEND_API_KEY)
+const resend = process.env.RESEND_API_KEY ? new Resend(process.env.RESEND_API_KEY) : null
 
 export async function GET(req: NextRequest) {
   const { searchParams } = new URL(req.url)
@@ -94,7 +94,8 @@ export async function POST(req: NextRequest) {
         })
 
         // Email to guest
-        await resend.emails.send({
+        if (resend) {
+          await resend.emails.send({
           from: 'Punctual.AI <noreply@punctual.ai>',
           to: guest_email,
           subject: `Booking Confirmed with ${host?.name}`,
@@ -124,7 +125,7 @@ export async function POST(req: NextRequest) {
 
         // Email to host
         if (host?.email) {
-          await resend.emails.send({
+            await resend.emails.send({
             from: 'Punctual.AI <noreply@punctual.ai>',
             to: host.email,
             subject: `New Booking: ${guest_name}`,
@@ -153,6 +154,7 @@ export async function POST(req: NextRequest) {
               </div>
             `
           })
+          }
         }
       } catch (emailError) {
         console.error('Email sending failed:', emailError)
