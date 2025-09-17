@@ -3,7 +3,7 @@ import { cn } from '@/lib/utils'
 
 interface CardProps extends HTMLAttributes<HTMLDivElement> {
   children: ReactNode
-  variant?: 'default' | 'bordered' | 'elevated' | 'glass'
+  variant?: 'default' | 'bordered' | 'elevated' | 'glass' | 'gradient'
   padding?: 'none' | 'tight' | 'default' | 'relaxed'
   hover?: boolean
 }
@@ -17,14 +17,15 @@ export function Card({
   ...props
 }: CardProps) {
   const variantClasses = {
-    default: 'bg-[var(--bg-primary)]',
-    bordered: 'bg-[var(--bg-primary)] border border-[var(--border-default)]',
-    elevated: 'bg-[var(--bg-primary)] shadow-[var(--shadow-md)]',
+    default: 'bg-[var(--card-default-bg)]',
+    bordered: 'bg-[var(--card-bordered-bg)] border border-[var(--border-default)]',
+    elevated: 'bg-[var(--card-elevated-bg)] shadow-[var(--shadow-md)]',
     glass: cn(
-      'bg-white/80 dark:bg-gray-900/80',
+      'bg-[var(--card-glass-bg)]',
       'backdrop-blur-xl backdrop-saturate-150',
-      'border border-white/20 dark:border-gray-800/20'
-    )
+      'border border-[var(--border-subtle)]'
+    ),
+    gradient: 'bg-[var(--card-gradient-bg)] shadow-[var(--shadow-md)]'
   }
 
   const paddingClasses = {

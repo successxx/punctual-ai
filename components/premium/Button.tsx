@@ -31,22 +31,22 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
   ) => {
     const variantClasses = {
       primary: cn(
-        'bg-[var(--text-primary)] text-[var(--bg-primary)]',
-        'hover:bg-[var(--gray-800)]',
-        'active:bg-[var(--gray-900)]',
+        'bg-[var(--btn-primary-bg)] text-[var(--btn-primary-text)]',
+        'hover:bg-[var(--btn-primary-hover)]',
+        'active:bg-[var(--btn-primary-active)]',
         'disabled:opacity-50'
       ),
       secondary: cn(
-        'bg-transparent text-[var(--text-primary)]',
-        'border border-[var(--border-strong)]',
-        'hover:bg-[var(--bg-secondary)]',
-        'active:bg-[var(--bg-tertiary)]',
+        'bg-[var(--btn-secondary-bg)] text-[var(--btn-secondary-text)]',
+        'border border-[var(--btn-secondary-border)]',
+        'hover:bg-[var(--btn-secondary-hover-bg)]',
+        'active:bg-[var(--btn-secondary-active-bg)]',
         'disabled:opacity-50'
       ),
       ghost: cn(
-        'bg-transparent text-[var(--text-primary)]',
-        'hover:bg-[var(--bg-secondary)]',
-        'active:bg-[var(--bg-tertiary)]',
+        'bg-[var(--btn-ghost-bg)] text-[var(--btn-ghost-text)]',
+        'hover:bg-[var(--btn-ghost-hover-bg)]',
+        'active:bg-[var(--btn-ghost-active-bg)]',
         'disabled:opacity-50'
       ),
       minimal: cn(

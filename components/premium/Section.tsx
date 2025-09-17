@@ -5,7 +5,7 @@ interface SectionProps {
   children: ReactNode
   width?: 'narrow' | 'default' | 'wide' | 'full'
   spacing?: 'tight' | 'default' | 'relaxed' | 'spacious'
-  background?: 'primary' | 'secondary' | 'tertiary' | 'inverse'
+  background?: 'primary' | 'secondary' | 'tertiary' | 'inverse' | 'gradient'
   className?: string
   as?: 'section' | 'article' | 'div'
   id?: string
@@ -38,7 +38,8 @@ export function Section({
     primary: 'bg-[var(--bg-primary)]',
     secondary: 'bg-[var(--bg-secondary)]',
     tertiary: 'bg-[var(--bg-tertiary)]',
-    inverse: 'bg-[var(--bg-inverse)] text-[var(--text-inverse)]'
+    inverse: 'bg-[var(--bg-inverse)] text-[var(--text-inverse)]',
+    gradient: 'bg-gradient-to-br from-[var(--bg-primary)] to-[var(--bg-secondary)]'
   }
 
   return (
