@@ -1,0 +1,227 @@
+/*
+ * Premium Design Tokens
+ * Based on Jony Ive minimalist principles
+ * System: 8px baseline grid, golden ratio scaling
+ */
+
+:root {
+  /* Typography - SF Pro inspired fluid scale */
+  --font-sans: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'SF Pro Text',
+               'Helvetica Neue', 'Segoe UI', system-ui, sans-serif;
+  --font-mono: 'SF Mono', 'Monaco', 'Cascadia Code', monospace;
+
+  /* Fluid type scale with golden ratio (1.618) */
+  --fs-xxs: clamp(0.75rem, 0.7vw + 0.65rem, 0.875rem);
+  --fs-xs: clamp(0.875rem, 0.8vw + 0.75rem, 1rem);
+  --fs-sm: clamp(1rem, 0.9vw + 0.875rem, 1.125rem);
+  --fs-base: clamp(1.125rem, 1vw + 1rem, 1.25rem);
+  --fs-md: clamp(1.25rem, 1.2vw + 1.125rem, 1.5rem);
+  --fs-lg: clamp(1.5rem, 1.5vw + 1.25rem, 2rem);
+  --fs-xl: clamp(2rem, 2vw + 1.5rem, 3rem);
+  --fs-2xl: clamp(2.5rem, 3vw + 2rem, 4rem);
+  --fs-3xl: clamp(3rem, 4vw + 2.5rem, 5rem);
+  --fs-display: clamp(3.5rem, 5vw + 3rem, 6rem);
+
+  /* Font weights - minimal variation */
+  --fw-light: 300;
+  --fw-regular: 400;
+  --fw-medium: 500;
+  --fw-semibold: 600;
+  --fw-bold: 700;
+
+  /* Line heights */
+  --lh-tight: 1.1;
+  --lh-snug: 1.25;
+  --lh-base: 1.5;
+  --lh-relaxed: 1.625;
+  --lh-loose: 1.75;
+
+  /* Letter spacing */
+  --ls-tight: -0.04em;
+  --ls-snug: -0.02em;
+  --ls-normal: 0;
+  --ls-wide: 0.025em;
+
+  /* Spacing scale - 8px baseline */
+  --space-px: 1px;
+  --space-0: 0;
+  --space-1: clamp(0.25rem, 0.2vw + 0.2rem, 0.5rem);    /* 4-8px */
+  --space-2: clamp(0.5rem, 0.3vw + 0.4rem, 0.75rem);    /* 8-12px */
+  --space-3: clamp(0.75rem, 0.4vw + 0.6rem, 1rem);      /* 12-16px */
+  --space-4: clamp(1rem, 0.5vw + 0.875rem, 1.5rem);     /* 16-24px */
+  --space-5: clamp(1.5rem, 0.75vw + 1.25rem, 2rem);     /* 24-32px */
+  --space-6: clamp(2rem, 1vw + 1.75rem, 3rem);          /* 32-48px */
+  --space-7: clamp(3rem, 1.5vw + 2.5rem, 4rem);         /* 48-64px */
+  --space-8: clamp(4rem, 2vw + 3.5rem, 6rem);           /* 64-96px */
+  --space-9: clamp(6rem, 3vw + 5rem, 8rem);             /* 96-128px */
+  --space-10: clamp(8rem, 4vw + 7rem, 12rem);           /* 128-192px */
+
+  /* Container widths */
+  --container-xs: 20rem;     /* 320px */
+  --container-sm: 40rem;     /* 640px */
+  --container-md: 48rem;     /* 768px */
+  --container-lg: 64rem;     /* 1024px */
+  --container-xl: 80rem;     /* 1280px */
+  --container-2xl: 96rem;    /* 1536px */
+  --container-prose: 65ch;   /* Optimal reading width */
+
+  /* Color palette - Minimal, high contrast */
+  --color-white: #ffffff;
+  --color-black: #000000;
+
+  /* Grays - Neutral scale */
+  --gray-50: #fafafa;
+  --gray-100: #f5f5f5;
+  --gray-200: #e5e5e5;
+  --gray-300: #d4d4d4;
+  --gray-400: #a3a3a3;
+  --gray-500: #737373;
+  --gray-600: #525252;
+  --gray-700: #404040;
+  --gray-800: #262626;
+  --gray-900: #171717;
+  --gray-950: #0a0a0a;
+
+  /* Brand colors - Subtle, sophisticated */
+  --brand-primary: #0066ff;
+  --brand-primary-hover: #0052cc;
+  --brand-secondary: #7c3aed;
+  --brand-accent: #06b6d4;
+
+  /* Semantic colors */
+  --color-success: #10b981;
+  --color-warning: #f59e0b;
+  --color-error: #ef4444;
+  --color-info: #3b82f6;
+
+  /* Applied colors - Light mode */
+  --bg-primary: var(--color-white);
+  --bg-secondary: var(--gray-50);
+  --bg-tertiary: var(--gray-100);
+  --bg-inverse: var(--gray-950);
+
+  --text-primary: var(--gray-950);
+  --text-secondary: var(--gray-700);
+  --text-tertiary: var(--gray-500);
+  --text-muted: var(--gray-400);
+  --text-inverse: var(--color-white);
+
+  --border-default: var(--gray-200);
+  --border-muted: var(--gray-100);
+  --border-strong: var(--gray-300);
+
+  /* Border radius - Subtle curves */
+  --radius-none: 0;
+  --radius-xs: 0.125rem;   /* 2px */
+  --radius-sm: 0.25rem;    /* 4px */
+  --radius-md: 0.375rem;   /* 6px */
+  --radius-lg: 0.5rem;     /* 8px */
+  --radius-xl: 0.75rem;    /* 12px */
+  --radius-2xl: 1rem;      /* 16px */
+  --radius-3xl: 1.5rem;    /* 24px */
+  --radius-full: 9999px;
+
+  /* Shadows - Soft, layered */
+  --shadow-xs: 0 1px 2px 0 rgb(0 0 0 / 0.02);
+  --shadow-sm: 0 2px 4px 0 rgb(0 0 0 / 0.03);
+  --shadow-md: 0 4px 8px -2px rgb(0 0 0 / 0.05),
+               0 2px 4px -1px rgb(0 0 0 / 0.03);
+  --shadow-lg: 0 10px 20px -5px rgb(0 0 0 / 0.08),
+               0 5px 10px -3px rgb(0 0 0 / 0.05);
+  --shadow-xl: 0 20px 40px -10px rgb(0 0 0 / 0.10),
+               0 10px 20px -5px rgb(0 0 0 / 0.08);
+  --shadow-2xl: 0 30px 60px -15px rgb(0 0 0 / 0.15),
+                0 15px 30px -7px rgb(0 0 0 / 0.10);
+  --shadow-inner: inset 0 2px 4px 0 rgb(0 0 0 / 0.04);
+
+  /* Transitions - Smooth, natural */
+  --transition-fast: 150ms ease;
+  --transition-base: 200ms ease;
+  --transition-slow: 300ms ease;
+  --transition-slower: 500ms ease;
+
+  /* Z-index scale */
+  --z-base: 0;
+  --z-dropdown: 100;
+  --z-sticky: 200;
+  --z-fixed: 300;
+  --z-overlay: 400;
+  --z-modal: 500;
+  --z-popover: 600;
+  --z-tooltip: 700;
+  --z-notification: 800;
+  --z-top: 900;
+
+  /* Breakpoints */
+  --breakpoint-xs: 475px;
+  --breakpoint-sm: 640px;
+  --breakpoint-md: 768px;
+  --breakpoint-lg: 1024px;
+  --breakpoint-xl: 1280px;
+  --breakpoint-2xl: 1536px;
+
+  /* Animation curves */
+  --ease-in-out-quad: cubic-bezier(0.455, 0.03, 0.515, 0.955);
+  --ease-in-out-cubic: cubic-bezier(0.645, 0.045, 0.355, 1);
+  --ease-in-out-quart: cubic-bezier(0.77, 0, 0.175, 1);
+  --ease-in-out-expo: cubic-bezier(1, 0, 0, 1);
+  --ease-in-out-back: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+
+  /* Focus styles */
+  --focus-ring-width: 2px;
+  --focus-ring-color: var(--brand-primary);
+  --focus-ring-offset: 2px;
+}
+
+/* Dark mode overrides */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg-primary: var(--gray-950);
+    --bg-secondary: var(--gray-900);
+    --bg-tertiary: var(--gray-800);
+    --bg-inverse: var(--color-white);
+
+    --text-primary: var(--gray-50);
+    --text-secondary: var(--gray-300);
+    --text-tertiary: var(--gray-400);
+    --text-muted: var(--gray-500);
+    --text-inverse: var(--gray-950);
+
+    --border-default: var(--gray-800);
+    --border-muted: var(--gray-900);
+    --border-strong: var(--gray-700);
+  }
+}
+
+/* Utility classes */
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+/* Focus visible */
+*:focus-visible {
+  outline: var(--focus-ring-width) solid var(--focus-ring-color);
+  outline-offset: var(--focus-ring-offset);
+}
+
+/* Smooth scrolling */
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+/* Container queries support */
+@supports (container-type: inline-size) {
+  .container-responsive {
+    container-type: inline-size;
+  }
+}

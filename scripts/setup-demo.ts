@@ -61,4 +61,4 @@ console.log('   - Test booking as a guest\n')
 
 console.log('=== Setup Complete ===')
 console.log('\nIMPORTANT: Make sure your Supabase project "punctual-ai" is active')
-console.log('and you've run the SQL schema before starting the app.')
+console.log('and you have run the SQL schema before starting the app.')

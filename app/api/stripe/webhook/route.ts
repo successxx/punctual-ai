@@ -50,7 +50,7 @@ export async function POST(req: NextRequest) {
               subscription_tier: 'premium',
               subscription_status: subscription.status,
               subscription_current_period_end: new Date(
-                subscription.current_period_end * 1000
+                (subscription as any).current_period_end * 1000
               ).toISOString(),
             })
             .eq('stripe_customer_id', session.customer);
@@ -69,7 +69,7 @@ export async function POST(req: NextRequest) {
             subscription_tier: subscription.status === 'active' ? 'premium' : 'free',
             subscription_status: subscription.status,
             subscription_current_period_end: new Date(
-              subscription.current_period_end * 1000
+              (subscription as any).current_period_end * 1000
             ).toISOString(),
           })
           .eq('stripe_customer_id', subscription.customer);
@@ -94,9 +94,9 @@ export async function POST(req: NextRequest) {
       case 'invoice.payment_succeeded': {
         const invoice = event.data.object as Stripe.Invoice;
 
-        if (invoice.subscription) {
+        if ((invoice as any).subscription) {
           const subscription = await stripe.subscriptions.retrieve(
-            invoice.subscription as string
+            (invoice as any).subscription as string
           );
 
           await supabaseAdmin
@@ -105,7 +105,7 @@ export async function POST(req: NextRequest) {
               subscription_status: 'active',
               subscription_tier: 'premium',
               subscription_current_period_end: new Date(
-                subscription.current_period_end * 1000
+                (subscription as any).current_period_end * 1000
               ).toISOString(),
             })
             .eq('stripe_customer_id', invoice.customer);

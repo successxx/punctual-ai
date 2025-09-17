@@ -52,5 +52,5 @@ export default function CustomBookingPage({ params }: { params: { username: stri
     notFound()
   }
 
-  return <BookingPage userId={user.id} hostName={user.name} />
+  return <BookingPage user={user} availabilities={[]} bookings={[]} />
 }

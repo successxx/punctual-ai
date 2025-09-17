@@ -25,22 +25,32 @@ export async function POST(req: NextRequest) {
       )
     }
 
-    // Get user profile
+    // Get user profile from profiles table
     const { data: profile, error: profileError } = await supabaseAdmin
-      .from('users')
+      .from('profiles')
       .select('*')
       .eq('id', authData.user.id)
       .single()
 
-    if (profileError || !profile) {
-      return NextResponse.json(
-        { error: 'User profile not found' },
-        { status: 404 }
-      )
+    // If profile doesn't exist, create one
+    let userProfile = profile
+    if (!profile) {
+      const { data: newProfile } = await supabaseAdmin
+        .from('profiles')
+        .insert({
+          id: authData.user.id,
+          email: authData.user.email!,
+          name: authData.user.email?.split('@')[0],
+          subscription_tier: 'free'
+        })
+        .select()
+        .single()
+
+      userProfile = newProfile
     }
 
     const response = NextResponse.json({
-      user: profile,
+      user: userProfile,
       session: authData.session
     })
 

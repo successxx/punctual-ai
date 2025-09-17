@@ -8,6 +8,7 @@ interface StripProps {
   spacing?: 'tight' | 'normal' | 'loose'
   sticky?: boolean
   className?: string
+  borderBottom?: boolean
 }
 
 /**
@@ -20,7 +21,8 @@ export function Strip({
   rules = 'none',
   spacing = 'normal',
   sticky = false,
-  className
+  className,
+  borderBottom
 }: StripProps) {
   const variantClasses = {
     default: 'bg-[var(--bg-primary)] text-[var(--text-primary)]',
@@ -52,6 +54,8 @@ export function Strip({
         spacingClasses[spacing],
         // Rules
         ruleClasses[rules],
+        // Additional border
+        borderBottom && 'border-b rule-hairline',
         // Sticky positioning
         sticky && 'sticky top-0 z-[var(--z-sticky)]',
         className

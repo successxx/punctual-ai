@@ -9,14 +9,12 @@ export const supabase = createClient(supabaseUrl, supabaseAnonKey)
 
 // Server-side Supabase client with service role (admin access)
 // This should only be used in API routes, not in client components
-export const supabaseAdmin = typeof window === 'undefined' && supabaseServiceKey
-  ? createClient(supabaseUrl, supabaseServiceKey, {
-      auth: {
-        autoRefreshToken: false,
-        persistSession: false
-      }
-    })
-  : null
+export const supabaseAdmin = createClient(supabaseUrl, supabaseServiceKey, {
+  auth: {
+    autoRefreshToken: false,
+    persistSession: false
+  }
+})
 
 // Server-side Supabase client for SSR
 // This function is only for server components and API routes
@@ -37,10 +35,10 @@ export async function createServerSupabaseClient() {
         get(name: string) {
           return cookieStore.get(name)?.value
         },
-        set(name: string, value: string, options: ssr.CookieOptions) {
+        set(name: string, value: string, options: any) {
           cookieStore.set({ name, value, ...options })
         },
-        remove(name: string, options: ssr.CookieOptions) {
+        remove(name: string, options: any) {
           cookieStore.set({ name, value: '', ...options })
         },
       },

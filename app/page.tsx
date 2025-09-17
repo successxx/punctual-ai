@@ -1,7 +1,7 @@
 'use client'
 
 import Link from 'next/link'
-import { Calendar, Clock, Users, CheckCircle, ArrowRight, Star } from 'lucide-react'
+import { Calendar, Clock, Users, CheckCircle, ArrowRight, Star, Shield, Zap, BarChart3 } from 'lucide-react'
 
 export default function HomePage() {
   return (
@@ -189,8 +189,57 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* How it works */}
+      {/* Use Cases Section */}
       <section className="py-20 px-6">
+        <div className="max-w-7xl mx-auto">
+          <div className="text-center mb-12">
+            <h3 className="text-3xl font-semibold text-gray-900 mb-4">
+              Built for professionals who value their time
+            </h3>
+            <p className="text-lg text-gray-600 max-w-3xl mx-auto">
+              Whether you're a consultant closing deals, a coach managing clients, or a recruiter
+              filling positions, punctual.ai adapts to your unique workflow.
+            </p>
+          </div>
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+            <div className="bg-gradient-to-br from-blue-50 to-indigo-50 p-6 rounded-xl">
+              <h4 className="font-semibold text-gray-900 mb-2">Consultants</h4>
+              <p className="text-sm text-gray-600 mb-3">
+                Book discovery calls, project meetings, and follow-ups without the email tennis.
+                Close deals faster with professional scheduling.
+              </p>
+              <p className="text-xs text-gray-500">"Reduced scheduling time by 87%"</p>
+            </div>
+            <div className="bg-gradient-to-br from-purple-50 to-pink-50 p-6 rounded-xl">
+              <h4 className="font-semibold text-gray-900 mb-2">Coaches & Trainers</h4>
+              <p className="text-sm text-gray-600 mb-3">
+                Let clients book sessions, manage recurring appointments, and handle rescheduling
+                automatically. Focus on coaching, not admin.
+              </p>
+              <p className="text-xs text-gray-500">"Doubled client capacity"</p>
+            </div>
+            <div className="bg-gradient-to-br from-green-50 to-emerald-50 p-6 rounded-xl">
+              <h4 className="font-semibold text-gray-900 mb-2">Sales Teams</h4>
+              <p className="text-sm text-gray-600 mb-3">
+                Qualify leads faster, book demos instantly, and never lose a prospect to scheduling
+                friction. Convert more with less effort.
+              </p>
+              <p className="text-xs text-gray-500">"35% higher conversion rate"</p>
+            </div>
+            <div className="bg-gradient-to-br from-orange-50 to-red-50 p-6 rounded-xl">
+              <h4 className="font-semibold text-gray-900 mb-2">Service Providers</h4>
+              <p className="text-sm text-gray-600 mb-3">
+                Manage appointments for multiple services, staff, and locations. Accept bookings 24/7
+                while maintaining complete control.
+              </p>
+              <p className="text-xs text-gray-500">"3x more bookings after hours"</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* How it works */}
+      <section className="py-20 px-6 bg-gray-50">
         <div className="max-w-7xl mx-auto">
           <h3 className="text-3xl font-semibold text-center text-gray-900 mb-12">
             How it works

@@ -1,16 +1,21 @@
-// UI Components: Pull Quote, Two-Column Split, Callout—Accent, Key Takeaways
 'use client'
 
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import toast, { Toaster } from 'react-hot-toast'
-import { Canvas } from '@/components/editorial/layout/Canvas'
-import { Strip } from '@/components/editorial/layout/Strip'
-import { Display } from '@/components/editorial/typography/Display'
-import { Deck } from '@/components/editorial/typography/Deck'
-import { FormInput } from '@/components/editorial/forms/FormInput'
-import '@/styles/editorial.tokens.css'
+import { ArrowRight, Lock, Mail, Shield, Zap, Clock } from 'lucide-react'
+
+// Premium Components
+import { Layout, Navigation, Main, Container } from '@/components/premium/Layout'
+import { Section } from '@/components/premium/Section'
+import { Headline, Eyebrow, Lead, Prose } from '@/components/premium/Typography'
+import { Button } from '@/components/premium/Button'
+import { Card, CardBody } from '@/components/premium/Card'
+import { FormField, Label, Input, HelperText } from '@/components/premium/Form'
+
+// Load design tokens
+import '@/styles/design-tokens.css'
 
 export default function LoginPage() {
   const router = useRouter()
@@ -37,12 +42,8 @@ export default function LoginPage() {
         throw new Error(data.error || 'Login failed')
       }
 
-      // Store user data in localStorage for client-side access
       localStorage.setItem('user', JSON.stringify(data.user))
-
       toast.success('Login successful!')
-
-      // Redirect to dashboard
       router.push('/dashboard')
     } catch (error: any) {
       toast.error(error.message)
@@ -52,165 +53,238 @@ export default function LoginPage() {
   }
 
   return (
-    <main className="min-h-screen" style={{ backgroundColor: 'var(--color-paper)' }}>
-      <Toaster position="top-center" />
-      <Canvas width="narrow">
-        <Strip>
-          <div style={{ paddingTop: 'var(--baseline-12)', paddingBottom: 'var(--baseline-8)' }}>
-            <Display align="center">
-              <span style={{ fontWeight: '300', letterSpacing: '-0.02em' }}>punctual.ai</span>
-            </Display>
+    <Layout>
+      <Toaster
+        position="top-center"
+        toastOptions={{
+          style: {
+            background: 'var(--bg-primary)',
+            color: 'var(--text-primary)',
+            border: '1px solid var(--border-default)',
+            borderRadius: 'var(--radius-md)',
+            fontSize: 'var(--fs-sm)',
+          },
+        }}
+      />
 
-            {/* Pull Quote */}
-            <blockquote style={{
-              margin: 'var(--baseline-4) 0',
-              padding: 'var(--baseline-3)',
-              borderLeft: '4px solid var(--color-accent)',
-              backgroundColor: 'var(--color-paper-shade)',
-              borderRadius: '0 var(--radius-micro) var(--radius-micro) 0'
-            }}>
-              <p style={{
-                fontSize: 'var(--fs-m)',
-                fontStyle: 'italic',
-                color: 'var(--color-ink)',
-                marginBottom: 'var(--baseline-2)'
-              }}>
-                "Scheduling made simple and elegant."
+      <Navigation />
+
+      <Main>
+        <Section spacing="spacious">
+          <Container size="narrow">
+            {/* Hero */}
+            <div className="text-center mb-[var(--space-8)]">
+              <Eyebrow variant="accent">Welcome Back</Eyebrow>
+              <Headline level={1} size="2xl" align="center" className="mb-[var(--space-4)]">
+                Sign in to punctual.ai
+              </Headline>
+              <Lead align="center">
+                Access your dashboard and manage all your bookings in one place.
+              </Lead>
+            </div>
+
+            {/* Benefits Grid */}
+            <div className="grid md:grid-cols-3 gap-[var(--space-4)] mb-[var(--space-8)]">
+              <Card variant="bordered" padding="tight">
+                <CardBody className="text-center">
+                  <div className="inline-flex items-center justify-center w-10 h-10 rounded-full bg-[var(--brand-primary)]/10 mb-[var(--space-3)]">
+                    <Shield className="w-5 h-5 text-[var(--brand-primary)]" />
+                  </div>
+                  <h3 className="text-[var(--fs-sm)] font-[var(--fw-semibold)] mb-[var(--space-1)]">
+                    Secure authentication
+                  </h3>
+                  <p className="text-[var(--fs-xs)] text-[var(--text-tertiary)]">
+                    with encrypted passwords
+                  </p>
+                </CardBody>
+              </Card>
+
+              <Card variant="bordered" padding="tight">
+                <CardBody className="text-center">
+                  <div className="inline-flex items-center justify-center w-10 h-10 rounded-full bg-[var(--brand-primary)]/10 mb-[var(--space-3)]">
+                    <Zap className="w-5 h-5 text-[var(--brand-primary)]" />
+                  </div>
+                  <h3 className="text-[var(--fs-sm)] font-[var(--fw-semibold)] mb-[var(--space-1)]">
+                    Instant access
+                  </h3>
+                  <p className="text-[var(--fs-xs)] text-[var(--text-tertiary)]">
+                    to your scheduling dashboard
+                  </p>
+                </CardBody>
+              </Card>
+
+              <Card variant="bordered" padding="tight">
+                <CardBody className="text-center">
+                  <div className="inline-flex items-center justify-center w-10 h-10 rounded-full bg-[var(--brand-primary)]/10 mb-[var(--space-3)]">
+                    <Clock className="w-5 h-5 text-[var(--brand-primary)]" />
+                  </div>
+                  <h3 className="text-[var(--fs-sm)] font-[var(--fw-semibold)] mb-[var(--space-1)]">
+                    Seamless calendar
+                  </h3>
+                  <p className="text-[var(--fs-xs)] text-[var(--text-tertiary)]">
+                    management tools
+                  </p>
+                </CardBody>
+              </Card>
+            </div>
+
+            {/* Quote */}
+            <Card variant="glass" className="mb-[var(--space-8)]">
+              <CardBody>
+                <blockquote className="text-center">
+                  <p className="text-[var(--fs-lg)] font-[var(--fw-light)] text-[var(--text-primary)] mb-[var(--space-3)] italic">
+                    "Scheduling made simple and elegant."
+                  </p>
+                  <cite className="text-[var(--fs-sm)] text-[var(--text-tertiary)] not-italic">
+                    — Welcome back to punctual.ai
+                  </cite>
+                </blockquote>
+              </CardBody>
+            </Card>
+
+            {/* Login Form */}
+            <Card variant="elevated" className="max-w-md mx-auto">
+              <CardBody>
+                <form onSubmit={handleSubmit} className="space-y-[var(--space-5)]">
+                  <FormField>
+                    <Label htmlFor="email" required>
+                      Email Address
+                    </Label>
+                    <Input
+                      id="email"
+                      type="email"
+                      placeholder="john@example.com"
+                      value={formData.email}
+                      onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                      required
+                      autoComplete="email"
+                      autoFocus
+                    />
+                  </FormField>
+
+                  <FormField>
+                    <Label htmlFor="password" required>
+                      Password
+                    </Label>
+                    <Input
+                      id="password"
+                      type="password"
+                      placeholder="••••••••"
+                      value={formData.password}
+                      onChange={(e) => setFormData({ ...formData, password: e.target.value })}
+                      required
+                      autoComplete="current-password"
+                    />
+                  </FormField>
+
+                  <div className="flex items-center justify-between text-[var(--fs-sm)]">
+                    <label className="flex items-center space-x-2">
+                      <input
+                        type="checkbox"
+                        className="rounded border-[var(--border-default)] text-[var(--brand-primary)] focus:ring-[var(--brand-primary)]"
+                      />
+                      <span className="text-[var(--text-secondary)]">Remember me</span>
+                    </label>
+                    <Link
+                      href="/forgot-password"
+                      className="text-[var(--brand-primary)] hover:underline"
+                    >
+                      Forgot password?
+                    </Link>
+                  </div>
+
+                  <Button
+                    type="submit"
+                    variant="primary"
+                    size="large"
+                    fullWidth
+                    disabled={loading}
+                    icon={<ArrowRight className="w-5 h-5" />}
+                  >
+                    {loading ? 'Signing In...' : 'Sign In'}
+                  </Button>
+                </form>
+              </CardBody>
+            </Card>
+
+            {/* Sign Up CTA */}
+            <div className="text-center mt-[var(--space-8)]">
+              <p className="text-[var(--fs-sm)] text-[var(--text-secondary)] mb-[var(--space-3)]">
+                New to punctual.ai?
               </p>
-              <cite style={{
-                fontSize: 'var(--fs-xs)',
-                color: 'var(--color-ink-3)',
-                fontStyle: 'normal'
-              }}>
-                — Welcome back to punctual.ai
-              </cite>
-            </blockquote>
+              <p className="text-[var(--fs-base)] text-[var(--text-primary)] mb-[var(--space-4)]">
+                Create your free account and start scheduling meetings effortlessly.
+              </p>
+              <Button
+                href="/register"
+                variant="secondary"
+                size="large"
+                icon={<ArrowRight className="w-5 h-5" />}
+              >
+                Sign up for free
+              </Button>
+            </div>
 
-            {/* Two-Column Split */}
-            <div style={{
-              display: 'grid',
-              gridTemplateColumns: '1fr 1fr',
-              gap: 'var(--baseline-4)',
-              marginBottom: 'var(--baseline-6)'
-            }}>
+            {/* Features List */}
+            <div className="mt-[var(--space-10)] grid md:grid-cols-2 gap-[var(--space-6)]">
               <div>
-                <h3 style={{ fontSize: 'var(--fs-s)', fontWeight: '500', marginBottom: 'var(--baseline-2)' }}>Sign In</h3>
-                <p style={{ fontSize: 'var(--fs-xs)', color: 'var(--color-ink-3)', lineHeight: '1.5' }}>
+                <Headline level={3} size="md" className="mb-[var(--space-3)]">
+                  Sign In
+                </Headline>
+                <p className="text-[var(--text-secondary)] mb-[var(--space-4)]">
                   Access your dashboard and manage all your bookings in one place.
                 </p>
+                <ul className="space-y-[var(--space-2)]">
+                  <li className="flex items-start space-x-2">
+                    <span className="text-[var(--brand-primary)] mt-1">•</span>
+                    <span className="text-[var(--fs-sm)] text-[var(--text-secondary)]">
+                      View bookings
+                    </span>
+                  </li>
+                  <li className="flex items-start space-x-2">
+                    <span className="text-[var(--brand-primary)] mt-1">•</span>
+                    <span className="text-[var(--fs-sm)] text-[var(--text-secondary)]">
+                      Set availability
+                    </span>
+                  </li>
+                  <li className="flex items-start space-x-2">
+                    <span className="text-[var(--brand-primary)] mt-1">•</span>
+                    <span className="text-[var(--fs-sm)] text-[var(--text-secondary)]">
+                      Manage settings
+                    </span>
+                  </li>
+                </ul>
               </div>
-              <div style={{ borderLeft: '1px solid var(--color-rule)', paddingLeft: 'var(--baseline-4)' }}>
-                <ul style={{ listStyle: 'none', padding: 0 }}>
-                  <li style={{ fontSize: 'var(--fs-xs)', color: 'var(--color-ink-2)', marginBottom: 'var(--baseline)' }}>• View bookings</li>
-                  <li style={{ fontSize: 'var(--fs-xs)', color: 'var(--color-ink-2)', marginBottom: 'var(--baseline)' }}>• Set availability</li>
-                  <li style={{ fontSize: 'var(--fs-xs)', color: 'var(--color-ink-2)' }}>• Manage settings</li>
+
+              <div>
+                <Headline level={3} size="md" className="mb-[var(--space-3)]">
+                  Key Benefits
+                </Headline>
+                <ul className="space-y-[var(--space-3)]">
+                  <li className="flex items-start space-x-3">
+                    <Shield className="w-5 h-5 text-[var(--brand-primary)] flex-shrink-0 mt-0.5" />
+                    <span className="text-[var(--fs-sm)] text-[var(--text-secondary)]">
+                      Secure authentication with encrypted passwords
+                    </span>
+                  </li>
+                  <li className="flex items-start space-x-3">
+                    <Zap className="w-5 h-5 text-[var(--brand-primary)] flex-shrink-0 mt-0.5" />
+                    <span className="text-[var(--fs-sm)] text-[var(--text-secondary)]">
+                      Instant access to your scheduling dashboard
+                    </span>
+                  </li>
+                  <li className="flex items-start space-x-3">
+                    <Clock className="w-5 h-5 text-[var(--brand-primary)] flex-shrink-0 mt-0.5" />
+                    <span className="text-[var(--fs-sm)] text-[var(--text-secondary)]">
+                      Seamless calendar management tools
+                    </span>
+                  </li>
                 </ul>
               </div>
             </div>
-
-            <form onSubmit={handleSubmit} style={{ marginTop: 'var(--baseline-4)', maxWidth: '400px', margin: 'var(--baseline-4) auto 0' }}>
-              <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--baseline-3)' }}>
-                <FormInput
-                  id="email"
-                  label="Email Address"
-                  type="email"
-                  required
-                  value={formData.email}
-                  onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                  placeholder="john@example.com"
-                />
-
-                <FormInput
-                  id="password"
-                  label="Password"
-                  type="password"
-                  required
-                  value={formData.password}
-                  onChange={(e) => setFormData({ ...formData, password: e.target.value })}
-                  placeholder="••••••••"
-                />
-              </div>
-
-              <button
-                type="submit"
-                disabled={loading}
-                style={{
-                  width: '100%',
-                  marginTop: 'var(--baseline-6)',
-                  padding: 'var(--baseline-2) var(--baseline-3)',
-                  backgroundColor: 'var(--color-ink)',
-                  color: 'var(--color-paper)',
-                  border: 'none',
-                  borderRadius: 'var(--radius-micro)',
-                  fontSize: 'var(--fs-s)',
-                  fontWeight: '500',
-                  cursor: loading ? 'wait' : 'pointer',
-                  opacity: loading ? 0.7 : 1,
-                  transition: 'opacity var(--transition-base)'
-                }}
-              >
-                {loading ? 'Signing In...' : 'Sign In'}
-              </button>
-
-            </form>
-
-            {/* Callout—Accent */}
-            <aside style={{
-              marginTop: 'var(--baseline-6)',
-              padding: 'var(--baseline-3)',
-              backgroundColor: 'var(--color-paper)',
-              borderTop: '3px solid var(--color-accent)',
-              borderLeft: '1px solid var(--color-rule)',
-              borderRight: '1px solid var(--color-rule)',
-              borderBottom: '1px solid var(--color-rule)',
-              borderRadius: 'var(--radius-micro)'
-            }}>
-              <p style={{ fontSize: 'var(--fs-s)', fontWeight: '500', color: 'var(--color-ink)', marginBottom: 'var(--baseline)' }}>
-                New to punctual.ai?
-              </p>
-              <p style={{ fontSize: 'var(--fs-xs)', color: 'var(--color-ink-2)', marginBottom: 'var(--baseline-2)' }}>
-                Create your free account and start scheduling meetings effortlessly.
-              </p>
-              <Link
-                href="/register"
-                style={{
-                  display: 'inline-block',
-                  fontSize: 'var(--fs-xs)',
-                  color: 'var(--color-accent)',
-                  textDecoration: 'underline',
-                  textUnderlineOffset: '2px'
-                }}
-              >
-                Sign up for free →
-              </Link>
-            </aside>
-
-            {/* Key Takeaways */}
-            <div style={{
-              marginTop: 'var(--baseline-6)',
-              padding: 'var(--baseline-3)',
-              border: '2px solid var(--color-rule)',
-              borderRadius: 'var(--radius-micro)',
-              backgroundColor: 'var(--color-paper-shade)'
-            }}>
-              <h3 style={{ fontSize: 'var(--fs-s)', fontWeight: '500', marginBottom: 'var(--baseline-2)' }}>
-                Key Benefits
-              </h3>
-              <ul style={{ listStyle: 'none', padding: 0 }}>
-                <li style={{ fontSize: 'var(--fs-xs)', color: 'var(--color-ink)', marginBottom: 'var(--baseline)' }}>
-                  • Secure authentication with encrypted passwords
-                </li>
-                <li style={{ fontSize: 'var(--fs-xs)', color: 'var(--color-ink)', marginBottom: 'var(--baseline)' }}>
-                  • Instant access to your scheduling dashboard
-                </li>
-                <li style={{ fontSize: 'var(--fs-xs)', color: 'var(--color-ink)' }}>
-                  • Seamless calendar management tools
-                </li>
-              </ul>
-            </div>
-          </div>
-        </Strip>
-      </Canvas>
-    </main>
+          </Container>
+        </Section>
+      </Main>
+    </Layout>
   )
 }

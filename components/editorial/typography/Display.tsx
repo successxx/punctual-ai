@@ -6,13 +6,14 @@ interface DisplayProps {
   level?: 1 | 2 | 3
   balance?: boolean
   className?: string
+  align?: string
 }
 
 /**
  * Display - Primary headline typography
  * Always contains the page's main h1 or section headers
  */
-export function Display({ children, level = 1, balance = true, className }: DisplayProps) {
+export function Display({ children, level = 1, balance = true, className, align }: DisplayProps) {
   const levelClasses = {
     1: 'text-[var(--fs-xxl)] leading-[var(--lh-tight)] font-semibold',
     2: 'text-[var(--fs-xl)] leading-[var(--lh-tight)] font-semibold',
@@ -34,6 +35,8 @@ export function Display({ children, level = 1, balance = true, className }: Disp
         balance && 'text-balance',
         // Baseline spacing
         'mb-[var(--baseline-3)]',
+        // Alignment
+        align === 'center' && 'text-center mx-auto',
         className
       )}
     >

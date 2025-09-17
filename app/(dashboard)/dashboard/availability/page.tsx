@@ -475,7 +475,7 @@ export default function AvailabilityPage() {
             <button
               onClick={() => {
                 // Set Mon-Fri 9-5
-                const workdaySlots = []
+                const workdaySlots: any[] = []
                 for (let day = 1; day <= 5; day++) {
                   workdaySlots.push(
                     {

@@ -28,14 +28,15 @@ export async function POST(req: NextRequest) {
     // Generate unique username
     const username = generateUsername(email)
 
-    // Create user profile
+    // Create user profile in profiles table
     const { data: profile, error: profileError } = await supabaseAdmin
-      .from('users')
+      .from('profiles')
       .insert({
         id: authData.user.id,
         email,
         name,
         username,
+        subscription_tier: 'free',
         timezone: Intl.DateTimeFormat().resolvedOptions().timeZone
       })
       .select()
@@ -47,40 +48,22 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: profileError.message }, { status: 400 })
     }
 
-    // Create default event type
-    await supabaseAdmin
-      .from('event_types')
-      .insert({
-        user_id: profile.id,
-        title: '30 Minute Meeting',
-        description: 'A 30-minute meeting to discuss your needs',
-        duration: 30,
-        is_active: true
-      })
+    // No need for event_types anymore - removed
 
     // Create default availability (Mon-Fri 9-5)
     const defaultAvailability = []
     for (let day = 1; day <= 5; day++) { // Monday to Friday
-      defaultAvailability.push(
-        {
-          user_id: profile.id,
-          day_of_week: day,
-          start_time: '09:00:00',
-          end_time: '12:00:00',
-          is_active: true
-        },
-        {
-          user_id: profile.id,
-          day_of_week: day,
-          start_time: '13:00:00',
-          end_time: '17:00:00',
-          is_active: true
-        }
-      )
+      defaultAvailability.push({
+        user_id: profile.id,
+        day_of_week: day,
+        start_time: '09:00:00',
+        end_time: '17:00:00',
+        is_available: true
+      })
     }
 
     await supabaseAdmin
-      .from('availabilities')
+      .from('availability')
       .insert(defaultAvailability)
 
     return NextResponse.json({
