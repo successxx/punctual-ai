@@ -1,6 +1,13 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { supabaseAdmin } from '@/lib/supabase'
-import { generateUsername } from '@/lib/utils'
+
+// Simple in-memory storage for demo purposes
+const mockUsers: any[] = []
+
+function generateUsername(email: string): string {
+  const baseName = email.split('@')[0].toLowerCase()
+  const randomSuffix = Math.floor(Math.random() * 10000)
+  return `${baseName}${randomSuffix}`
+}
 
 export async function POST(req: NextRequest) {
   try {
@@ -14,43 +21,35 @@ export async function POST(req: NextRequest) {
       )
     }
 
-    // Create auth user
-    const { data: authData, error: authError } = await supabaseAdmin.auth.admin.createUser({
-      email,
-      password,
-      email_confirm: true
-    })
-
-    if (authError) {
-      return NextResponse.json({ error: authError.message }, { status: 400 })
+    // Check if email already exists
+    const existingUser = mockUsers.find(user => user.email === email)
+    if (existingUser) {
+      return NextResponse.json(
+        { error: 'User with this email already exists' },
+        { status: 400 }
+      )
     }
 
-    // Generate unique username
+    // Generate unique username and user ID
     const username = generateUsername(email)
+    const userId = `user_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`
 
-    // Create user profile in profiles table
-    const { data: profile, error: profileError } = await supabaseAdmin
-      .from('profiles')
-      .insert({
-        id: authData.user.id,
-        email,
-        name,
-        username,
-        subscription_tier: 'free',
-        timezone: Intl.DateTimeFormat().resolvedOptions().timeZone
-      })
-      .select()
-      .single()
-
-    if (profileError) {
-      // If profile creation fails, delete the auth user
-      await supabaseAdmin.auth.admin.deleteUser(authData.user.id)
-      return NextResponse.json({ error: profileError.message }, { status: 400 })
+    // Create mock user profile
+    const profile = {
+      id: userId,
+      email,
+      name,
+      username,
+      subscription_tier: 'free',
+      timezone: 'UTC',
+      created_at: new Date().toISOString(),
+      updated_at: new Date().toISOString()
     }
 
-    // No need for event_types anymore - removed
+    // Store in mock database
+    mockUsers.push(profile)
 
-    // Create default availability (Mon-Fri 9-5)
+    // Mock default availability (Mon-Fri 9-5)
     const defaultAvailability = []
     for (let day = 1; day <= 5; day++) { // Monday to Friday
       defaultAvailability.push({
@@ -62,13 +61,10 @@ export async function POST(req: NextRequest) {
       })
     }
 
-    await supabaseAdmin
-      .from('availability')
-      .insert(defaultAvailability)
-
+    // Simulate successful registration
     return NextResponse.json({
       user: profile,
-      message: 'Registration successful! Please check your email to verify your account.'
+      message: 'Registration successful! Welcome to punctual.ai'
     })
   } catch (error: any) {
     console.error('Registration error:', error)
