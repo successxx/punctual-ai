@@ -20,6 +20,17 @@ export const metadata: Metadata = {
   creator: "punctual.ai",
   publisher: "punctual.ai",
   metadataBase: new URL(process.env.NEXT_PUBLIC_APP_URL || 'https://punctual.ai'),
+  icons: {
+    icon: [
+      { url: '/favicon-16x16.png', sizes: '16x16', type: 'image/png' },
+      { url: '/favicon-32x32.png', sizes: '32x32', type: 'image/png' },
+      { url: '/icon.svg', type: 'image/svg+xml' }
+    ],
+    apple: '/apple-touch-icon.png',
+    other: [
+      { rel: 'mask-icon', url: '/icon.svg', color: '#000000' }
+    ]
+  },
   openGraph: {
     title: "punctual.ai - Simple Scheduling Platform",
     description: "Let your clients book appointments with you instantly. No back-and-forth emails, no confusion.",

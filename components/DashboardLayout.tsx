@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import { usePathname, useRouter } from 'next/navigation'
 import { Calendar, Clock, Settings, LogOut, Menu, X, User, BarChart3 } from 'lucide-react'
+import { Logo } from '@/components/ui/logo'
 
 export default function DashboardLayout({ children }: { children: React.ReactNode }) {
   const pathname = usePathname()
@@ -48,7 +49,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
         <div className="flex flex-col flex-grow bg-white border-r border-gray-200">
           <div className="flex items-center justify-between h-16 px-6 border-b border-gray-200">
             <Link href="/dashboard" className="flex items-center">
-              <span className="text-xl font-semibold text-gray-900">punctual.ai</span>
+              <Logo size="small" variant="dark" />
             </Link>
           </div>
 

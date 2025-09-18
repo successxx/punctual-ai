@@ -5,6 +5,7 @@ import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { Menu, X, ChevronDown } from 'lucide-react'
 import { Button } from './Button'
+import { Logo } from '@/components/ui/logo'
 import { cn } from '@/lib/utils'
 
 const navigationItems = [
@@ -82,10 +83,8 @@ export function NavigationEnhanced() {
         <div className="flex h-16 items-center justify-between">
           {/* Logo */}
           <div className="flex items-center">
-            <Link href="/" className="flex items-center space-x-2">
-              <span className="text-[var(--fs-lg)] font-[var(--fw-semibold)] tracking-[var(--ls-snug)]">
-                punctual.ai
-              </span>
+            <Link href="/" className="flex items-center">
+              <Logo size="small" variant="dark" />
             </Link>
           </div>
 
