@@ -5,7 +5,7 @@ import { Section } from '@/components/premium/Section'
 import { Headline, Eyebrow, Lead, Prose } from '@/components/premium/Typography'
 import { Footer } from '@/components/premium/Footer'
 import { Card, CardBody } from '@/components/premium/Card'
-import { Shield, Lock, Eye, UserCheck, Database, Globe } from 'lucide-react'
+import { Shield, Lock, UserCheck } from 'lucide-react'
 
 export default function PrivacyPolicyPage() {
   const lastUpdated = 'December 15, 2024'

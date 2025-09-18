@@ -8,12 +8,10 @@ import {
   Clock,
   Home,
   Settings,
-  Users,
   LogOut,
   Copy,
   CheckCircle
 } from 'lucide-react'
-import { Button } from '@/components/ui/button'
 import toast, { Toaster } from 'react-hot-toast'
 
 export default function DashboardLayout({

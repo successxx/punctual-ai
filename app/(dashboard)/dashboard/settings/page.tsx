@@ -5,7 +5,7 @@ import { supabase } from '@/lib/supabase'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Card } from '@/components/ui/card'
-import { User, Clock, Globe, Link, Crown, CreditCard } from 'lucide-react'
+import { User, Link, Crown, CreditCard } from 'lucide-react'
 import toast from 'react-hot-toast'
 import { useRouter } from 'next/navigation'
 
@@ -74,7 +74,7 @@ export default function SettingsPage() {
 
       toast.success('Custom URL updated successfully!')
       await loadUserAndProfile()
-    } catch (error) {
+    } catch (_error) {
       toast.error('Failed to update custom URL')
     } finally {
       setLoading(false)
@@ -93,7 +93,7 @@ export default function SettingsPage() {
       if (url) {
         window.location.href = url
       }
-    } catch (error) {
+    } catch (_error) {
       toast.error('Failed to open billing portal')
     }
   }

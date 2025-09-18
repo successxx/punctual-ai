@@ -8,7 +8,6 @@ import { Clock, Plus, Trash2 } from 'lucide-react'
 import { Canvas } from '@/components/editorial/layout/Canvas'
 import { Strip } from '@/components/editorial/layout/Strip'
 import { Display } from '@/components/editorial/typography/Display'
-import { Prose } from '@/components/editorial/typography/Prose'
 import '@/styles/editorial.tokens.css'
 
 const DAYS_OF_WEEK = [

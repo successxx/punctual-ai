@@ -1,8 +1,8 @@
 import Link from 'next/link'
 import {
   Twitter, Linkedin, Github, Youtube, Facebook,
-  Mail, MapPin, Phone, ExternalLink, Globe,
-  Shield, Award, Zap, Clock
+  MapPin, Globe,
+  Shield, Award, Zap
 } from 'lucide-react'
 
 export function Footer() {

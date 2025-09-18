@@ -2,16 +2,13 @@
 'use client'
 
 import { useState } from 'react'
-import { Calendar, Clock, User, ChevronLeft, ChevronRight, Check } from 'lucide-react'
+import { ChevronLeft, ChevronRight, Check } from 'lucide-react'
 import { formatTimeSlot, getAvailableTimeSlots } from '@/lib/utils'
 import toast, { Toaster } from 'react-hot-toast'
 import { Canvas } from '@/components/editorial/layout/Canvas'
 import { Strip } from '@/components/editorial/layout/Strip'
 import { Display } from '@/components/editorial/typography/Display'
-import { Deck } from '@/components/editorial/typography/Deck'
-import { Prose } from '@/components/editorial/typography/Prose'
 import { FormInput } from '@/components/editorial/forms/FormInput'
-import { Action } from '@/components/editorial/ui/Action'
 import '@/styles/editorial.tokens.css'
 
 interface BookingPageProps {

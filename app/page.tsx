@@ -1,7 +1,7 @@
 'use client'
 
 import Link from 'next/link'
-import { Calendar, Clock, Users, CheckCircle, ArrowRight, Star, Shield, Zap, BarChart3 } from 'lucide-react'
+import { Calendar, Clock, Users, ArrowRight, Star } from 'lucide-react'
 
 export default function HomePage() {
   return (

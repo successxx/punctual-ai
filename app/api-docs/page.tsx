@@ -7,7 +7,7 @@ import { Headline, Eyebrow, Lead, Prose } from '@/components/premium/Typography'
 import { Footer } from '@/components/premium/Footer'
 import { Card, CardBody } from '@/components/premium/Card'
 import { Button } from '@/components/premium/Button'
-import { Code, Terminal, Book, Zap, Key, Globe, ChevronRight, Copy, Check } from 'lucide-react'
+import { Code, Terminal, Zap, Key, ChevronRight, Copy, Check } from 'lucide-react'
 
 export default function APIDocsPage() {
   const [copiedCode, setCopiedCode] = useState<string | null>(null)

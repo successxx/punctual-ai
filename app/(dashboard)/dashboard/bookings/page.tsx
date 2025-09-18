@@ -3,7 +3,7 @@
 
 import { useEffect, useState } from 'react'
 import { supabase } from '@/lib/supabase'
-import { Calendar, Clock, Mail, User, X } from 'lucide-react'
+import { Calendar, Clock, Mail, X } from 'lucide-react'
 import { Canvas } from '@/components/editorial/layout/Canvas'
 import { Strip } from '@/components/editorial/layout/Strip'
 import { Display } from '@/components/editorial/typography/Display'
@@ -12,7 +12,7 @@ import toast from 'react-hot-toast'
 import '@/styles/editorial.tokens.css'
 
 export default function BookingsPage() {
-  const [user, setUser] = useState<any>(null)
+  const [_user, setUser] = useState<any>(null)
   const [bookings, setBookings] = useState<any[]>([])
   const [filter, setFilter] = useState<'all' | 'upcoming' | 'past'>('upcoming')
 

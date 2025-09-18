@@ -5,7 +5,7 @@ import { Section } from '@/components/premium/Section'
 import { Headline, Eyebrow, Lead, Prose } from '@/components/premium/Typography'
 import { Footer } from '@/components/premium/Footer'
 import { Card, CardBody } from '@/components/premium/Card'
-import { FileText, Scale, AlertCircle, CheckCircle } from 'lucide-react'
+import { CheckCircle } from 'lucide-react'
 
 export default function TermsOfServicePage() {
   const lastUpdated = 'December 15, 2024'

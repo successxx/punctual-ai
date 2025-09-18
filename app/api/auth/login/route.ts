@@ -26,7 +26,7 @@ export async function POST(req: NextRequest) {
     }
 
     // Get user profile from profiles table
-    const { data: profile, error: profileError } = await supabaseAdmin
+    const { data: profile, error: _profileError } = await supabaseAdmin
       .from('profiles')
       .select('*')
       .eq('id', authData.user.id)

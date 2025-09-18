@@ -19,7 +19,7 @@ interface StatGridProps {
  * StatItem - Individual statistic display
  * Clean, minimal presentation of key metrics
  */
-export function StatItem({ label, value, icon, trend, className }: StatItemProps) {
+export function StatItem({ label, value, icon, trend: _trend, className }: StatItemProps) {
   return (
     <div
       className={cn(

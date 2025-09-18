@@ -12,7 +12,7 @@ async function testConnection() {
   try {
     // Test 1: Check if we can query the users table
     console.log('📊 Checking if tables exist...');
-    const { data: users, error: usersError } = await supabase
+    const { data: _users, error: usersError } = await supabase
       .from('users')
       .select('count')
       .limit(1);

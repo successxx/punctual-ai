@@ -2,13 +2,11 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import { Calendar, Clock, Users, TrendingUp } from 'lucide-react'
+import { } from 'lucide-react'
 import { supabase } from '@/lib/supabase'
 import { Canvas } from '@/components/editorial/layout/Canvas'
 import { Strip } from '@/components/editorial/layout/Strip'
 import { Display } from '@/components/editorial/typography/Display'
-import { Prose } from '@/components/editorial/typography/Prose'
-import { FactList } from '@/components/editorial/blocks/FactList'
 import '@/styles/editorial.tokens.css'
 
 export default function DashboardPage() {
@@ -169,7 +167,7 @@ export default function DashboardPage() {
             <>
               {/* Accordion (Native) for first 2 bookings */}
               <div style={{ marginBottom: 'var(--baseline-4)' }}>
-                {upcomingBookings.slice(0, 2).map((booking, index) => (
+                {upcomingBookings.slice(0, 2).map((booking, _index) => (
                   <details
                     key={booking.id}
                     style={{
@@ -221,7 +219,7 @@ export default function DashboardPage() {
                   paddingLeft: 'var(--baseline-4)'
                 }}>
                   <h3 style={{ fontSize: 'var(--fs-s)', fontWeight: '500', marginBottom: 'var(--baseline-3)' }}>Later Appointments</h3>
-                  {upcomingBookings.slice(2).map((booking, index) => (
+                  {upcomingBookings.slice(2).map((booking, _index) => (
                     <div
                       key={booking.id}
                       style={{

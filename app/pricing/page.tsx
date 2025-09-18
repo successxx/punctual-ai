@@ -2,18 +2,16 @@
 
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
-import Link from 'next/link'
 import {
-  Check, X, Sparkles, BarChart3, Users, Clock, Shield, Zap,
-  Mail, Palette, FileText, Globe, Download, CreditCard,
-  TrendingUp, Award, Infinity, Calendar, Headphones, Lock
+  Check, X, Sparkles, BarChart3, Clock, Shield, Zap,
+  Palette, FileText, Download
 } from 'lucide-react'
 import { supabase } from '@/lib/supabase'
 
 // Premium Components
 import { Layout, Navigation, Main, Container } from '@/components/premium/Layout'
 import { Section } from '@/components/premium/Section'
-import { Headline, Eyebrow, Lead, Prose } from '@/components/premium/Typography'
+import { Headline, Eyebrow, Lead } from '@/components/premium/Typography'
 import { Button } from '@/components/premium/Button'
 import { Card, CardBody } from '@/components/premium/Card'
 

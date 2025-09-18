@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import { usePathname, useRouter } from 'next/navigation'
-import { Calendar, Clock, Settings, LogOut, Menu, X, User, BarChart3, Crown } from 'lucide-react'
+import { Calendar, Clock, Settings, LogOut, Menu, X, User, BarChart3 } from 'lucide-react'
 
 export default function DashboardLayout({ children }: { children: React.ReactNode }) {
   const pathname = usePathname()

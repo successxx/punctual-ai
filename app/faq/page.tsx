@@ -9,7 +9,6 @@ import { Section } from '@/components/premium/Section'
 import { Headline, Eyebrow, Lead, Prose } from '@/components/premium/Typography'
 import { Button } from '@/components/premium/Button'
 import { Card, CardBody } from '@/components/premium/Card'
-import { FormField, Input } from '@/components/premium/Form'
 
 // Load design tokens
 import '@/styles/design-tokens.css'
@@ -576,7 +575,7 @@ export default function FAQPage() {
                   </CardBody>
                 </Card>
               ) : (
-                filteredFAQs.map((faq, index) => {
+                filteredFAQs.map((faq, _index) => {
                   const globalIndex = faqs.indexOf(faq)
                   const isExpanded = expandedItems.has(globalIndex)
 

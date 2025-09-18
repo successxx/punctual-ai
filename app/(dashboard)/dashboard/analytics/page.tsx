@@ -11,7 +11,7 @@ export default function AnalyticsPage() {
   const router = useRouter()
   const [loading, setLoading] = useState(true)
   const [user, setUser] = useState<{ id: string; email?: string } | null>(null)
-  const [profile, setProfile] = useState<{ subscription_tier?: string } | null>(null)
+  const [_profile, setProfile] = useState<{ subscription_tier?: string } | null>(null)
   const [analytics, setAnalytics] = useState({
     totalBookings: 0,
     thisMonthBookings: 0,

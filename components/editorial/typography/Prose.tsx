@@ -37,7 +37,7 @@ export function Prose({ children, measure = 'prose', className }: ProseProps) {
 }
 
 // CSS for prose styling - this would go in the editorial tokens file
-const proseStyles = `
+const _proseStyles = `
 .prose-editorial h2 {
   font-size: var(--fs-l);
   font-weight: 600;

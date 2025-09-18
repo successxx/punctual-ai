@@ -3,7 +3,7 @@
 // Premium Components
 import { Layout, Navigation, Main, Container } from '@/components/premium/Layout'
 import { Section } from '@/components/premium/Section'
-import { Headline, Eyebrow, Lead, Prose } from '@/components/premium/Typography'
+import { Headline, Lead } from '@/components/premium/Typography'
 import { Button } from '@/components/premium/Button'
 import { Card, CardBody } from '@/components/premium/Card'
 import { FormField, Label, Input, HelperText } from '@/components/premium/Form'

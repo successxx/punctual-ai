@@ -8,7 +8,6 @@ import { User, Clock, Globe } from 'lucide-react'
 import { Canvas } from '@/components/editorial/layout/Canvas'
 import { Strip } from '@/components/editorial/layout/Strip'
 import { Display } from '@/components/editorial/typography/Display'
-import { Prose } from '@/components/editorial/typography/Prose'
 import { FormInput } from '@/components/editorial/forms/FormInput'
 import '@/styles/editorial.tokens.css'
 
