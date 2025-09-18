@@ -1,44 +1,70 @@
-# Punctual.AI - Simple Scheduling Platform
+# Punctual.AI - Professional Scheduling Platform
 
-A fully functional booking system like Calendly, with both a beautiful web interface and a complete REST API for integration with other platforms like Clients.AI.
+[![Next.js](https://img.shields.io/badge/Next.js-15.5.3-black)](https://nextjs.org/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5.0-blue)](https://www.typescriptlang.org/)
+[![Supabase](https://img.shields.io/badge/Supabase-Database-green)](https://supabase.com/)
+[![Tailwind CSS](https://img.shields.io/badge/Tailwind-CSS-38B2AC)](https://tailwindcss.com/)
 
-## Features
+A complete, production-ready scheduling platform that rivals Calendly, with both a beautiful web interface and a comprehensive REST API for seamless integration with other platforms.
 
-### Web Application
-- 🔐 User registration and authentication
-- 📅 Visual availability management
-- 🔗 Unique booking links (punctual.ai/username)
-- 📧 Email notifications for both parties
-- 🚫 Anti-double-booking with atomic transactions
-- 📱 Fully responsive design
-- 🎨 Beautiful, minimalist UI (Jony Ive inspired)
+## ✨ Features
 
-### API for Integration
-- 🔌 Complete REST API
-- 🔑 API key authentication
-- 📊 Rate limiting
-- 🪝 Webhook support
-- 📖 OpenAPI documentation
+### 🎯 Core Functionality
+- **User Authentication** - Secure registration and login with Supabase Auth
+- **Availability Management** - Visual calendar interface for setting availability
+- **Unique Booking Links** - Custom URLs like `punctual.ai/username`
+- **Email Notifications** - Automated confirmations for both parties
+- **Anti-Double-Booking** - Atomic database transactions prevent conflicts
+- **Responsive Design** - Works perfectly on all devices
+- **Beautiful UI** - Jony Ive-inspired minimalist design
 
-## Quick Start
+### 🔌 API Integration
+- **Complete REST API** - Full CRUD operations for all resources
+- **API Key Authentication** - Secure access control
+- **Rate Limiting** - Built-in protection against abuse
+- **Webhook Support** - Real-time notifications for external systems
+- **OpenAPI Documentation** - Interactive API docs at `/api-docs`
 
-### 1. Prerequisites
-- Node.js 18+
-- Supabase account (free tier)
-- Optional: Resend account for emails
+### 🛠️ Technical Features
+- **TypeScript** - Full type safety throughout the application
+- **Next.js 15** - Latest React framework with App Router
+- **Supabase** - PostgreSQL database with real-time subscriptions
+- **Stripe Integration** - Payment processing (optional)
+- **Google Calendar** - OAuth integration (optional)
+- **Email Service** - Resend API integration
 
-### 2. Supabase Setup
+## 🚀 Quick Start
 
-1. Create a Supabase project at [supabase.com](https://supabase.com)
-2. Go to SQL Editor and run the entire contents of `supabase-schema.sql`
-3. Get your API keys from Settings → API
+### Prerequisites
+- **Node.js 18+** - [Download here](https://nodejs.org/)
+- **Supabase Account** - [Free tier available](https://supabase.com/)
+- **Git** - For cloning the repository
 
-### 3. Environment Setup
+### 1. Clone and Setup
 
-Create `.env.local` with your Supabase credentials:
+```bash
+# Clone the repository
+git clone https://github.com/successxx/punctual-ai.git
+cd punctual-ai
+
+# Run the automated setup script
+npm run setup
+```
+
+The setup script will:
+- ✅ Check Node.js and npm versions
+- ✅ Install all dependencies
+- ✅ Create environment configuration
+- ✅ Set up the database schema
+- ✅ Create demo data
+- ✅ Test the build process
+
+### 2. Configure Environment
+
+Edit `.env.local` with your credentials:
 
 ```env
-# Supabase (required)
+# Supabase (Required)
 NEXT_PUBLIC_SUPABASE_URL=https://your-project-ref.supabase.co
 NEXT_PUBLIC_SUPABASE_ANON_KEY=your-anon-key
 SUPABASE_SERVICE_ROLE_KEY=your-service-role-key
@@ -46,135 +72,221 @@ SUPABASE_SERVICE_ROLE_KEY=your-service-role-key
 # App Configuration
 NEXT_PUBLIC_APP_URL=http://localhost:3000
 NEXTAUTH_URL=http://localhost:3000
-NEXTAUTH_SECRET=generate-with-openssl-rand-base64-32
+NEXTAUTH_SECRET=your-nextauth-secret
 
-# Email (optional)
+# Email (Optional)
 RESEND_API_KEY=re_your_api_key
 
-# API Configuration
-API_RATE_LIMIT=1000
-API_KEY_SALT=random-salt
-CLIENTS_AI_WEBHOOK_SECRET=webhook-secret
+# Stripe (Optional)
+STRIPE_PUBLISHABLE_KEY=pk_test_your_key
+STRIPE_SECRET_KEY=sk_test_your_key
 ```
 
-### 4. Install & Run
+### 3. Start Development
 
 ```bash
-# Install dependencies
-npm install
-
-# Run development server
+# Start the development server
 npm run dev
 
 # Open http://localhost:3000
 ```
 
-### 5. Create API Client (for Clients.AI integration)
-
-Run this SQL in your Supabase SQL Editor:
-
-```sql
-INSERT INTO api_clients (
-  name,
-  api_key_hash,
-  webhook_url,
-  rate_limit,
-  is_active
-) VALUES (
-  'Clients.AI',
-  SHA256('your-api-key-here'),
-  'https://clients.ai/webhooks/punctual',
-  1000,
-  true
-);
-```
-
-## Testing
-
-### Web UI Flow
-1. Register at `/register`
-2. Set availability in dashboard
-3. Copy your booking link
-4. Share with clients
-5. Test booking as guest
-
-### API Testing
+## 📚 Available Scripts
 
 ```bash
-# Run setup script for demo data
-npx tsx scripts/setup-demo.ts
+# Development
+npm run dev              # Start development server
+npm run build            # Build for production
+npm run start            # Start production server
 
-# Test API endpoints
-npx tsx scripts/test-api.ts
+# Code Quality
+npm run lint             # Run ESLint
+npm run lint:fix         # Fix ESLint issues
+npm run type-check       # TypeScript type checking
+
+# Setup & Testing
+npm run setup            # Full automated setup
+npm run setup:demo       # Create demo data
+npm run test:api         # Test API endpoints
+npm run test:connection  # Test database connection
+
+# Database
+npm run db:setup         # Setup database schema
+npm run db:reset         # Reset database (careful!)
+
+# Maintenance
+npm run clean            # Clean build artifacts
+npm run fresh-install    # Clean install dependencies
 ```
 
-## API Documentation
+## 🗄️ Database Setup
 
-View full API docs at: `http://localhost:3000/api/v1/docs`
+### Option 1: Automated Setup
+```bash
+npm run db:setup
+```
+
+### Option 2: Manual Setup
+1. Create a Supabase project at [supabase.com](https://supabase.com)
+2. Go to SQL Editor
+3. Run the entire contents of `supabase-schema.sql`
+4. Get your API keys from Settings → API
+
+## 🧪 Testing
+
+### Web Application Testing
+1. Register at `/register`
+2. Set your availability in the dashboard
+3. Copy your booking link
+4. Test booking as a guest
+5. Verify email notifications
+
+### API Testing
+```bash
+# Test all API endpoints
+npm run test:api
+
+# Test database connection
+npm run test:connection
+
+# View API documentation
+open http://localhost:3000/api-docs
+```
+
+## 📖 API Documentation
+
+### Authentication
+Include your API key in the request headers:
+```bash
+curl -H "X-API-Key: your-api-key" \
+     http://localhost:3000/api/v1/bookings
+```
 
 ### Key Endpoints
-
 - `POST /api/v1/users` - Create user
 - `GET /api/v1/bookings` - List bookings
 - `POST /api/v1/bookings` - Create booking
-- `POST /api/v1/availability/slots` - Get available slots
+- `GET /api/v1/availability/slots` - Get available slots
+- `POST /api/v1/availability` - Set availability
 
-### Authentication
-
-Include API key in headers:
+### Webhook Integration
+Configure webhooks for real-time notifications:
+```bash
+curl -X POST http://localhost:3000/api/v1/webhooks \
+     -H "Content-Type: application/json" \
+     -d '{"url": "https://your-app.com/webhook", "events": ["booking.created"]}'
 ```
-X-API-Key: your-api-key
+
+## 🚀 Deployment
+
+### Deploy to Vercel (Recommended)
+
+1. **Push to GitHub**
+   ```bash
+   git add .
+   git commit -m "Initial commit"
+   git push origin main
+   ```
+
+2. **Import to Vercel**
+   - Go to [vercel.com](https://vercel.com)
+   - Import your GitHub repository
+   - Add environment variables
+   - Deploy
+
+3. **Configure Production**
+   - Update `NEXT_PUBLIC_APP_URL` to your domain
+   - Set production Supabase URLs
+   - Configure Resend with verified domain
+
+### Deploy to Other Platforms
+
+The application is compatible with:
+- **Vercel** (recommended)
+- **Netlify**
+- **Railway**
+- **DigitalOcean App Platform**
+- **AWS Amplify**
+
+## 🏗️ Architecture
+
+```
+┌─────────────────┐    ┌─────────────────┐    ┌─────────────────┐
+│   Frontend      │    │   Backend       │    │   Database      │
+│   (Next.js)     │◄──►│   (API Routes)  │◄──►│   (Supabase)    │
+│                 │    │                 │    │                 │
+│ • React 19      │    │ • TypeScript    │    │ • PostgreSQL    │
+│ • Tailwind CSS  │    │ • Zod Validation│    │ • Real-time     │
+│ • App Router    │    │ • Rate Limiting │    │ • Row Level     │
+└─────────────────┘    └─────────────────┘    └─────────────────┘
+         │                       │                       │
+         ▼                       ▼                       ▼
+┌─────────────────┐    ┌─────────────────┐    ┌─────────────────┐
+│   External      │    │   Authentication│    │   File Storage  │
+│   Services      │    │   & Security    │    │   & CDN         │
+│                 │    │                 │    │                 │
+│ • Resend Email  │    │ • Supabase Auth │    │ • Supabase      │
+│ • Stripe        │    │ • JWT Tokens    │    │   Storage       │
+│ • Google OAuth  │    │ • API Keys      │    │ • Vercel CDN    │
+└─────────────────┘    └─────────────────┘    └─────────────────┘
 ```
 
-## Deployment
+## 🔧 Configuration
 
-### Deploy to Vercel
+### Environment Variables
 
-1. Push to GitHub
-2. Import to Vercel
-3. Add environment variables
-4. Deploy
+| Variable | Required | Description |
+|----------|----------|-------------|
+| `NEXT_PUBLIC_SUPABASE_URL` | ✅ | Supabase project URL |
+| `NEXT_PUBLIC_SUPABASE_ANON_KEY` | ✅ | Supabase anonymous key |
+| `SUPABASE_SERVICE_ROLE_KEY` | ✅ | Supabase service role key |
+| `NEXT_PUBLIC_APP_URL` | ✅ | Your application URL |
+| `NEXTAUTH_SECRET` | ✅ | NextAuth secret key |
+| `RESEND_API_KEY` | ❌ | Email service API key |
+| `STRIPE_PUBLISHABLE_KEY` | ❌ | Stripe publishable key |
+| `STRIPE_SECRET_KEY` | ❌ | Stripe secret key |
+| `GOOGLE_CLIENT_ID` | ❌ | Google OAuth client ID |
+| `GOOGLE_CLIENT_SECRET` | ❌ | Google OAuth client secret |
 
-### Production Checklist
+### Database Schema
 
-- [ ] Set production Supabase URLs
-- [ ] Configure Resend with verified domain
-- [ ] Set up Google Calendar OAuth (optional)
-- [ ] Update CORS settings
-- [ ] Enable rate limiting
-- [ ] Set up monitoring
+The application uses the following main tables:
+- `users` - User profiles and settings
+- `availability` - User availability schedules
+- `bookings` - Appointment bookings
+- `api_clients` - API authentication
+- `webhooks` - Webhook configurations
 
-## Architecture
+## 🤝 Contributing
 
-- **Frontend**: Next.js 14 with App Router
-- **Backend**: Next.js API Routes (serverless)
-- **Database**: Supabase (PostgreSQL)
-- **Auth**: Supabase Auth
-- **Styling**: Tailwind CSS
-- **Email**: Resend API
+1. Fork the repository
+2. Create a feature branch: `git checkout -b feature/amazing-feature`
+3. Commit your changes: `git commit -m 'Add amazing feature'`
+4. Push to the branch: `git push origin feature/amazing-feature`
+5. Open a Pull Request
 
-## Core User Journeys
+## 📄 License
 
-### Business Owner Setup
-1. Sign up → Get unique link
-2. Set availability
-3. Share link with clients
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-### Client Booking
-1. Visit booking page
-2. Select date & time
-3. Enter details
-4. Receive confirmation
+## 🆘 Support
 
-### Anti-Double-Booking
-- Atomic database transactions
-- Real-time slot locking
-- Automatic conflict detection
+- **Documentation**: Check the `/api-docs` endpoint
+- **Issues**: [GitHub Issues](https://github.com/successxx/punctual-ai/issues)
+- **Discussions**: [GitHub Discussions](https://github.com/successxx/punctual-ai/discussions)
 
-## Support
+## 🎯 Roadmap
 
-For issues or questions, please open an issue on GitHub.
+- [ ] Mobile app (React Native)
+- [ ] Advanced analytics dashboard
+- [ ] Team scheduling features
+- [ ] Calendar integrations (Outlook, Apple)
+- [ ] Video conferencing integration
+- [ ] Multi-language support
+- [ ] White-label solutions
 
-## License
+---
 
-MIT
+**Built with ❤️ by the SuccessXX team**
+
+*Ready to revolutionize scheduling? Get started in under 5 minutes!*

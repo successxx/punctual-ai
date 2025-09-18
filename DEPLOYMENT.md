@@ -1,244 +1,225 @@
-# punctual.ai Deployment Guide
+# Deployment Guide - Punctual.AI
 
-## 🚀 Quick Start Deployment
+This guide covers deploying Punctual.AI to various platforms with zero-downtime and production-ready configurations.
 
-### Prerequisites
-- Node.js 18+ installed
-- Supabase account (free tier works)
-- Domain name (optional, can use Vercel subdomain)
-- Vercel account (recommended) or any Node.js hosting
+## 🚀 Quick Deploy to Vercel (Recommended)
 
-## Step 1: Database Setup (Supabase)
+### 1. Prerequisites
+- GitHub account
+- Vercel account (free tier available)
+- Supabase project set up
 
-1. **Create Supabase Project**
-   - Go to [supabase.com](https://supabase.com)
-   - Create new project
-   - Save your project URL and anon key
+### 2. Deploy Steps
 
-2. **Run Database Schema**
-   ```sql
-   -- Run this in Supabase SQL editor
-
-   -- Users table
-   CREATE TABLE users (
-     id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
-     email TEXT UNIQUE NOT NULL,
-     name TEXT NOT NULL,
-     username TEXT UNIQUE NOT NULL,
-     password_hash TEXT NOT NULL,
-     timezone TEXT DEFAULT 'America/New_York',
-     booking_duration INT DEFAULT 30,
-     buffer_time INT DEFAULT 0,
-     created_at TIMESTAMP DEFAULT NOW(),
-     updated_at TIMESTAMP DEFAULT NOW()
-   );
-
-   -- Availabilities table
-   CREATE TABLE availabilities (
-     id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
-     user_id UUID REFERENCES users(id) ON DELETE CASCADE,
-     day_of_week INT NOT NULL,
-     start_time TIME NOT NULL,
-     end_time TIME NOT NULL,
-     is_active BOOLEAN DEFAULT true,
-     created_at TIMESTAMP DEFAULT NOW()
-   );
-
-   -- Bookings table
-   CREATE TABLE bookings (
-     id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
-     user_id UUID REFERENCES users(id) ON DELETE CASCADE,
-     guest_name TEXT NOT NULL,
-     guest_email TEXT NOT NULL,
-     start_time TIMESTAMP NOT NULL,
-     end_time TIMESTAMP NOT NULL,
-     notes TEXT,
-     status TEXT DEFAULT 'confirmed',
-     created_at TIMESTAMP DEFAULT NOW()
-   );
-
-   -- Add indexes for performance
-   CREATE INDEX idx_bookings_user_id ON bookings(user_id);
-   CREATE INDEX idx_bookings_start_time ON bookings(start_time);
-   CREATE INDEX idx_availabilities_user_id ON availabilities(user_id);
-   ```
-
-## Step 2: Configure Your Custom Domain
-
-### Option A: Using Vercel (Recommended)
-
-1. **Deploy to Vercel**
+1. **Push to GitHub**
    ```bash
-   npx vercel
+   git add .
+   git commit -m "feat: production-ready deployment"
+   git push origin main
    ```
 
-2. **Add Custom Domain**
-   - Go to your Vercel dashboard
-   - Select your project
-   - Go to Settings → Domains
-   - Add your domain (e.g., `yourdomain.com`)
-   - Follow DNS instructions:
-     - Add A record: `@` → `76.76.21.21`
-     - Add CNAME: `www` → `cname.vercel-dns.com`
+2. **Import to Vercel**
+   - Go to [vercel.com](https://vercel.com)
+   - Click "New Project"
+   - Import from GitHub: `successxx/punctual-ai`
+   - Click "Deploy"
 
-3. **Environment Variables in Vercel**
-   - Go to Settings → Environment Variables
-   - Add:
-     ```
-     NEXT_PUBLIC_SUPABASE_URL=your_supabase_url
-     NEXT_PUBLIC_SUPABASE_ANON_KEY=your_anon_key
-     SUPABASE_SERVICE_ROLE_KEY=your_service_key
-     NEXT_PUBLIC_APP_URL=https://yourdomain.com
-     ```
-
-### Option B: Self-Hosted (VPS/Cloud)
-
-1. **Update Application URL**
-   ```bash
-   # In .env.local
-   NEXT_PUBLIC_APP_URL=https://yourdomain.com
-   ```
-
-2. **Build and Deploy**
-   ```bash
-   npm run build
-   npm start
-   ```
-
-3. **Configure Nginx (if using)**
-   ```nginx
-   server {
-     listen 80;
-     server_name yourdomain.com www.yourdomain.com;
-
-     location / {
-       proxy_pass http://localhost:3000;
-       proxy_http_version 1.1;
-       proxy_set_header Upgrade $http_upgrade;
-       proxy_set_header Connection 'upgrade';
-       proxy_set_header Host $host;
-       proxy_cache_bypass $http_upgrade;
-     }
-   }
-   ```
-
-4. **SSL with Certbot**
-   ```bash
-   sudo certbot --nginx -d yourdomain.com -d www.yourdomain.com
-   ```
-
-## Step 3: Environment Configuration
-
-1. **Copy environment template**
-   ```bash
-   cp .env.example .env.local
-   ```
-
-2. **Update all variables**
+3. **Configure Environment Variables**
    ```env
    NEXT_PUBLIC_SUPABASE_URL=https://your-project.supabase.co
    NEXT_PUBLIC_SUPABASE_ANON_KEY=your-anon-key
-   SUPABASE_SERVICE_ROLE_KEY=your-service-key
-   NEXT_PUBLIC_APP_URL=https://yourdomain.com
+   SUPABASE_SERVICE_ROLE_KEY=your-service-role-key
+   NEXT_PUBLIC_APP_URL=https://your-app.vercel.app
+   NEXTAUTH_URL=https://your-app.vercel.app
+   NEXTAUTH_SECRET=your-secret-key
+   RESEND_API_KEY=re_your_api_key
    ```
 
-## Step 4: Email Configuration (Optional)
+4. **Redeploy**
+   - Vercel will automatically redeploy with new environment variables
 
-For email notifications:
+## 🌐 Other Deployment Platforms
 
-1. **Sign up for Resend.com**
-2. **Get API key**
-3. **Add to environment**
-   ```env
-   RESEND_API_KEY=re_xxxxxxxxxxxxx
-   ```
-
-## Step 5: Final Deployment Checklist
-
-### Before Going Live:
-
-- [ ] Database tables created in Supabase
-- [ ] Environment variables configured
-- [ ] Custom domain DNS configured
-- [ ] SSL certificate active
-- [ ] Test user registration flow
-- [ ] Test booking flow with demo account
-- [ ] Verify email notifications (if configured)
-- [ ] Check mobile responsiveness
-- [ ] Test all authentication flows
-- [ ] Verify timezone handling
-
-### Production Commands:
-
+### Netlify
 ```bash
-# Build for production
+# Build command
 npm run build
 
-# Start production server
-npm start
+# Publish directory
+.next
 
-# Or deploy to Vercel
-vercel --prod
+# Environment variables
+# Add all variables from .env.example
 ```
 
-## Step 6: Monitoring & Maintenance
-
-### Regular Tasks:
-- Monitor Supabase database usage
-- Check error logs in Vercel/hosting dashboard
-- Update dependencies monthly: `npm update`
-- Backup database regularly
-
-### Useful Commands:
-
+### Railway
 ```bash
-# Check build locally
-npm run build
-npm start
+# Install Railway CLI
+npm install -g @railway/cli
 
-# Run type checks
-npx tsc --noEmit
-
-# Update dependencies
-npm update
-npm audit fix
+# Login and deploy
+railway login
+railway init
+railway up
 ```
 
-## Troubleshooting
+### DigitalOcean App Platform
+1. Connect GitHub repository
+2. Set build command: `npm run build`
+3. Set run command: `npm start`
+4. Add environment variables
 
-### Common Issues:
+## 🔧 Production Configuration
 
-1. **"Authentication Error"**
-   - Check Supabase keys in .env
-   - Verify Supabase project is active
+### Environment Variables Checklist
+- [ ] `NEXT_PUBLIC_SUPABASE_URL` - Production Supabase URL
+- [ ] `NEXT_PUBLIC_SUPABASE_ANON_KEY` - Production anon key
+- [ ] `SUPABASE_SERVICE_ROLE_KEY` - Production service role key
+- [ ] `NEXT_PUBLIC_APP_URL` - Your production domain
+- [ ] `NEXTAUTH_URL` - Same as APP_URL
+- [ ] `NEXTAUTH_SECRET` - Strong secret key
+- [ ] `RESEND_API_KEY` - Email service key
+- [ ] `STRIPE_PUBLISHABLE_KEY` - Production Stripe key
+- [ ] `STRIPE_SECRET_KEY` - Production Stripe secret
+- [ ] `STRIPE_WEBHOOK_SECRET` - Stripe webhook secret
 
-2. **"Database Connection Failed"**
-   - Check Supabase URL
-   - Ensure tables are created
+### Database Setup
+1. Create production Supabase project
+2. Run the SQL schema: `supabase-schema.sql`
+3. Set up Row Level Security policies
+4. Configure backup schedules
 
-3. **"Booking times showing wrong timezone"**
-   - Verify NEXT_PUBLIC_APP_URL is set
-   - Check user timezone settings
+### Domain Configuration
+1. **Custom Domain**
+   - Add domain in Vercel dashboard
+   - Update DNS records
+   - Update `NEXT_PUBLIC_APP_URL`
 
-4. **Custom domain not working**
-   - Wait 24-48 hours for DNS propagation
-   - Verify DNS records with: `nslookup yourdomain.com`
+2. **SSL Certificate**
+   - Automatically handled by Vercel
+   - Force HTTPS redirects
 
-## Support
+## 🔒 Security Checklist
 
-For issues or questions:
-- Check Supabase logs for database errors
-- Review Vercel function logs for API errors
-- Ensure all environment variables are set correctly
+### Authentication
+- [ ] Strong `NEXTAUTH_SECRET` (32+ characters)
+- [ ] Secure API key generation
+- [ ] Rate limiting enabled
+- [ ] CORS properly configured
 
-## Security Notes
+### Database
+- [ ] Row Level Security enabled
+- [ ] Service role key secured
+- [ ] Database backups configured
+- [ ] Connection pooling enabled
 
-- Never commit .env.local file
-- Rotate Supabase keys periodically
-- Use strong passwords for admin accounts
-- Enable Row Level Security (RLS) in Supabase for production
-- Consider adding rate limiting for API routes
+### Application
+- [ ] Environment variables secured
+- [ ] No sensitive data in client code
+- [ ] Error messages sanitized
+- [ ] Input validation enabled
+
+## 📊 Monitoring & Analytics
+
+### Vercel Analytics
+- Enable in Vercel dashboard
+- Monitor performance metrics
+- Track user behavior
+
+### Error Tracking
+- Set up error monitoring
+- Configure alerts
+- Track API errors
+
+### Database Monitoring
+- Monitor query performance
+- Set up alerts for errors
+- Track connection usage
+
+## 🚨 Troubleshooting
+
+### Common Issues
+
+**Build Failures**
+```bash
+# Check Node.js version
+node --version  # Should be 18+
+
+# Clear cache and reinstall
+npm run clean
+npm run fresh-install
+```
+
+**Database Connection Issues**
+```bash
+# Test connection
+npm run test:connection
+
+# Check environment variables
+echo $NEXT_PUBLIC_SUPABASE_URL
+```
+
+**API Errors**
+```bash
+# Test API endpoints
+npm run test:api
+
+# Check logs in Vercel dashboard
+```
+
+### Performance Optimization
+
+**Build Optimization**
+- Enable Turbopack: `npm run build --turbopack`
+- Optimize images
+- Enable compression
+
+**Runtime Optimization**
+- Enable caching
+- Use CDN
+- Optimize database queries
+
+## 🔄 CI/CD Pipeline
+
+### GitHub Actions (Optional)
+```yaml
+name: Deploy
+on:
+  push:
+    branches: [main]
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+        with:
+          node-version: '18'
+      - run: npm install
+      - run: npm run build
+      - run: npm run test
+```
+
+## 📈 Scaling Considerations
+
+### Horizontal Scaling
+- Vercel handles this automatically
+- Database connection pooling
+- CDN for static assets
+
+### Vertical Scaling
+- Monitor resource usage
+- Upgrade Vercel plan if needed
+- Optimize database queries
+
+## 🆘 Support
+
+If you encounter issues during deployment:
+1. Check the logs in your platform dashboard
+2. Verify environment variables
+3. Test locally with production settings
+4. Open an issue on GitHub
 
 ---
 
-Your punctual.ai instance should now be fully deployed and accessible at your custom domain!
+**Ready to deploy? Follow the Vercel quick start above!** 🚀
