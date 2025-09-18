@@ -8,6 +8,7 @@ export interface APIClient {
   api_key_hash: string
   is_active: boolean
   rate_limit: number
+  webhook_url?: string
   created_at: string
   last_used_at?: string
 }

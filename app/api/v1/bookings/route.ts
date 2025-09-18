@@ -80,7 +80,7 @@ export async function POST(request: NextRequest) {
   }
 
   // Send webhook if configured
-  if (auth.client.webhook_url) {
+  if (auth.client?.webhook_url) {
     await sendWebhook(auth.client.webhook_url, {
       event: 'booking.created',
       data: data

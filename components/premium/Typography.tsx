@@ -23,7 +23,7 @@ export function Headline({
   className,
   ...props
 }: HeadlineProps) {
-  const Tag = `h${level}` as keyof JSX.IntrinsicElements
+  const Tag = `h${level}` as keyof React.JSX.IntrinsicElements
 
   const sizeClasses = {
     display: 'text-[var(--fs-display)]',
@@ -67,8 +67,10 @@ export function Headline({
 
   const finalSize = size || defaultSizes[level]
 
+  const Component = Tag as any
+
   return (
-    <Tag
+    <Component
       className={cn(
         'text-[var(--text-primary)]',
         'leading-[var(--lh-tight)]',
@@ -82,7 +84,7 @@ export function Headline({
       {...props}
     >
       {children}
-    </Tag>
+    </Component>
   )
 }
 
@@ -126,11 +128,13 @@ export function Eyebrow({
 interface LeadProps extends HTMLAttributes<HTMLParagraphElement> {
   children: ReactNode
   size?: 'default' | 'large'
+  align?: 'left' | 'center' | 'right'
 }
 
 export function Lead({
   children,
   size = 'default',
+  align = 'left',
   className,
   ...props
 }: LeadProps) {
@@ -139,10 +143,17 @@ export function Lead({
     large: 'text-[var(--fs-lg)]'
   }
 
+  const alignClasses = {
+    left: 'text-left',
+    center: 'text-center',
+    right: 'text-right'
+  }
+
   return (
     <p
       className={cn(
         sizeClasses[size],
+        alignClasses[align],
         'text-[var(--text-secondary)]',
         'leading-[var(--lh-relaxed)]',
         'max-w-[var(--container-prose)]',

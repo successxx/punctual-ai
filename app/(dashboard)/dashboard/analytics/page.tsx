@@ -20,7 +20,7 @@ export default function AnalyticsPage() {
     mostPopularDay: '',
     mostPopularTime: '',
     upcomingBookings: 0,
-    recentBookings: [] as Array<{ id: string; title: string; date: string; time: string }>
+    recentBookings: [] as Array<{ id: string; title: string; date: string; time: string; guest_name?: string; start_time: string }>
   })
 
   useEffect(() => {
@@ -118,7 +118,14 @@ export default function AnalyticsPage() {
           mostPopularDay,
           mostPopularTime,
           upcomingBookings,
-          recentBookings: bookings.slice(0, 5)
+          recentBookings: bookings.slice(0, 5).map(b => ({
+            id: b.id,
+            title: b.title || 'Meeting',
+            date: new Date(b.start_time).toLocaleDateString(),
+            time: new Date(b.start_time).toLocaleTimeString(),
+            guest_name: b.guest_name,
+            start_time: b.start_time
+          }))
         })
       }
     } catch (error) {
@@ -129,6 +136,8 @@ export default function AnalyticsPage() {
   }
 
   async function exportToCSV() {
+    if (!user) return
+    
     const { data: bookings } = await supabase
       .from('bookings')
       .select('*')
@@ -142,9 +151,9 @@ export default function AnalyticsPage() {
     const rows = bookings.map(b => [
       new Date(b.start_time).toLocaleDateString(),
       new Date(b.start_time).toLocaleTimeString(),
-      b.guest_name,
-      b.guest_email,
-      b.status,
+      b.guest_name || 'N/A',
+      b.guest_email || 'N/A',
+      b.status || 'pending',
       b.notes || ''
     ])
 
