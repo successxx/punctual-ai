@@ -19,9 +19,22 @@ export function formatTimeSlot(time: string): string {
   return `${displayHour}:${minute.toString().padStart(2, '0')} ${period}`
 }
 
+interface Availability {
+  day_of_week: number
+  is_active: boolean
+  start_time: string
+  end_time: string
+}
+
+interface Booking {
+  start_time: string
+  end_time: string
+  status: string
+}
+
 export function getAvailableTimeSlots(
-  availabilities: any[],
-  bookings: any[],
+  availabilities: Availability[],
+  bookings: Booking[],
   date: Date,
   duration: number = 30
 ): string[] {

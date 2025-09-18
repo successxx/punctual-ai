@@ -3,15 +3,15 @@
 import { useState, useEffect } from 'react'
 import { supabase } from '@/lib/supabase'
 import { Card } from '@/components/ui/card'
-import { BarChart3, TrendingUp, Users, Calendar, Clock, Download } from 'lucide-react'
+import { BarChart3, TrendingUp, Users, Calendar, Download } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { useRouter } from 'next/navigation'
 
 export default function AnalyticsPage() {
   const router = useRouter()
   const [loading, setLoading] = useState(true)
-  const [user, setUser] = useState<any>(null)
-  const [profile, setProfile] = useState<any>(null)
+  const [user, setUser] = useState<{ id: string; email?: string } | null>(null)
+  const [profile, setProfile] = useState<{ subscription_tier?: string } | null>(null)
   const [analytics, setAnalytics] = useState({
     totalBookings: 0,
     thisMonthBookings: 0,
@@ -20,11 +20,12 @@ export default function AnalyticsPage() {
     mostPopularDay: '',
     mostPopularTime: '',
     upcomingBookings: 0,
-    recentBookings: [] as any[]
+    recentBookings: [] as Array<{ id: string; title: string; date: string; time: string }>
   })
 
   useEffect(() => {
     checkPremiumAndLoadAnalytics()
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   async function checkPremiumAndLoadAnalytics() {
@@ -265,7 +266,7 @@ export default function AnalyticsPage() {
       <div className="bg-gradient-to-r from-purple-500 to-blue-500 rounded-lg p-6 text-white">
         <h3 className="text-xl font-semibold mb-2">Premium Analytics</h3>
         <p className="text-purple-100">
-          You're getting detailed insights about your booking patterns. Use this data to optimize your availability and grow your business.
+          You&apos;re getting detailed insights about your booking patterns. Use this data to optimize your availability and grow your business.
         </p>
       </div>
     </div>

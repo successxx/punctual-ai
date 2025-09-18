@@ -4,15 +4,15 @@ import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import toast, { Toaster } from 'react-hot-toast'
-import { ArrowRight, Lock, Mail, Shield, Zap, Clock } from 'lucide-react'
+import { ArrowRight, Shield, Zap, Clock } from 'lucide-react'
 
 // Premium Components
 import { Layout, Navigation, Main, Container } from '@/components/premium/Layout'
 import { Section } from '@/components/premium/Section'
-import { Headline, Eyebrow, Lead, Prose } from '@/components/premium/Typography'
+import { Headline, Eyebrow, Lead } from '@/components/premium/Typography'
 import { Button } from '@/components/premium/Button'
 import { Card, CardBody } from '@/components/premium/Card'
-import { FormField, Label, Input, HelperText } from '@/components/premium/Form'
+import { FormField, Label, Input } from '@/components/premium/Form'
 
 // Load design tokens
 import '@/styles/design-tokens.css'
@@ -45,8 +45,8 @@ export default function LoginPage() {
       localStorage.setItem('user', JSON.stringify(data.user))
       toast.success('Login successful!')
       router.push('/dashboard')
-    } catch (error: any) {
-      toast.error(error.message)
+    } catch (error) {
+      toast.error((error as Error).message)
     } finally {
       setLoading(false)
     }
@@ -133,7 +133,7 @@ export default function LoginPage() {
               <CardBody>
                 <blockquote className="text-center">
                   <p className="text-[var(--fs-lg)] font-[var(--fw-light)] text-[var(--text-primary)] mb-[var(--space-3)] italic">
-                    "Scheduling made simple and elegant."
+                    &quot;Scheduling made simple and elegant.&quot;
                   </p>
                   <cite className="text-[var(--fs-sm)] text-[var(--text-tertiary)] not-italic">
                     — Welcome back to punctual.ai

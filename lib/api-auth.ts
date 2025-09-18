@@ -2,10 +2,20 @@ import { NextRequest } from 'next/server'
 import { createHash } from 'crypto'
 import { supabaseAdmin } from './supabase'
 
+export interface APIClient {
+  id: string
+  name: string
+  api_key_hash: string
+  is_active: boolean
+  rate_limit: number
+  created_at: string
+  last_used_at?: string
+}
+
 export interface APIAuthResult {
   valid: boolean
   error?: string
-  client?: any
+  client?: APIClient
 }
 
 export async function validateAPIKey(request: NextRequest): Promise<APIAuthResult> {
@@ -78,7 +88,7 @@ async function checkRateLimit(clientId: string): Promise<{ allowed: boolean }> {
   return { allowed: (count || 0) < (client.rate_limit || 1000) }
 }
 
-export async function sendWebhook(webhookUrl: string, data: any) {
+export async function sendWebhook(webhookUrl: string, data: Record<string, unknown>) {
   try {
     const response = await fetch(webhookUrl, {
       method: 'POST',

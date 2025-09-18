@@ -4,7 +4,7 @@ import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import toast, { Toaster } from 'react-hot-toast'
-import { ArrowRight, CheckCircle, User, Mail, Lock, Sparkles, Award, TrendingUp } from 'lucide-react'
+import { ArrowRight, CheckCircle, Sparkles, Award, TrendingUp } from 'lucide-react'
 
 // Premium Components
 import { Layout, Navigation, Main, Container } from '@/components/premium/Layout'
@@ -63,8 +63,8 @@ export default function RegisterPage() {
       setTimeout(() => {
         router.push('/login')
       }, 2000)
-    } catch (error: any) {
-      toast.error(error.message)
+    } catch (error) {
+      toast.error((error as Error).message)
     } finally {
       setLoading(false)
     }
@@ -180,7 +180,7 @@ export default function RegisterPage() {
                       autoComplete="email"
                     />
                     <HelperText>
-                      We'll never share your email with anyone else
+                      We&apos;ll never share your email with anyone else
                     </HelperText>
                   </FormField>
 
@@ -283,7 +283,7 @@ export default function RegisterPage() {
             <Card variant="glass">
               <CardBody>
                 <Headline level={3} size="md" align="center" className="mb-[var(--space-6)]">
-                  What you'll need
+                  What you&apos;ll need
                 </Headline>
                 <div className="grid md:grid-cols-2 gap-[var(--space-6)]">
                   <div>
@@ -313,7 +313,7 @@ export default function RegisterPage() {
                   </div>
                   <div>
                     <h4 className="text-[var(--fs-base)] font-[var(--fw-semibold)] mb-[var(--space-3)]">
-                      What you'll get
+                      What you&apos;ll get
                     </h4>
                     <ul className="space-y-[var(--space-2)]">
                       <li className="flex items-start space-x-3">
