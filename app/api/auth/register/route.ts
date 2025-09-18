@@ -1,7 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
-
-// Simple in-memory storage for demo purposes
-const mockUsers: any[] = []
+import { supabaseAdmin } from '@/lib/supabase'
 
 function generateUsername(email: string): string {
   const baseName = email.split('@')[0].toLowerCase()
@@ -21,39 +19,64 @@ export async function POST(req: NextRequest) {
       )
     }
 
-    // Check if email already exists
-    const existingUser = mockUsers.find(user => user.email === email)
-    if (existingUser) {
+    // Create user with Supabase Auth
+    const { data: authData, error: authError } = await supabaseAdmin.auth.admin.createUser({
+      email,
+      password,
+      email_confirm: true,
+      user_metadata: {
+        name,
+        username: generateUsername(email)
+      }
+    })
+
+    if (authError) {
+      console.error('Auth error:', authError)
       return NextResponse.json(
-        { error: 'User with this email already exists' },
+        { error: authError.message || 'Failed to create user account' },
         { status: 400 }
       )
     }
 
-    // Generate unique username and user ID
-    const username = generateUsername(email)
-    const userId = `user_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`
+    if (!authData.user) {
+      return NextResponse.json(
+        { error: 'Failed to create user account' },
+        { status: 400 }
+      )
+    }
 
-    // Create mock user profile
+    // Create user profile in database
     const profile = {
-      id: userId,
-      email,
+      id: authData.user.id,
+      email: authData.user.email,
       name,
-      username,
+      username: authData.user.user_metadata.username,
       subscription_tier: 'free',
       timezone: 'UTC',
       created_at: new Date().toISOString(),
       updated_at: new Date().toISOString()
     }
 
-    // Store in mock database
-    mockUsers.push(profile)
+    // Insert profile into profiles table
+    const { error: profileError } = await supabaseAdmin
+      .from('profiles')
+      .insert(profile)
 
-    // Mock default availability (Mon-Fri 9-5)
+    if (profileError) {
+      console.error('Profile creation error:', profileError)
+      // Clean up auth user if profile creation fails
+      await supabaseAdmin.auth.admin.deleteUser(authData.user.id)
+      return NextResponse.json(
+        { error: 'Failed to create user profile' },
+        { status: 500 }
+      )
+    }
+
+    // Create default availability (Mon-Fri 9-5)
     const defaultAvailability = []
-    for (let day = 1; day <= 5; day++) { // Monday to Friday
+    for (let day = 1; day <= 5; day++) {
       defaultAvailability.push({
-        user_id: profile.id,
+        user_id: authData.user.id,
         day_of_week: day,
         start_time: '09:00:00',
         end_time: '17:00:00',
@@ -61,7 +84,16 @@ export async function POST(req: NextRequest) {
       })
     }
 
-    // Simulate successful registration
+    // Insert availability
+    const { error: availabilityError } = await supabaseAdmin
+      .from('availability')
+      .insert(defaultAvailability)
+
+    if (availabilityError) {
+      console.error('Availability creation error:', availabilityError)
+    }
+
+    // Return success response
     return NextResponse.json({
       user: profile,
       message: 'Registration successful! Welcome to punctual.ai'
